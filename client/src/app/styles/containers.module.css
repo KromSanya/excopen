@@ -1,0 +1,11 @@
+.sidebar {
+    @apply flex flex-col gap-4 max-xl:items-center
+}
+
+.profileSidebar {
+    @apply flex flex-col gap-4 max-xl:items-center w-96
+}
+
+.tourMain {
+    @apply flex flex-col lg:flex-row
+}

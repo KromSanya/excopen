@@ -1,0 +1,1 @@
+export {Index as TourHeader} from "./Index.tsx"

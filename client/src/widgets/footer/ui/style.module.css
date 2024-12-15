@@ -1,0 +1,11 @@
+.container {
+    @apply w-full flex flex-col py-4
+}
+
+.info {
+    @apply flex flex-col max-lg:gap-4 lg:flex-row justify-between px-4 md:px-32 xl:px-56
+}
+
+.separator {
+    @apply h-px bg-grayscale-300 my-4 px-4 md:px-32 lg:px-56
+}

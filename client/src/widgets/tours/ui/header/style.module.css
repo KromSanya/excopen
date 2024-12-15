@@ -1,0 +1,15 @@
+.container {
+    @apply flex flex-row justify-between
+}
+
+.content {
+    @apply flex flex-col gap-1
+}
+
+.title {
+    @apply text-grayscale-500 text-4xl font-medium
+}
+
+.desc {
+    @apply text-grayscale-500 text-sm
+}

@@ -1,0 +1,1 @@
+export {Index as TourCard} from "./Index.tsx"

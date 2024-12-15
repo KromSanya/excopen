@@ -1,0 +1,27 @@
+.layout {
+    @apply w-full bg-grayscale-100
+}
+
+.main {
+    @apply flex flex-col padding
+}
+
+.home {
+    @apply flex flex-col items-center
+}
+
+.tour {
+    @apply flex flex-col justify-between py-12
+}
+
+.tours {
+    @apply flex flex-col lg:flex-row py-8 xl:py-16 gap-6
+}
+
+.profile {
+    @apply flex flex-col lg:flex-row py-8 xl:py-16 gap-6
+}
+
+.onboarding {
+    @apply w-full
+}

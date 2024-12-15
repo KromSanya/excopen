@@ -1,0 +1,19 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 9.59998V6.39998H4.79995C4.3756 6.39998 3.96864 6.23141 3.66858 5.93135C3.36852 5.63129 3.19995 5.22433 3.19995 4.79998C3.19995 3.91998 3.91995 3.19998 4.79995 3.19998H14.4V6.39998" stroke="url(#paint0_linear_440_189)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M3.19995 4.79997V14.4C3.19995 15.28 3.91995 16 4.79995 16H16V12.8" stroke="url(#paint1_linear_440_189)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14.3999 9.59998C13.9756 9.59998 13.5686 9.76855 13.2686 10.0686C12.9685 10.3687 12.7999 10.7756 12.7999 11.2C12.7999 12.08 13.5199 12.8 14.3999 12.8H17.5999V9.59998H14.3999Z" stroke="url(#paint2_linear_440_189)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+        <linearGradient id="paint0_linear_440_189" x1="9.59995" y1="3.19998" x2="9.59995" y2="9.59998" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#BEBEBE"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_440_189" x1="9.59995" y1="4.79997" x2="9.59995" y2="16" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#BEBEBE"/>
+        </linearGradient>
+        <linearGradient id="paint2_linear_440_189" x1="15.1999" y1="9.59998" x2="15.1999" y2="12.8" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#BEBEBE"/>
+        </linearGradient>
+    </defs>
+</svg>

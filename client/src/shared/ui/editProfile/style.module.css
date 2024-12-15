@@ -1,0 +1,7 @@
+.container {
+    @apply flex flex-row px-4 justify-between items-center mb-4
+}
+
+.name {
+    @apply font-medium text-2xl text-grayscale-600
+}

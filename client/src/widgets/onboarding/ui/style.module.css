@@ -1,0 +1,7 @@
+.container {
+    @apply relative overflow-hidden h-screen
+}
+
+.bg {
+    @apply w-1/2 absolute left-0 bottom-0
+}

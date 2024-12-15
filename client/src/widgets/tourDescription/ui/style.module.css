@@ -1,0 +1,27 @@
+.container {
+    @apply flex flex-col lg:w-1/2 xl:w-3/5 gap-6 max-lg:order-last
+}
+
+.subContainer {
+    @apply flex flex-col gap-2 w-full bg-grayscale-0 rounded-2xl p-6 text-grayscale-500 text-sm
+}
+
+.contacts {
+    @apply flex flex-col gap-4
+}
+
+.buttons {
+    @apply flex flex-row flex-wrap gap-4
+}
+
+.heading {
+    @apply text-xl text-grayscale-500 font-medium
+}
+
+.bold {
+    @apply font-medium
+}
+
+.list {
+    @apply list-disc px-6
+}

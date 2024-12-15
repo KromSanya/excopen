@@ -1,0 +1,1 @@
+export {Rating} from "./Index.tsx"

@@ -1,6 +1,6 @@
 package excopen.backend.servicesImpl;
 
-import excopen.backend.entities.Description;
+import excopen.backend.entities.Text;
 import excopen.backend.iservices.IDescriptionService;
 import excopen.backend.repositories.DescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +36,15 @@ public class DescriptionServiceImpl implements IDescriptionService {
         if (description.getOrgDetails() == null) {
             throw new IllegalArgumentException("OrgDetails field cannot be null");
         }
-
         return descriptionRepository.save(description);
     }
 
 
     @Override
-    public Optional<Description> getDescriptionById(Long descriptionId) {
+    public Optional<Text> getDescriptionById(Long descriptionId) {
         return descriptionRepository.findById(descriptionId);
     }
-
-    @Override
-    public Description getDescriptionByTourId(Long tourId) {
-        return descriptionRepository.findByTourId(tourId)
-                .orElseThrow(() -> new IllegalArgumentException("Description not found"));
-    }
-
-
+	
     @Override
     public Description updateDescription(Description description) {
         return descriptionRepository.save(description);

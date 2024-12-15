@@ -1,0 +1,7 @@
+.heading {
+    @apply text-3xl lg:text-5xl font-medium text-grayscale-500
+}
+
+.desc {
+    @apply text-grayscale-400 text-base
+}

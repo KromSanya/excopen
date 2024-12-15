@@ -1,0 +1,3 @@
+.container {
+    @apply flex justify-between padding w-full h-14 items-center bg-grayscale-0
+}

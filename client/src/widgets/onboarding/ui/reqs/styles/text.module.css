@@ -1,0 +1,15 @@
+.largeHeading {
+    @apply text-3xl lg:text-5xl font-medium text-grayscale-500
+}
+
+.smallHeading {
+    @apply text-2xl lg:text-4xl font-medium text-grayscale-500 lg:w-2/3
+}
+
+.descContainer {
+    @apply flex flex-col gap-4
+}
+
+.desc {
+    @apply text-grayscale-400 text-base
+}
