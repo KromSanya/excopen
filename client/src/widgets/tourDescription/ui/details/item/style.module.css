@@ -1,0 +1,27 @@
+.container {
+    @apply flex flex-row md:basis-1/3 justify-between
+}
+
+.bg {
+    @apply bg-grayscale-0 rounded-2xl
+}
+
+.sizes {
+    @apply h-fit w-full
+}
+
+.paddings {
+    @apply p-3
+}
+
+.content {
+    @apply flex flex-col w-2/3
+}
+
+.heading {
+    @apply text-sm
+}
+
+.image {
+    @apply flex items-center justify-center rounded-xl bg-grayscale-300 w-8 h-8
+}

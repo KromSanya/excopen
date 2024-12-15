@@ -1,0 +1,3 @@
+.container {
+    @apply flex flex-wrap max-w-[500px] text-grayscale-500 text-xs gap-4
+}

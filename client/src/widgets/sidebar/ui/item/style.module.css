@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-row
+}
+
+.option {
+    @apply w-1/2 text-sm text-grayscale-400 font-medium
+}
+
+.value {
+    @apply text-sm text-grayscale-500
+}

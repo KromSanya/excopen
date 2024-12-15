@@ -1,0 +1,15 @@
+.container {
+    @apply flex flex-row flex-wrap w-full justify-center
+}
+
+.letter {
+    @apply text-base text-grayscale-400 hover:text-grayscale-500 hover:font-medium transition-colors px-4 cursor-pointer
+}
+
+.active {
+    @apply text-base text-grayscale-500 font-medium px-4 cursor-pointer
+}
+
+.border {
+    @apply border-r border-grayscale-300
+}

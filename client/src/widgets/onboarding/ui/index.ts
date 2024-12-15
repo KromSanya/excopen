@@ -1,0 +1,1 @@
+export {Index as OnBoardingWidget} from "./Index.tsx"

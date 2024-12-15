@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-col w-full py-24 items-center text-center gap-4
+}
+
+.heading {
+    @apply text-grayscale-500 font-bold text-4xl
+}
+
+.description {
+    @apply text-grayscale-500 font-medium text-sm
+}

@@ -1,0 +1,15 @@
+.container {
+    @apply flex flex-row
+}
+
+.rating {
+    @apply flex flex-row gap-2
+}
+
+.option {
+    @apply w-1/2 text-sm text-grayscale-400 font-medium
+}
+
+.count {
+    @apply text-grayscale-400 text-base
+}

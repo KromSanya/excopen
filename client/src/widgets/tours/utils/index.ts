@@ -1,0 +1,1 @@
+export {sortTypesArray} from "./sortTypesArray.ts"

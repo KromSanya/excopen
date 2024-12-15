@@ -1,0 +1,1 @@
+export {Index as Info} from "./Index.tsx"

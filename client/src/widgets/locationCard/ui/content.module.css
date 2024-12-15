@@ -1,0 +1,15 @@
+.layout {
+    @apply flex flex-col gap-1 items-start relative z-10
+}
+
+.country {
+    @apply text-sm text-grayscale-0
+}
+
+.city {
+    @apply text-xl font-medium text-grayscale-0
+}
+
+.count {
+    @apply text-sm font-medium text-grayscale-0
+}
