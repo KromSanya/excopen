@@ -1,4 +1,4 @@
-import {Button, Input} from "@/shared/ui";
+import {Button, ReviewInput} from "@/shared/ui";
 import {useEffect, useState} from "react";
 import {Stars} from "./stars";
 
@@ -29,12 +29,12 @@ export const Index = () => {
                 <Stars rating={rating} setRating={setRating}/>
             </div>
             <div className={"flex flex-col gap-2"}>
-                <Input
+                <ReviewInput
                     className={"bg-grayscale-200"}
                     onChangeHandler={setPositive}
                     placeholder={"Что понравилось"}
                 />
-                <Input
+                <ReviewInput
                     className={"bg-grayscale-200"}
                     onChangeHandler={setNegative}
                     placeholder={"Что не понравилось"}
