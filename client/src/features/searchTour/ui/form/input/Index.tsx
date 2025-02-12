@@ -68,8 +68,9 @@ export const Index: FC = () => {
     });
 
     return (
-        <Command ref={commandRef}>
+        <Command role={"form-command"} ref={commandRef}>
             <CommandInput
+                data-is-corrected={field.isCorrectedField ? "true" : "false"}
                 isSearch={isSearch}
                 field={field}
                 value={searchParams.location}

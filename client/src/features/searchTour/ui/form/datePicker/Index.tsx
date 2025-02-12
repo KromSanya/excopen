@@ -32,7 +32,7 @@ export const Index: FC = () => {
 
     return (
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger role={"form-datePicker"} asChild>
                 <CalendarButton
                     isSearch={isSearch}
                     range={range}
