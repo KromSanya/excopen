@@ -16,7 +16,7 @@ import { locationsArray } from "@/shared/assets/tempData/locationsArray.ts";
 
 export const Index: FC = () => {
 
-    const { searchParams, setLocation, isSearch } = useSearchContext();
+    const { context, setLocation } = useSearchContext();
 
     const [field, setField] = useState({
         isOpen: false,
@@ -50,7 +50,7 @@ export const Index: FC = () => {
     };
 
     const blurHandler = () => {
-        if (!field.isOpen && searchParams.location === "") {
+        if (!field.isOpen && context.searchParams.location === "") {
             setField((prev) => ({ ...prev, isTouched: true }));
         }
     };
@@ -63,16 +63,16 @@ export const Index: FC = () => {
         setField((prev) => ({
             ...prev,
             isOpen: false,
-            isTouched: searchParams.location === "" ? false : prev.isTouched,
+            isTouched: context.searchParams.location === "" ? false : prev.isTouched,
         }));
     });
 
     return (
         <Command ref={commandRef}>
             <CommandInput
-                isSearch={isSearch}
+                isSearch={context.isSearch}
                 field={field}
-                value={searchParams.location}
+                value={context.searchParams.location}
                 label={"Где искать"}
                 onClear={clearValue}
                 onChangeCapture={clickInputHandler}

@@ -6,9 +6,9 @@ import {TourCard} from "@/entities";
 
 export const Index: FC = () => {
 
-    const {viewed} = useTourTrackingContext()
+    const {context} = useTourTrackingContext()
     const [location, setLocation] = useState<string>("")
-    const tours = searchByCity(viewed, location)
+    const tours = searchByCity(context.viewed, location)
 
     return (
         <div className={style.container}>

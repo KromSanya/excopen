@@ -1,4 +1,4 @@
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 import {RangeType, SearchParamsType} from "@/shared/types";
 import {SearchContext} from "./context.ts";
 
@@ -19,7 +19,7 @@ export const Provider: FC<{children: ReactNode}> = ({children}) => {
     useEffect(() => {
         const saved = localStorage.getItem("searchParams")
         if (saved) setSearchParams(JSON.parse(saved))
-    }, []);
+    }, [])
 
     const updateParams = (params: Partial<SearchParamsType>) => {
         setSearchParams(prev => {
@@ -29,23 +29,25 @@ export const Provider: FC<{children: ReactNode}> = ({children}) => {
         })
     }
 
-    const setLocation = (location: string) => updateParams({location})
-    const setAccessibility = (accessibility: string) => updateParams({accessibility})
-    const setByCity = (byCity: boolean) => updateParams({byCity})
-    const setDate = (date: RangeType) => updateParams({date})
+    const setLocation = useCallback((location: string) => updateParams({location}), [])
+    const setAccessibility = useCallback((accessibility: string) => updateParams({accessibility}), [])
+    const setByCity = useCallback((byCity: boolean) => updateParams({byCity}), [])
+    const setDate = useCallback((date: RangeType) => updateParams({date}), [])
 
+    const context = useMemo(() => ({
+        searchParams, isSearch
+    }), [isSearch, searchParams])
+    
     return (
         <SearchContext.Provider value={{
-            searchParams,
+            context,
             setLocation,
             setAccessibility,
             setByCity,
             setDate,
-            isSearch,
             setIsSearch
         }}>
             {children}
         </SearchContext.Provider>
     )
-
 }
