@@ -1,30 +1,38 @@
 import {TourAccessibility} from "@/shared/types";
 import {describe} from "vitest";
-import {fireEvent, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {BrowserRouter} from "react-router-dom";
 import {SearchContext} from "@/features/searchTour/model/context/context.ts";
 import {DatePicker} from "@/features/searchTour/ui/form/datePicker"
-
-vi.mock("usehooks-ts", () => ({
-    useOnClickOutside: vi.fn(),
-}))
-
-const mockSearchParams = {
-    searchParams: {
-        location: "",
-        date: { from: undefined, to: undefined },
-        accessibility: TourAccessibility.WITHOUT_CHILDREN,
-        byCity: false,
-    },
-    isSearch: false,
-    setLocation: vi.fn(),
-    setAccessibility: vi.fn(),
-    setByCity: vi.fn(),
-    setDate: vi.fn(),
-    setIsSearch: vi.fn(),
-}
+import {userEvent} from "@testing-library/user-event";
 
 describe("Form DatePicker", () => {
+
+    function setup(jsx: any) {
+        return {
+            user: userEvent.setup(),
+            ...render(jsx),
+        }
+    }
+
+    vi.mock("usehooks-ts", () => ({
+        useOnClickOutside: vi.fn(),
+    }))
+
+    const mockSearchParams = {
+        searchParams: {
+            location: "",
+            date: { from: undefined, to: undefined },
+            accessibility: TourAccessibility.WITHOUT_CHILDREN,
+            byCity: false,
+        },
+        isSearch: false,
+        setLocation: vi.fn(),
+        setAccessibility: vi.fn(),
+        setByCity: vi.fn(),
+        setDate: vi.fn(),
+        setIsSearch: vi.fn(),
+    }
 
     it("Проверка рендеринга компонента", () => {
 
@@ -40,9 +48,9 @@ describe("Form DatePicker", () => {
 
     })
 
-    it("Проверка открытия календаря", () => {
+    it("Проверка открытия календаря", async () => {
 
-        render(
+        const {user} = setup(
             <BrowserRouter>
                 <SearchContext.Provider value={mockSearchParams}>
                     <DatePicker/>
@@ -50,14 +58,15 @@ describe("Form DatePicker", () => {
             </BrowserRouter>
         )
 
-        fireEvent.click(screen.getByRole("form-datePicker"))
+        await user.click(screen.getByRole("form-datePicker"))
+
         expect(screen.getByRole("dialog")).toBeInTheDocument()
 
     })
 
-    it("Проверка выбора даты", () => {
+    it("Проверка выбора даты", async () => {
 
-        render(
+        const {user} = setup(
             <BrowserRouter>
                 <SearchContext.Provider value={mockSearchParams}>
                     <DatePicker />
@@ -65,10 +74,8 @@ describe("Form DatePicker", () => {
             </BrowserRouter>
         )
 
-        fireEvent.click(screen.getByRole("form-datePicker"))
-
-        const date = screen.getByText("Когда")
-        fireEvent.click(date)
+        await user.click(screen.getByRole("form-datePicker"))
+        await user.click(screen.getByText("Когда"))
 
         expect(mockSearchParams.setDate).toHaveBeenCalled()
 

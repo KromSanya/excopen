@@ -5,26 +5,26 @@ import {SearchContext} from "@/features/searchTour/model/context/context.ts";
 import {Input} from "@/features/searchTour/ui/form/input"
 import {TourAccessibility} from "@/shared/types";
 
-vi.mock("usehooks-ts", () => ({
-    useOnClickOutside: vi.fn()
-}))
-
-const mockSearchParams = {
-    searchParams: {
-        location: "",
-        date: { from: undefined, to: undefined },
-        accessibility: TourAccessibility.WITHOUT_CHILDREN,
-        byCity: false
-    },
-    isSearch: false,
-    setLocation: vi.fn(),
-    setAccessibility: vi.fn(),
-    setByCity: vi.fn(),
-    setDate: vi.fn(),
-    setIsSearch: vi.fn()
-}
-
 describe("Form input", () => {
+
+    vi.mock("usehooks-ts", () => ({
+        useOnClickOutside: vi.fn()
+    }))
+
+    const mockSearchParams = {
+        searchParams: {
+            location: "",
+            date: { from: undefined, to: undefined },
+            accessibility: TourAccessibility.WITHOUT_CHILDREN,
+            byCity: false
+        },
+        isSearch: false,
+        setLocation: vi.fn(),
+        setAccessibility: vi.fn(),
+        setByCity: vi.fn(),
+        setDate: vi.fn(),
+        setIsSearch: vi.fn()
+    }
 
     it("Проверка рендеринга", () => {
 
@@ -51,12 +51,7 @@ describe("Form input", () => {
             </BrowserRouter>
         )
 
-        fireEvent.change(screen.getByRole("combobox"), {
-            target: {
-                value: "Омск"
-            }
-        })
-
+        fireEvent.change(screen.getByRole("combobox"), { target: { value: "Омск" } })
         expect(mockSearchParams.setLocation).toHaveBeenCalledWith("Омск")
 
     })
@@ -69,11 +64,9 @@ describe("Form input", () => {
                     <Input />
                 </SearchContext.Provider>
             </BrowserRouter>
-        );
+        )
 
-        const input = screen.getByRole("form-command")
-
-        fireEvent.focus(input)
+        fireEvent.focus(screen.getByRole("form-command"))
         expect(screen.getByRole("listbox")).toBeInTheDocument()
 
     })

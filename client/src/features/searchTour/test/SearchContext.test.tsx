@@ -1,16 +1,24 @@
 import {beforeAll, describe} from "vitest";
-import {fireEvent, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {SearchProvider} from "@/features";
 import { SearchContext } from "../model/context/context";
 import {TourAccessibility} from "@/shared/types";
-
-beforeAll(() => {
-    vi.spyOn(global.localStorage, 'getItem').mockImplementation(() => null);
-    vi.spyOn(global.localStorage, 'setItem').mockImplementation(() => {});
-    vi.spyOn(global.localStorage, 'removeItem').mockImplementation(() => {});
-})
+import {userEvent} from "@testing-library/user-event";
 
 describe("SearchContext", () => {
+
+    function setup(jsx: any) {
+        return {
+            user: userEvent.setup(),
+            ...render(jsx),
+        }
+    }
+
+    beforeAll(() => {
+        vi.spyOn(global.localStorage, 'getItem').mockImplementation(() => null);
+        vi.spyOn(global.localStorage, 'setItem').mockImplementation(() => {});
+        vi.spyOn(global.localStorage, 'removeItem').mockImplementation(() => {});
+    })
 
     it("Проверка установки начального значения", () => {
 
@@ -34,9 +42,9 @@ describe("SearchContext", () => {
 
     })
 
-    it("Проверка обновления location", () => {
+    it("Проверка обновления location", async () => {
 
-        render(
+        const {user} = setup(
             <SearchProvider>
                 <SearchContext.Consumer>
                     {({ searchParams, setLocation }) => (
@@ -49,14 +57,14 @@ describe("SearchContext", () => {
             </SearchProvider>
         )
 
-        fireEvent.click(screen.getByText("Set Location"))
+        await user.click(screen.getByText("Set Location"))
         expect(screen.getByTestId("location")).toHaveTextContent("Омск")
 
     })
 
-    it("Проверка обновления accessibility", () => {
+    it("Проверка обновления accessibility", async () => {
 
-        render(
+        const {user} = setup(
             <SearchProvider>
                 <SearchContext.Consumer>
                     {({ searchParams, setAccessibility }) => (
@@ -69,7 +77,7 @@ describe("SearchContext", () => {
             </SearchProvider>
         )
 
-        fireEvent.click(screen.getByText("Set accessibility"))
+        await user.click(screen.getByText("Set accessibility"))
         expect(screen.getByTestId("accessibility")).toHaveTextContent(TourAccessibility.WITH_CHILDREN)
 
     })
