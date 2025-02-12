@@ -11,7 +11,7 @@ describe("Form", () => {
     vi.mock("usehooks-ts", () => ({
         useWindowSize: vi.fn(),
         useOnClickOutside: vi.fn()
-    }));
+    }))
 
     const mockSearchParams = {
         searchParams: {
