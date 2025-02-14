@@ -1,13 +1,13 @@
 export class ApiException<T> extends Error {
 
     public statusCode?: number;
-    public data?: T[];
+    public data?: T | T[];
 
-    constructor(message: string, statusCode?: number, data?: T[]) {
-        super(message); // Передаем сообщение в базовый класс Error
-        this.name = 'ApiError';
-        this.statusCode = statusCode;
-        this.data = data;
+    constructor(message: string, statusCode?: number, data?: T | T[]) {
+        super(message)
+        this.name = 'ApiError'
+        this.statusCode = statusCode
+        this.data = data
     }
 
 }

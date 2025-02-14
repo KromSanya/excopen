@@ -1,6 +1,5 @@
-import {apiClient, ApiException} from "@/shared/lib";
+import {apiClient, ApiException, isAxiosError} from "@/shared/lib";
 import {EndpointsType, IReview} from "@/shared/types";
-import axios from "axios";
 
 export const getReviewsByTourId = async (tourId: number): Promise<IReview[]> => {
     try {
@@ -9,8 +8,12 @@ export const getReviewsByTourId = async (tourId: number): Promise<IReview[]> => 
         })
         return response.data
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            throw new ApiException<IReview>(e.message, e.response?.status, e.response?.data)
+        if (isAxiosError(e)) {
+            throw new ApiException<IReview>(
+                e.message,
+                e.response?.status,
+                e.response?.data as IReview | undefined
+            )
         }
         throw e
     }
