@@ -1,1 +1,1 @@
-export {useLocations} from "./useLocations.ts"
+export {getLocations} from "./getLocations.ts"

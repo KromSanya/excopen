@@ -1,3 +1,3 @@
-export {useDeleteFromFav} from "./useDeleteFromFav.ts"
-export {useFav} from "./useFav.ts"
-export {useAddToFav} from "./useAddToFav.ts"
+export {getFav} from "./getFav.ts"
+export {deleteFromFav} from "./deleteFromFav.ts"
+export {addToFav} from "./addToFav.ts"

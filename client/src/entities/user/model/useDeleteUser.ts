@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ApiException} from "@/shared/lib";
 import {IUser} from "@/shared/types";
-import {deleteUser} from "@/entities/user/model";
+import {deleteUser} from "@/entities";
 
 export const useDeleteUser = () => {
 
@@ -9,7 +9,7 @@ export const useDeleteUser = () => {
 
     return useMutation<void, ApiException<IUser>, number>({
         mutationFn: deleteUser,
-        onSuccess: () => queryClient.invalidateQueries({queryKey: ["deleteUser"]}),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ["user"]}),
         onError: (e: ApiException<IUser>) => {
             throw new ApiException<IUser>(e.message, e.statusCode, e.data)
         }

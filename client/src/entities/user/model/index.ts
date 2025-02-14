@@ -1,3 +1,3 @@
-export {getUser} from "./getUser.ts"
-export {deleteUser} from "./deleteUser.ts"
-export {updateUser} from "./updateUser.ts"
+export {useUser} from "./useUser.ts"
+export {useDeleteUser} from "./useDeleteUser.ts"
+export {useUpdateUser} from "./useUpdateUser.ts"

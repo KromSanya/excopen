@@ -1,6 +1,5 @@
-import {apiClient, ApiException} from "@/shared/lib";
+import {apiClient, ApiException, isAxiosError} from "@/shared/lib";
 import {EndpointsType, ITour} from "@/shared/types";
-import axios from "axios";
 
 export const updateTour = async (tour: ITour): Promise<ITour> => {
     try {
@@ -9,8 +8,12 @@ export const updateTour = async (tour: ITour): Promise<ITour> => {
         })
         return response.data
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            throw new ApiException<ITour>(e.message, e.response?.status, e.response?.data)
+        if (isAxiosError(e)) {
+            throw new ApiException<ITour>(
+                e.message,
+                e.response?.status,
+                e.response?.data as ITour | undefined
+            )
         }
         throw e
     }

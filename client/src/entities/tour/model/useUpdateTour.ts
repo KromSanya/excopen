@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ITour} from "@/shared/types";
 import {ApiException} from "@/shared/lib";
-import {updateTour} from "@/entities/tour/model";
+import {updateTour} from "@/entities/tour/api";
 
 export const useUpdateTour = () => {
 
@@ -9,7 +9,10 @@ export const useUpdateTour = () => {
 
     return useMutation<ITour, ApiException<ITour>, ITour>({
         mutationFn: updateTour,
-        onSuccess: () => queryClient.invalidateQueries({queryKey: ["updateTour"]}),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["tour"]})
+            queryClient.invalidateQueries({queryKey: ["tours"]})
+        },
         onError: (e: ApiException<ITour>) => {
             throw new ApiException<ITour>(e.message, e.statusCode, e.data)
         }
