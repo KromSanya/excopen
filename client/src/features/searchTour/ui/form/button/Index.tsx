@@ -25,6 +25,7 @@ export const Index: FC<SearchButtonProps> = (
 
     return (
         <Button
+            role={"searchButton"}
             onClick={clickHandler}
             size={orientation === Orientation.HORIZONTAL ? "default" : "lg"}
         >

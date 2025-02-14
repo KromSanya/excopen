@@ -68,9 +68,8 @@ export const Index: FC = () => {
     });
 
     return (
-        <Command ref={commandRef}>
+        <Command role={"form-command"} ref={commandRef}>
             <CommandInput
-                isSearch={context.isSearch}
                 field={field}
                 value={context.searchParams.location}
                 label={"Где искать"}

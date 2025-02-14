@@ -27,6 +27,7 @@ export const Index: FC<FormProps> = ({orientation}) => {
     
     return (
         <div
+            role={"form"}
             className={cn(
                 style.container,
                 orientation === Orientation.HORIZONTAL ? style.containerHorMode : style.containerVerMode
