@@ -10,12 +10,12 @@ type SwitchProps = {
 
 export const Index: FC<SwitchProps> = ({orientation}) => {
 
-    const {searchParams, setByCity} = useSearchContext()
+    const {context, setByCity} = useSearchContext()
 
     return (
         <div className={orientation === Orientation.HORIZONTAL ? style.horMode : style.verMode}>
             <div className={style.switch}>
-                <Switch defaultValueBol={searchParams.byCity} onChangeValue={setByCity}/>
+                <Switch defaultValueBol={context.searchParams.byCity} onChangeValue={setByCity}/>
                 <span>Поиск в городе</span>
             </div>
         </div>

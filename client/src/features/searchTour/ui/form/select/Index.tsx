@@ -5,17 +5,17 @@ import {useSearchContext} from "@/features";
 
 export const Index = () => {
 
-    const {searchParams, isSearch, setAccessibility} = useSearchContext()
+    const {context, setAccessibility} = useSearchContext()
 
     const label = tourAccessibilityArray.find(
-        opt => opt.value === searchParams.accessibility
+        opt => opt.value === context.searchParams.accessibility
     )?.label
 
     return (
-        <Select value={searchParams.accessibility} onValueChange={setAccessibility}>
+        <Select value={context.searchParams.accessibility} onValueChange={setAccessibility}>
             <SelectAccessibilityTrigger
                 icon={users}
-                isSearch={isSearch}
+                isSearch={context.isSearch}
                 value={label}
                 placeholder={"Участники"}
             />

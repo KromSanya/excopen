@@ -1,4 +1,5 @@
 export * from "./ITour.ts"
 export * from "./IDescription.ts"
 export * from "./ILocation.ts"
+export * from "./IReview.ts"
 export {TourAccessibility} from "./TourAccessibility.ts"

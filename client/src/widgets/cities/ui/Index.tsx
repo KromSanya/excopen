@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import style from "./style.module.css"
-import {Input} from "@/shared/ui";
+import {SearchInput} from "@/shared/ui";
 import {ListLetter} from "./listLetter";
 import {ListCities} from "./listCities";
 import {LocationsArrayForFeature} from "@/shared/assets/tempData/LocationsArrayForFeature.ts";
@@ -32,7 +32,7 @@ export const Index: FC = () => {
             <h2 className={style.heading}>
                 Список городов
             </h2>
-            <Input
+            <SearchInput
                 onFocus={focusHandler}
                 onBlur={blurHandler}
                 onChangeHandler={setLocation}
