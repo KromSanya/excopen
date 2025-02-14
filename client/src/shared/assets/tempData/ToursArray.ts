@@ -7,6 +7,7 @@ import map from "./assets/map.png";
 import {DescriptionObject} from "@/shared/assets/tempData/DescriptionObject.ts";
 import {ContributorObject} from "@/shared/assets/tempData/ContributorObject.ts";
 import bg from "@/shared/assets/tempData/assets/cardBg.png";
+import {reviewsArray} from "@/shared/assets/tempData/ReviewsArray.ts";
 
 const TourObject: ITour = {
     priceForPerson: 4000,
@@ -31,7 +32,8 @@ const TourObject: ITour = {
         city: "Омск",
         tourCount: 100,
         image: bg,
-    }
+    },
+    reviews: reviewsArray
 }
 
 const TourObject2: ITour = {
@@ -57,7 +59,8 @@ const TourObject2: ITour = {
         city: "Москва",
         tourCount: 100,
         image: bg,
-    }
+    },
+    reviews: reviewsArray
 }
 
 const TourObject3: ITour = {
@@ -83,7 +86,8 @@ const TourObject3: ITour = {
         city: "Новосибирск",
         tourCount: 100,
         image: bg,
-    }
+    },
+    reviews: reviewsArray
 }
 
 const TourObject4: ITour = {
@@ -109,7 +113,8 @@ const TourObject4: ITour = {
         city: "Омск",
         tourCount: 100,
         image: bg,
-    }
+    },
+    reviews: reviewsArray
 }
 
 export const ToursArray = [

@@ -1,0 +1,35 @@
+.container {
+    @apply flex flex-col p-6 gap-4 bg-grayscale-0 rounded-2xl
+}
+
+.header {
+    @apply flex flex-row justify-between items-center
+}
+
+.person {
+    @apply flex flex-col
+}
+
+.name {
+    @apply text-xl text-grayscale-500 font-medium
+}
+
+.text {
+    @apply text-grayscale-400 text-base
+}
+
+.reviews {
+    @apply flex flex-col gap-4
+}
+
+.review {
+    @apply flex flex-row gap-4 items-center
+}
+
+.positive {
+    @apply w-4 h-4 rounded-full bg-green-gr shrink-0
+}
+
+.negative {
+    @apply w-4 h-4 rounded-full bg-red-gr shrink-0
+}

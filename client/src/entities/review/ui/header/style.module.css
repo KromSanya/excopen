@@ -1,0 +1,7 @@
+.container {
+    @apply flex flex-col md:flex-row gap-4 md:items-center
+}
+
+.heading {
+    @apply text-xl text-grayscale-500 font-medium
+}

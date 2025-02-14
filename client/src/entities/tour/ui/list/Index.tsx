@@ -2,12 +2,12 @@ import {FC, useState} from "react";
 import {Header} from "./header";
 import {ToursArray} from "@/shared/assets/tempData/ToursArray.ts";
 import style from "./style.module.css"
-import {Pagination} from "./pagination";
 import {useParams} from "react-router-dom";
 import {TourCard} from "@/entities";
 import {SortValues} from "@/shared/types/features";
 import {ITour} from "@/shared/types";
 import {sortByPrice, SortByPriceType, sortByRating} from "@/features";
+import {Pagination} from "./pagination";
 
 export const Index: FC = () => {
 

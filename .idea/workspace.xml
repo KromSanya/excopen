@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95463dea-f5fe-430c-8a98-ee347247c721" name="Changes" comment="Созданы контроллеры для пользователей, экскурсий, отзывов и избранного&#10;Созданы сущности, сервисы, репозитории для всех сущностей представленных в бд">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="95463dea-f5fe-430c-8a98-ee347247c721" name="Changes" comment="&#10;Add xml files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -25,134 +28,238 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Back" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Back" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Back" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/form-widget" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/client/src/features/searchTour/ui/test/form.test.tsx" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2ohWOmquhrC2ZDRS4Xz2KvlqfmU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Backend [:BackApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Backend [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Backend [build].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/T-Bank/Backend/src/main/resources/.env&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/T-Bank/Backend/src/main/java/org/example/Main.java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Backend [:BackApplication.main()].executor": "Run",
+    "Gradle.Backend [assemble].executor": "Run",
+    "Gradle.Backend [build].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ShowUsagesActions.previewPropertyKey": "true",
+    "Vitest.Form (1).executor": "Run",
+    "Vitest.Form Component.executor": "Run",
+    "Vitest.Form Component.должен корректно монтироваться.executor": "Run",
+    "Vitest.Form DatePicker.executor": "Run",
+    "Vitest.Form DatePicker.Выбор даты закрывает поповер.executor": "Run",
+    "Vitest.Form DatePicker.Проверка выбора даты.executor": "Run",
+    "Vitest.Form DatePicker.Проверка открытия календаря.executor": "Run",
+    "Vitest.Form DatePicker.Рендер компонента.executor": "Run",
+    "Vitest.Form button.executor": "Run",
+    "Vitest.Form button.Проверка клика по кнопке, если форма заполнена.executor": "Run",
+    "Vitest.Form input.executor": "Run",
+    "Vitest.Form input.Валидация введенного значения.executor": "Run",
+    "Vitest.Form input.Выбор локации из выпадающего списка.executor": "Run",
+    "Vitest.Form input.Проверка ввода текста.executor": "Run",
+    "Vitest.Form input.Проверка открытия выпадающего списка.executor": "Run",
+    "Vitest.Form input.Проверка рендеринга.executor": "Run",
+    "Vitest.Form.executor": "Run",
+    "Vitest.Form.Проверка монтирования компонента с вертикальной ориентацией.executor": "Run",
+    "Vitest.Form.Проверка монтирования компонента с горизонтальной ориентацией.executor": "Run",
+    "Vitest.Form.Рендеринг формы в горизонтальном режиме (1).executor": "Run",
+    "Vitest.Form.Рендеринг формы в горизонтальном режиме.executor": "Run",
+    "Vitest.Index Component.executor": "Run",
+    "Vitest.Input Component.renders the input field with default value.executor": "Run",
+    "Vitest.Input Component.Проверка, что поле изначально пустое.executor": "Run",
+    "Vitest.SearchContext.executor": "Run",
+    "Vitest.SearchContext.Обновляет location через setLocation.executor": "Run",
+    "Vitest.SearchContext.Проверка обновления accessibility.executor": "Run",
+    "Vitest.SearchContext.Проверка установки начального значения.executor": "Run",
+    "Vitest.breadcrumbs.executor": "Run",
+    "Vitest.breadcrumbs.Возвращаем вложенный маршрут.executor": "Run",
+    "Vitest.breadcrumbs.Возвращаем маршрут для главной страницы.executor": "Run",
+    "Vitest.breadcrumbs.Возвращаем маршрут с параметром.executor": "Run",
+    "Vitest.breadcrumbs.Возвращаем не вложенный маршрут.executor": "Run",
+    "Vitest.breadcrumbs.Обновление хлебных крошек при переходе между маршрутами.executor": "Run",
+    "Vitest.breadcrumbs.Обработка несуществующего маршрута.executor": "Run",
+    "Vitest.breadcrumbs.Проверка корректности марщрута при обновлении страницы.executor": "Run",
+    "Vitest.breadcrumbs.Проверка при обновления хлебных крошек при переходе на главную.executor": "Run",
+    "Vitest.sortByPrice (1).executor": "Run",
+    "Vitest.sortByPrice.executor": "Run",
+    "Vitest.sortByPrice.Обработка неимененного массива.executor": "Run",
+    "Vitest.sortByRating.executor": "Run",
+    "Vitest.Компонент Form монтируется (1).executor": "Run",
+    "Vitest.Компонент Form монтируется.executor": "Run",
+    "Vitest.Компонент Index.должен рендерить компонент корректно.executor": "Run",
+    "Vitest.Рендеринг формы в вертикальном режиме.executor": "Run",
+    "Vitest.Рендеринг формы в горизонтальном режиме (1).executor": "Run",
+    "Vitest.Рендеринг формы в горизонтальном режиме.executor": "Run",
+    "git-widget-placeholder": "feature/form-testing",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/dalas/WebstormProjects/excopen/client/src/entities/tour/ui/list",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.deploy.executor": "Run",
+    "npm.dev.executor": "Run",
+    "npm.lint.executor": "Run",
+    "npm.predeploy.executor": "Run",
+    "npm.test.executor": "Run",
+    "npm.test:ui.executor": "Run",
+    "onboarding.tips.debug.path": "C:/T-Bank/Backend/src/main/java/org/example/Main.java",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.29922137",
+    "ts.external.directory.path": "C:\\Users\\dalas\\WebstormProjects\\excopen\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.BackApplication">
-    <configuration name="BackApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="T_Bank.Back.BackApplication" />
-      <module name="Back.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="T_Bank.Back.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-          <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH="src/main/resources/.env" />
-        </ENTRIES>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Backend [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="assemble" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\entities\tour\ui\list" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\entities\tour\ui\layout" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\entities\tour\ui" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\widgets\cities" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\entities\location\ui" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\features\searchTour\ui\form" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\features\searchTour\model\context" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\features\sortTour\model\__test__" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\entities\tour\ui\layout" />
+      <recent name="C:\Users\dalas\WebstormProjects\excopen\client\src\widgets\overview\ui" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Vitest.SearchContext">
+    <configuration name="Form button" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/client/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/client/src/features/searchTour/test/button.test.tsx" />
+      <test-names>
+        <test-name value="Form button" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Backend [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+    <configuration name="SearchContext" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/client/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/client/src/features/searchTour/test/SearchContext.test.tsx" />
+      <test-names>
+        <test-name value="SearchContext" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="SearchContext.Проверка обновления accessibility" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/client/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/features/searchTour/test/SearchContext.test.tsx" />
+      <test-names>
+        <test-name value="SearchContext" />
+        <test-name value="Проверка обновления accessibility" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="SearchContext.Обновляет location через setLocation" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/client/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/features/searchTour/test/SearchContext.test.tsx" />
+      <test-names>
+        <test-name value="SearchContext" />
+        <test-name value="Обновляет location через setLocation" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="SearchContext.Проверка установки начального значения" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/client/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/features/searchTour/test/SearchContext.test.tsx" />
+      <test-names>
+        <test-name value="SearchContext" />
+        <test-name value="Проверка установки начального значения" />
+      </test-names>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.BackApplication" />
-      <item itemvalue="Gradle.Backend [assemble]" />
-      <item itemvalue="Gradle.Backend [build]" />
+      <item itemvalue="Vitest.Form button" />
+      <item itemvalue="Vitest.SearchContext" />
+      <item itemvalue="Vitest.SearchContext.Обновляет location через setLocation" />
+      <item itemvalue="Vitest.SearchContext.Проверка обновления accessibility" />
+      <item itemvalue="Vitest.SearchContext.Проверка установки начального значения" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Backend [assemble]" />
-        <item itemvalue="Gradle.Backend [build]" />
-        <item itemvalue="Application.BackApplication" />
+        <item itemvalue="Vitest.SearchContext" />
+        <item itemvalue="Vitest.SearchContext.Проверка обновления accessibility" />
+        <item itemvalue="Vitest.SearchContext.Обновляет location через setLocation" />
+        <item itemvalue="Vitest.SearchContext.Проверка установки начального значения" />
+        <item itemvalue="Vitest.Form button" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -162,6 +269,36 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731322260148</updated>
+      <workItem from="1733053649322" duration="222000" />
+      <workItem from="1733053896669" duration="19114000" />
+      <workItem from="1733232288467" duration="8591000" />
+      <workItem from="1733373898722" duration="3000000" />
+      <workItem from="1733392605108" duration="2077000" />
+      <workItem from="1733403022773" duration="10224000" />
+      <workItem from="1733487074750" duration="3907000" />
+      <workItem from="1734261264893" duration="6337000" />
+      <workItem from="1734577141135" duration="1679000" />
+      <workItem from="1734580831360" duration="166000" />
+      <workItem from="1734597174243" duration="2517000" />
+      <workItem from="1734750371775" duration="80000" />
+      <workItem from="1734751699793" duration="473000" />
+      <workItem from="1734752306517" duration="16000" />
+      <workItem from="1734752490201" duration="72000" />
+      <workItem from="1735717388698" duration="88949000" />
+      <workItem from="1736166076589" duration="483000" />
+      <workItem from="1736166585852" duration="29498000" />
+      <workItem from="1736338635404" duration="5900000" />
+      <workItem from="1736853047957" duration="46000" />
+      <workItem from="1736945669309" duration="7000" />
+      <workItem from="1737297057439" duration="38204000" />
+      <workItem from="1737649441376" duration="19000" />
+      <workItem from="1737954184127" duration="1892000" />
+      <workItem from="1737957262668" duration="155000" />
+      <workItem from="1737957470295" duration="5731000" />
+      <workItem from="1737979111977" duration="303000" />
+      <workItem from="1737987444531" duration="3595000" />
+      <workItem from="1738064388277" duration="8000" />
+      <workItem from="1738309215959" duration="12824000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore commit">
       <option name="closed" value="true" />
@@ -179,8 +316,339 @@
       <option name="project" value="LOCAL" />
       <updated>1731323077660</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add ui onboarding page">
+      <option name="closed" value="true" />
+      <created>1732875212772</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732875212772</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update routes and links">
+      <option name="closed" value="true" />
+      <created>1732891240607</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732891240607</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fix routing to tours page">
+      <option name="closed" value="true" />
+      <created>1732972210244</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732972210244</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fix layout in tours and tour">
+      <option name="closed" value="true" />
+      <created>1732974614846</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732974614846</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update tour description widget">
+      <option name="closed" value="true" />
+      <created>1732976325161</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732976325161</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix styles in mobile version">
+      <option name="closed" value="true" />
+      <created>1732977378494</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732977378494</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update pages.module.css">
+      <option name="closed" value="true" />
+      <created>1732977587496</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732977587496</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update package">
+      <option name="closed" value="true" />
+      <created>1732979141868</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732979141868</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add github pages">
+      <option name="closed" value="true" />
+      <created>1732979586466</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732979586466</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add modal and ui add-to-fav feature">
+      <option name="closed" value="true" />
+      <created>1733061348393</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733061348393</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update entity Favourite">
+      <option name="closed" value="true" />
+      <created>1733145514058</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1733145514058</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Delete feature sort tour">
+      <option name="closed" value="true" />
+      <created>1733235730194</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733235730194</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update shared api function">
+      <option name="closed" value="true" />
+      <created>1733235762359</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733235762359</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update favourite entity">
+      <option name="closed" value="true" />
+      <created>1733235777434</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1733235777434</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update tour entity">
+      <option name="closed" value="true" />
+      <created>1733235802927</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1733235802927</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update tour entity with new functions">
+      <option name="closed" value="true" />
+      <created>1733304201089</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1733304201101</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Add feature search locations">
+      <option name="closed" value="true" />
+      <created>1733413198166</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1733413198166</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Add widget search location bar">
+      <option name="closed" value="true" />
+      <created>1733413295167</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1733413295167</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Add tour view feature">
+      <option name="closed" value="true" />
+      <created>1733489453381</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733489453381</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Update search feature">
+      <option name="closed" value="true" />
+      <created>1733489483757</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1733489483757</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add profile page and update tours page">
+      <option name="closed" value="true" />
+      <created>1733489594648</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1733489594648</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fix bugs in OnBoarding page">
+      <option name="closed" value="true" />
+      <created>1734262384017</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1734262384024</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fix style conflict">
+      <option name="closed" value="true" />
+      <created>1734262493388</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1734262493388</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Update pages.module.css">
+      <option name="closed" value="true" />
+      <created>1734262709884</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1734262709884</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Update pages.module.css">
+      <option name="closed" value="true" />
+      <created>1734262733434</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1734262733434</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fix bugs after pull">
+      <option name="closed" value="true" />
+      <created>1734263151657</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263151657</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add new widgets">
+      <option name="closed" value="true" />
+      <created>1734263439341</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263439341</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Resolve conflict with imports">
+      <option name="closed" value="true" />
+      <created>1734263560372</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263560372</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Resolve conflict with imports">
+      <option name="closed" value="true" />
+      <created>1734263593611</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263593611</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Resolve conflict with TourCard">
+      <option name="closed" value="true" />
+      <created>1734263782307</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263782307</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Close profile page">
+      <option name="closed" value="true" />
+      <created>1734263996781</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1734263996781</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Fix bugs in shared">
+      <option name="closed" value="true" />
+      <created>1734275823357</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1734275823357</updated>
+    </task>
+    <task id="LOCAL-00035" summary="update input in form">
+      <option name="closed" value="true" />
+      <created>1735803268104</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1735803268104</updated>
+    </task>
+    <task id="LOCAL-00036" summary="fix bug in breadcrumbs">
+      <option name="closed" value="true" />
+      <created>1737358142662</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1737358142662</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fix bug in breadcrumbs test">
+      <option name="closed" value="true" />
+      <created>1737360852444</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1737360852444</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Add local storage saving">
+      <option name="closed" value="true" />
+      <created>1737444922723</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1737444922723</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fix bug with input">
+      <option name="closed" value="true" />
+      <created>1737465377913</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465377913</updated>
+    </task>
+    <task id="LOCAL-00040" summary="push unversioned files">
+      <option name="closed" value="true" />
+      <created>1737465430277</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465430277</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Update UI components in form">
+      <option name="closed" value="true" />
+      <created>1738339020044</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1738339020044</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Add tests for Form">
+      <option name="closed" value="true" />
+      <created>1738339046578</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1738339046578</updated>
+    </task>
+    <task id="LOCAL-00043" summary="&#10;Add xml files">
+      <option name="closed" value="true" />
+      <created>1738339424431</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1738339424431</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -194,19 +662,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=".gitignore commit" />
-    <MESSAGE value="Созданы контроллеры для пользователей, экскурсий, отзывов и избранного&#10;Созданы сущности, сервисы, репозитории для всех сущностей представленных в бд" />
-    <option name="LAST_COMMIT_MESSAGE" value="Созданы контроллеры для пользователей, экскурсий, отзывов и избранного&#10;Созданы сущности, сервисы, репозитории для всех сущностей представленных в бд" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add feature search locations" />
+    <MESSAGE value="Add widget search location bar" />
+    <MESSAGE value="Add tour view feature" />
+    <MESSAGE value="Update search feature" />
+    <MESSAGE value="Add profile page and update tours page" />
+    <MESSAGE value="Fix bugs in OnBoarding page" />
+    <MESSAGE value="Fix style conflict" />
+    <MESSAGE value="Update pages.module.css" />
+    <MESSAGE value="Fix bugs after pull" />
+    <MESSAGE value="Add new widgets" />
+    <MESSAGE value="Resolve conflict with imports" />
+    <MESSAGE value="Resolve conflict with TourCard" />
+    <MESSAGE value="Close profile page" />
+    <MESSAGE value="Fix bugs in shared" />
+    <MESSAGE value="update input in form" />
+    <MESSAGE value="fix bug in breadcrumbs" />
+    <MESSAGE value="fix bug in breadcrumbs test" />
+    <MESSAGE value="Add local storage saving" />
+    <MESSAGE value="Fix bug with input" />
+    <MESSAGE value="push unversioned files" />
+    <MESSAGE value="Update UI components in form" />
+    <MESSAGE value="Add tests for Form" />
+    <MESSAGE value="Update index" />
+    <MESSAGE value="&#10;Update index file in form again" />
+    <MESSAGE value="&#10;Add xml files" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;Add xml files" />
   </component>
 </project>

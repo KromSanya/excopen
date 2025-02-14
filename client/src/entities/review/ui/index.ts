@@ -1,0 +1,1 @@
+export {Index as Reviews} from "./Index.tsx"

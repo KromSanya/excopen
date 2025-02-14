@@ -27,7 +27,6 @@ export const Index: FC<TourCardProps> = ({tour}) => {
         addToViewed(tour)
     }
 
-
     return (
         <div className={style.container}>
 

@@ -6,8 +6,8 @@ import {RangeType} from "@/shared/types";
 
 export const Index: FC = () => {
 
-    const { searchParams, setDate, isSearch } = useSearchContext();
-    const [range, setRange] = useState(searchParams.date);
+    const { context, setDate } = useSearchContext();
+    const [range, setRange] = useState(context.searchParams.date);
 
     const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
     const [isTouched, setIsTouched] = useState<boolean>(false);
@@ -32,9 +32,9 @@ export const Index: FC = () => {
 
     return (
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger role={"form-datePicker"} asChild>
                 <CalendarButton
-                    isSearch={isSearch}
+                    isSearch={context.isSearch}
                     range={range}
                     isTouched={isTouched}
                     onClick={clickHandler}

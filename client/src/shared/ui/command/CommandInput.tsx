@@ -62,7 +62,7 @@ export const CommandInput = React.forwardRef<
                 <SearchIcon className={iconSearchStyles}/>
                 <CommandPrimitive.Input
                     ref={inputRef}
-                    id={"command-input"}
+                    id={"command-inputs"}
                     className={cn(inputStyles, className)}
                     value={value}
                     placeholder=" "

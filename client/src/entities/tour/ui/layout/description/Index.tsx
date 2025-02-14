@@ -1,11 +1,13 @@
 import {FC} from "react";
 import {ITour, RouteNames} from "@/shared/types";
 import {Details} from "./details";
+import {Contributor} from "./contributor";
 import {ContactButton, TelegramButton, VKButton} from "./buttons";
 import style from "./style.module.css"
+import {Reviews} from "@/entities/review";
 
 type DescriptionProps = {
-    tour: ITour | undefined
+    tour: ITour
 }
 
 export const Index: FC<DescriptionProps> = ({tour}) => {
@@ -66,6 +68,18 @@ export const Index: FC<DescriptionProps> = ({tour}) => {
             </div>
 
             <Details/>
+
+            <Reviews
+                rating={tour.rating}
+                ratingCount={tour.ratingCount}
+                reviews={tour.reviews}
+            />
+
+            <Contributor
+                name={tour.contributor.name}
+                description={tour.contributor.description}
+                rating={tour.contributor.rating}
+            />
 
         </div>
     );

@@ -18,15 +18,16 @@ export const Index: FC<FormProps> = ({orientation}) => {
 
     const {width} = useWindowSize()
 
-    const {searchParams} = useSearchContext()
+    const {context} = useSearchContext()
 
-    const disabled = !!searchParams.location
-        && !!searchParams.date.from
-        && !!searchParams.date.to
-        && !!searchParams.accessibility
+    const disabled = !!context.searchParams.location
+        && !!context.searchParams.date.from
+        && !!context.searchParams.date.to
+        && !!context.searchParams.accessibility
     
     return (
         <div
+            role={"form"}
             className={cn(
                 style.container,
                 orientation === Orientation.HORIZONTAL ? style.containerHorMode : style.containerVerMode
@@ -47,7 +48,7 @@ export const Index: FC<FormProps> = ({orientation}) => {
                 <DatePicker/>
                 <Select/>
                 {width < 1440 && <Switch orientation={orientation}/>}
-                <SearchButton location={searchParams.location} orientation={orientation} disabled={disabled}/>
+                <SearchButton location={context.searchParams.location} orientation={orientation} disabled={disabled}/>
             </div>
             {orientation === Orientation.HORIZONTAL && width > 1440 && <Switch orientation={orientation}/>}
         </div>

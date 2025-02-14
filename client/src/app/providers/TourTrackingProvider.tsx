@@ -1,4 +1,4 @@
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 import {ITour} from "@/shared/types";
 import {TourTrackingContext} from "@/features";
 
@@ -17,7 +17,7 @@ export const TourTrackingProvider: FC<{children: ReactNode}> = ({children}) => {
 
     }, []);
 
-    const addToFav = (tour: ITour) => {
+    const addToFav = useCallback((tour: ITour) => {
         setFavourites(prev => {
             if (!prev.some(favTour => favTour.id === tour.id)) {
                 const updated = [...prev, tour]
@@ -26,17 +26,17 @@ export const TourTrackingProvider: FC<{children: ReactNode}> = ({children}) => {
             }
             return prev
         })
-    }
+    }, [])
 
-    const deleteFromFav = (tour: ITour) => {
+    const deleteFromFav = useCallback((tour: ITour) => {
         setFavourites(prev => {
             const updated = prev.filter(favTour => favTour.id!== tour.id)
             localStorage.setItem('favourites', JSON.stringify(updated))
             return updated
         })
-    }
+    }, [])
 
-    const addToViewed = (tour: ITour) => {
+    const addToViewed = useCallback((tour: ITour) => {
         setViewed(prev => {
             if (!prev.some(viewed => viewed.id === tour.id)) {
                 const updated = [...prev, tour]
@@ -45,11 +45,15 @@ export const TourTrackingProvider: FC<{children: ReactNode}> = ({children}) => {
             }
             return prev
         })
-    }
-
+    }, [])
+    
+    const context = useMemo(() => ({
+        viewed, favourites
+    }), [favourites, viewed])
+    
     return (
-        <TourTrackingContext.Provider value={{viewed, favourites, addToFav, deleteFromFav, addToViewed}}>
+        <TourTrackingContext.Provider value={{context, addToFav, deleteFromFav, addToViewed}}>
             {children}
         </TourTrackingContext.Provider>
-    );
-};
+    )
+}

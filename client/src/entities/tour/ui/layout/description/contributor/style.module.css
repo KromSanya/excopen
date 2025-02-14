@@ -1,0 +1,27 @@
+.container {
+    @apply flex flex-col md:flex-row gap-8 md:items-center
+}
+
+.info {
+    @apply flex flex-col gap-2 md:w-2/3 max-md:order-last
+}
+
+.name {
+    @apply flex flex-row gap-2 md:gap-4 text-xl text-grayscale-500 font-medium cursor-pointer
+}
+
+.desc {
+    @apply text-grayscale-500 text-sm
+}
+
+.avatar {
+    @apply flex justify-start
+}
+
+.icon {
+    @apply flex flex-col items-center
+}
+
+.marker {
+    @apply z-20 -mt-3
+}

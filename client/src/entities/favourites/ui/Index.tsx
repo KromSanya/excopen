@@ -11,12 +11,12 @@ type ToFavProps = {
 
 export const Index: FC<ToFavProps> = ({ tour }) => {
 
-    const { favourites, addToFav, deleteFromFav } = useTourTrackingContext()
+    const { context, addToFav, deleteFromFav } = useTourTrackingContext()
     const [isActive, setIsActive] = useState<boolean>(false)
 
     useEffect(() => {
-        setIsActive(favourites.some(fav => fav.id === tour.id))
-    }, [favourites, tour.id]);
+        setIsActive(context.favourites.some(fav => fav.id === tour.id))
+    }, [context.favourites, tour.id]);
 
     const clickHandler = () => {
         if (!isActive) addToFav(tour)
