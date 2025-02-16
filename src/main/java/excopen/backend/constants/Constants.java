@@ -1,4 +1,4 @@
-package excopen.backend.utils;
+package excopen.backend.constants;
 
 
 import excopen.backend.servicesImpl.TagServiceImpl;
