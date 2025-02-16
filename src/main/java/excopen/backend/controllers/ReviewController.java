@@ -35,11 +35,10 @@ public class ReviewController {
         User user = userService.findByGoogleId(googleId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        Tour tour = tourService.getTourById(review.getTour().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Tour not found"));
+        Tour tour = tourService.getTourById(review.getTourId());
 
-        review.setUser(user);
-        review.setTour(tour);
+        review.setUserId(user.getId());
+        review.setTourId(tour.getId());
         return reviewService.createReview(review);
     }
 
@@ -51,9 +50,8 @@ public class ReviewController {
 
     @RequiresOwnership(entityClass = Review.class)
     @PutMapping("/{reviewId}")
-    public Review updateReview(@PathVariable Long reviewId, @RequestBody Review review,
-                               @AuthenticationPrincipal OAuth2User principal) {
-        review.setId(reviewId);
+    public Review updateReview(@PathVariable Long reviewId, @RequestBody Review review) {
+        Review existingReview = reviewService.getReviewById(reviewId).orElseThrow(() -> new IllegalArgumentException("Review nor found"));
         return reviewService.updateReview(review);
     }
 

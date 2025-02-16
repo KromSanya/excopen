@@ -13,9 +13,8 @@ public class TourImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "tour_id")
-    private Tour tour;
+    private Long tourId;
 
     private String imageUrl;
 }

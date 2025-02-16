@@ -5,8 +5,9 @@ import java.util.Optional;
 
 
 public interface IDescriptionService {
-    Text createDescription(Text description);
-    Optional<Text> getDescriptionById(Long descriptionId);
-    Text updateDescription(Text description);
+    Description createDescription(Description description);
+    Optional<Description> getDescriptionById(Long descriptionId);
+    Description getDescriptionByTourId(Long tourId);
+    Description updateDescription(Description description);
     void deleteDescription(Long descriptionId);
 }

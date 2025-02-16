@@ -23,12 +23,8 @@ public class Tour implements Serializable {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "description_id")
-    private Text descriptionId;
-
-    @ManyToOne
     @JoinColumn(name = "location_id")
-    private Location location;
+    private Long locationId;
 
     private BigDecimal price;
     private String duration;
@@ -38,11 +34,10 @@ public class Tour implements Serializable {
     private LocalDateTime updatedAt;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    private float[] vectorRepresentation;
+    private int[] vectorRepresentation;
 
-    @ManyToOne
     @JoinColumn(name = "creator_id")
-    private User creator;
+    private Long creatorId;
 
     private Integer minAge;
     private Integer maxCapacity;

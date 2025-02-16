@@ -12,11 +12,11 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
-    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Long userId;
+
+
     @JoinColumn(name = "tour_id")
-    private Tour tour;
+    private Long tourId;
 }

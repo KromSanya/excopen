@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class UserController {
     @PutMapping("/{userId}/preferences-vector")
     public User updatePreferencesVector(
             @PathVariable Long userId,
-            @RequestBody float[] preferencesVector,
+            @RequestBody int[] preferencesVector,
             @AuthenticationPrincipal OAuth2User principal) {
         return userService.updatePreferencesVector(userId, preferencesVector);
     }

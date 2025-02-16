@@ -12,6 +12,8 @@ public class Text {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(name = "tour_id", nullable = false)
+    private Long tourId;
 
     private String mainInfo;
 

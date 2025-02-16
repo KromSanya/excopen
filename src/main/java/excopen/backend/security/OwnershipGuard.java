@@ -66,9 +66,8 @@ public class OwnershipGuard {
 
 
     private void checkTourOwnership(Long tourId, Long userId) {
-        Tour tour = tourService.getTourById(tourId)
-                .orElseThrow(() -> new IllegalArgumentException("Tour not found"));
-        if (!tour.getCreator().getId().equals(userId)) {
+        Tour tour = tourService.getTourById(tourId);
+        if (!tour.getCreatorId().equals(userId)) {
             throw new AccessDeniedException("You are not the owner of this tour");
         }
     }
@@ -76,7 +75,7 @@ public class OwnershipGuard {
     private void checkReviewOwnership(Long reviewId, Long userId) {
         Review review = reviewService.getReviewById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
-        if (!review.getUser().getId().equals(userId)) {
+        if (!review.getUserId().equals(userId)) {
             throw new AccessDeniedException("You are not the owner of this review");
         }
     }

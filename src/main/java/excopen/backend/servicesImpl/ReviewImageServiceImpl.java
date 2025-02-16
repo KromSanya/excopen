@@ -25,12 +25,12 @@ public class ReviewImageServiceImpl implements IReviewImageService {
 
     @Override
     public ReviewImage addImageToReview(Long reviewId, String imageUrl) {
-        // Проверка на наличие отзыва
-        Review review = reviewRepository.findById(reviewId)
+
+      reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review with ID " + reviewId + " not found."));
 
         ReviewImage reviewImage = new ReviewImage();
-        reviewImage.setReview(review);
+        reviewImage.setReviewId(reviewId);
         reviewImage.setImageUrl(imageUrl);
         return reviewImageRepository.save(reviewImage);
     }
