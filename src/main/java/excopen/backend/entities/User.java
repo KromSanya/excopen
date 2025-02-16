@@ -1,5 +1,6 @@
 package excopen.backend.entities;
 
+import excopen.backend.utills.Constants;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Array;
@@ -17,27 +18,29 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String googleId;
 
     private String name;
     private String surname;
-    private String patronymic;
     private String email;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    @Array(length = 3)
-    private float[] preferencesVector;
+    private int[] preferencesVector;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    @Array(length = 3)
-    private float[] secondVector;
+    private int[] secondVector;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+
+        int vectorLength = Constants.Category.values().length;
+        this.preferencesVector = new int[vectorLength];
+        this.secondVector = new int[vectorLength];
     }
 
     @PreUpdate

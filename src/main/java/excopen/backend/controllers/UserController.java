@@ -3,11 +3,14 @@ package excopen.backend.controllers;
 import excopen.backend.entities.User;
 import excopen.backend.iservices.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 public class UserController {
 
     @GetMapping("/test")
@@ -32,6 +35,12 @@ public class UserController {
     public User getUserById(@PathVariable Long userId) {
         return userService.getUserById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
+
+    @GetMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return principal.getAttributes();  // Возвращает все данные пользователя
+    }
+
 
     @PutMapping("/{userId}")
     public User updateUser(@PathVariable Long userId, @RequestBody User user) {
