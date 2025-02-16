@@ -1,0 +1,3 @@
+.heart {
+    @apply w-6 h-6 text-grayscale-500 hover:text-secondary-red transition-all ease-in-out duration-300
+}

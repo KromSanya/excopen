@@ -1,0 +1,11 @@
+.switch {
+    @apply flex flex-row gap-2 text-grayscale-600
+}
+
+.horMode {
+    @apply flex max-wide:py-2 wide:justify-end
+}
+
+.verMode {
+    @apply w-full flex items-start px-4
+}

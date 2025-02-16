@@ -1,0 +1,1 @@
+export {Index as Pagination} from "./Index.tsx"

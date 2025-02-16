@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-col gap-2 w-2/3 md:w-full
+}
+
+.main {
+    @apply flex flex-col md:flex-row gap-4 text-grayscale-500 text-[12px]
+}
+
+.heading {
+    @apply text-xl font-medium text-grayscale-500
+}

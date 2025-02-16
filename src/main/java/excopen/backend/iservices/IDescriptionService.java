@@ -1,6 +1,6 @@
 package excopen.backend.iservices;
 
-import excopen.backend.entities.Description;
+import excopen.backend.entities.Text;
 import java.util.Optional;
 
 

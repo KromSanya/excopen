@@ -1,0 +1,7 @@
+.container {
+    @apply flex flex-col gap-4 w-full
+}
+
+.subContainer {
+    @apply flex flex-row text-sm text-grayscale-400
+}

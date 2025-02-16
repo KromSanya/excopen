@@ -1,0 +1,6 @@
+export {Footer} from "./footer"
+export {Header} from "./header"
+export {Cities} from "./cities"
+export {ViewedTours} from "./viewedTours"
+export {OnBoardingWidget} from "./onboarding"
+export {Overview} from "./overview"

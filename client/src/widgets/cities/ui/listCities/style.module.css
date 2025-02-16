@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-row flex-wrap gap-8 py-4 px-4
+}
+
+.city {
+    @apply text-grayscale-600 text-sm font-medium cursor-pointer
+}
+
+.warning {
+    @apply text-grayscale-400 text-sm
+}

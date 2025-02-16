@@ -1,0 +1,11 @@
+.container {
+    @apply z-20 w-full h-full flex flex-col relative gap-8 lg:gap-16
+}
+
+.paddings {
+    @apply px-4 py-8 md:px-24 md:py-12 lg:px-16 xl:px-64 lg:py-24
+}
+
+.button {
+    @apply flex lg:justify-end font-medium
+}

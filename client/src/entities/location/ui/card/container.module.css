@@ -1,0 +1,15 @@
+.layout {
+    @apply flex flex-col justify-end relative px-4 py-6
+}
+
+.sizes {
+    @apply w-56 h-80
+}
+
+.bg {
+    @apply rounded-xl bg-cover overflow-hidden
+}
+
+.transitions {
+    @apply transition-transform duration-500 ease-out hover:scale-105
+}

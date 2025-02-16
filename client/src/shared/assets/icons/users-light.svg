@@ -1,0 +1,24 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 21V19C8 17.9391 8.42143 16.9217 9.17157 16.1716C9.92172 15.4214 10.9391 15 12 15H18C19.0609 15 20.0783 15.4214 20.8284 16.1716C21.5786 16.9217 22 17.9391 22 19V21" stroke="url(#paint0_linear_440_153)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 11C12.7909 11 11 9.20914 11 7C11 4.79086 12.7909 3 15 3C17.2091 3 19 4.79086 19 7C19 9.20914 17.2091 11 15 11Z" stroke="url(#paint1_linear_440_153)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 21V19C2.00066 18.1137 2.29564 17.2528 2.83863 16.5523C3.38162 15.8519 4.14187 15.3516 5 15.13" stroke="url(#paint2_linear_440_153)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 3.13C7.13959 3.35031 6.37696 3.85071 5.83236 4.55232C5.28776 5.25392 4.99216 6.11683 4.99216 7.005C4.99216 7.89318 5.28776 8.75608 5.83236 9.45769C6.37696 10.1593 7.13959 10.6597 8 10.88" stroke="url(#paint3_linear_440_153)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+        <linearGradient id="paint0_linear_440_153" x1="15" y1="15" x2="15" y2="21" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#CACACA"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_440_153" x1="15" y1="3" x2="15" y2="11" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#CACACA"/>
+        </linearGradient>
+        <linearGradient id="paint2_linear_440_153" x1="3.5" y1="15.13" x2="3.5" y2="21" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#CACACA"/>
+        </linearGradient>
+        <linearGradient id="paint3_linear_440_153" x1="6.49608" y1="3.13" x2="6.49608" y2="10.88" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#CACACA"/>
+            <stop offset="1" stop-color="#CACACA"/>
+        </linearGradient>
+    </defs>
+</svg>

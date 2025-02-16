@@ -1,0 +1,7 @@
+.sidebar {
+    @apply flex flex-col gap-4 items-center
+}
+
+.profileSidebar {
+    @apply flex flex-col gap-4 max-xl:items-center lg:w-96
+}

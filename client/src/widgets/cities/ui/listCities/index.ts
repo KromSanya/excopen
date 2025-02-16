@@ -1,0 +1,1 @@
+export {Index as ListCities} from "./Index.tsx"

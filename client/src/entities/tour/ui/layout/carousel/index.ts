@@ -1,0 +1,1 @@
+export {Index as Carousel} from "./Index.tsx"

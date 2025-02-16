@@ -1,0 +1,7 @@
+.container {
+    @apply flex flex-col justify-between py-12 huge:w-[1440px]
+}
+
+.subContainer {
+    @apply flex flex-col lg:flex-row
+}

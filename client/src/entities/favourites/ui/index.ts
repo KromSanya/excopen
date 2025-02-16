@@ -1,0 +1,1 @@
+export {Index as ToFavourite} from "./Index.tsx"
