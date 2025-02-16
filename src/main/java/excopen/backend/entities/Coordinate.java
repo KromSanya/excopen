@@ -2,10 +2,7 @@ package excopen.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-
-import java.awt.*;
-
+import org.locationtech.jts.geom.Point;
 
 @Data
 @Entity
@@ -16,5 +13,6 @@ public class Coordinate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Point coordinates;
+    @Column(columnDefinition = "geography(Point, 4326)")
+    private Point location;
 }
