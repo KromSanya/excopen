@@ -1,0 +1,1 @@
+export {Index as Stars} from "./Index.tsx"

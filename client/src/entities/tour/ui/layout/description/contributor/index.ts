@@ -1,0 +1,1 @@
+export {Index as Contributor} from "./Index.tsx"

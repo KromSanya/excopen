@@ -1,5 +1,7 @@
 export enum EndpointsType {
     TOURS = "tours",
     FAVOURITES = "favorites",
-    LOCATIONS = "locations"
+    LOCATIONS = "locations",
+    USERS = "users",
+    REVIEWS = "reviews"
 }

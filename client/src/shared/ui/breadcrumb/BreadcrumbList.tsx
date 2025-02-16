@@ -3,9 +3,9 @@ import {cn} from "@/app/lib/utils.ts";
 
 const BreadcrumbList = React.forwardRef<
     HTMLOListElement,
-    React.ComponentPropsWithoutRef<"ol">
+    React.ComponentPropsWithoutRef<"ul">
 >(({ className, ...props }, ref) => (
-    <ol
+    <ul
         ref={ref}
         className={cn(
             "flex flex-wrap items-center gap-2 break-words text-grayscale-400 text-sm pt-4",

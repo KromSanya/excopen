@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-col text-center items-center gap-10 py-20 w-full
+}
+
+.heading {
+    @apply text-grayscale-500 font-bold text-4xl w-4/5
+}
+
+.list {
+    @apply flex flex-row justify-center flex-wrap gap-4 items-center lg:w-4/5 wide:w-full
+}

@@ -24,7 +24,7 @@ const DropdownMenuItem = React.forwardRef<
         <DropdownMenuPrimitive.Item
             ref={ref}
             className={cn(
-                "h-8 relative flex cursor-default items-center gap-2 px-2 outline-none transition-colors hover:text-grayscale-400",
+                "h-10 relative flex cursor-default items-center gap-2 px-2 outline-none transition-colors hover:text-grayscale-400",
                 className
             )}
             onClick={() => clickHandle(path)}

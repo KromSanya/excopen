@@ -2,8 +2,9 @@ import bg from "@/shared/assets/tempData/assets/cardBg.png";
 import bg2 from "@/shared/assets/tempData/assets/cardBg2.png";
 import bg3 from "@/shared/assets/tempData/assets/cardBg3.png";
 import bg4 from "@/shared/assets/tempData/assets/cardBg4.png";
+import {ILocation} from "@/shared/types";
 
-export const LocationsArrayForFeature = [
+export const LocationsArrayForFeature: ILocation[] = [
     {
         id: 0,
         country: "Россия",

@@ -1,11 +1,17 @@
-import {useMutation} from "@tanstack/react-query";
-import {ApiException, deleteEntity} from "@/shared/lib";
+import {apiClient, ApiException, isAxiosError} from "@/shared/lib";
 import {EndpointsType, ITour} from "@/shared/types";
 
-export const useDeleteTour = () => {
-    return useMutation<void, ApiException<ITour>, {id: number}>({
-        mutationFn: ({id}) => deleteEntity(EndpointsType.TOURS, id),
-        onSuccess: () => console.log('Tour deleted successfully'),
-        onError: (error) => console.error('Error deleting tour:', error)
-    })
+export const deleteTour = async (id: number): Promise<void> => {
+    try {
+        await apiClient.delete(EndpointsType.TOURS, { params: {id} })
+    } catch (e) {
+        if (isAxiosError(e)) {
+            throw new ApiException<ITour>(
+                e.message,
+                e.response?.status,
+                e.response?.data as ITour | undefined
+            )
+        }
+        throw e
+    }
 }

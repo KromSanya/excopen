@@ -23,7 +23,7 @@ export const TourObject: ITour = {
     contact: ContactsObject,
     duration: "2 часа",
     routeLength: 2,
-    rating: "8,1",
+    rating: 5.0,
     ratingCount: 10,
     description: DescriptionObject
 }

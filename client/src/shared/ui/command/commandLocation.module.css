@@ -1,0 +1,15 @@
+.iconContainer {
+    @apply flex items-center justify-center h-10 w-10 bg-gray-300 rounded-lg
+}
+
+.icon {
+    @apply w-6 h-6 text-grayscale-0
+}
+
+.location {
+    @apply flex flex-col
+}
+
+.region {
+    @apply text-sm text-grayscale-400
+}
