@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,10 +50,8 @@ public class TourServiceImpl implements ITourService {
         return tourRepository.findByLocationId(locationId);
     }
 
-//    @Override
-//    public List<Tour> findToursByTags(List<Long> tagIds) {
-//        return tourRepository.findByTags(tagIds, tagIds.size());
-//    }
+
+
 
     @Override
     public List<Tour> findToursByDuration(String duration) {

@@ -15,5 +15,6 @@ public interface ITourService {
     List<Tour> findToursByLocation(Long locationId);
     //List<Tour> findToursByTags(List<Long> tagIds);
     List<Tour> findToursByDuration(String duration);
+
 }
 

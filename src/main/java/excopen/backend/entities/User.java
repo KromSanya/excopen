@@ -10,6 +10,8 @@ import org.hibernate.type.SqlTypes;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import static excopen.backend.utills.Constants.tagCount;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -28,19 +30,19 @@ public class User implements Serializable {
     private LocalDateTime updatedAt;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    private int[] preferencesVector;
+    private float[] preferencesVector;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    private int[] secondVector;
+    private float[] secondVector;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
 
-        int vectorLength = Constants.Category.values().length;
-        this.preferencesVector = new int[vectorLength];
-        this.secondVector = new int[vectorLength];
+
+        this.preferencesVector = new float[tagCount];
+        this.secondVector = new float[tagCount];
     }
 
     @PreUpdate

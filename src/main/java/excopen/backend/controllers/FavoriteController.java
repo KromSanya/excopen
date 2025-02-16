@@ -1,9 +1,15 @@
 package excopen.backend.controllers;
 
 import excopen.backend.entities.Tour;
+import excopen.backend.entities.User;
 import excopen.backend.iservices.IFavoriteService;
+import excopen.backend.iservices.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -11,26 +17,38 @@ import java.util.List;
 public class FavoriteController {
 
     private final IFavoriteService favoriteService;
+    private final IUserService userService;
 
     @Autowired
-    public FavoriteController(IFavoriteService favoriteService) {
+    public FavoriteController(IFavoriteService favoriteService, IUserService userService) {
         this.favoriteService = favoriteService;
+        this.userService = userService;
     }
 
-    @PostMapping("/{userId}/{tourId}")
-    public void addTourToFavorites(@PathVariable Long userId, @PathVariable Long tourId) {
-        favoriteService.addTourToFavorites(userId, tourId);
+    @PostMapping("/{tourId}")
+    public void addTourToFavorites(@PathVariable Long tourId, @AuthenticationPrincipal OAuth2User principal) {
+        String googleId = principal.getAttribute("sub");
+        User user = userService.findByGoogleId(googleId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        favoriteService.addTourToFavorites(user.getId(), tourId);
     }
 
-    @DeleteMapping("/{userId}/{tourId}")
-    public void removeTourFromFavorites(@PathVariable Long userId, @PathVariable Long tourId) {
-        favoriteService.removeTourFromFavorites(userId, tourId);
+    @DeleteMapping("/{tourId}")
+    public void removeTourFromFavorites(@PathVariable Long tourId, @AuthenticationPrincipal OAuth2User principal) {
+        String googleId = principal.getAttribute("sub");
+        User user = userService.findByGoogleId(googleId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        favoriteService.removeTourFromFavorites(user.getId(), tourId);
     }
 
-    @GetMapping("/{userId}")
-    public List<Tour> getFavoriteToursByUser(@PathVariable Long userId) {
-        return favoriteService.getFavoriteToursByUser(userId);
+    @GetMapping
+    public List<Tour> getFavoriteToursByUser(@AuthenticationPrincipal OAuth2User principal) {
+        String googleId = principal.getAttribute("sub");
+        User user = userService.findByGoogleId(googleId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return favoriteService.getFavoriteToursByUser(user.getId());
     }
 }
-
-

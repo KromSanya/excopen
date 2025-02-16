@@ -46,12 +46,9 @@ public class TagServiceImpl implements ITagService {
         return tagRepository.findAll();
     }
 
-    @Override
-    public List<Tag> findTagsByVector(Vector vectorRepresentation) {
-        float[] vectorArray = new float[vectorRepresentation.size()];
-        for (int i = 0; i < vectorRepresentation.size(); i++) {
-            vectorArray[i] = ((Number) vectorRepresentation.get(i)).floatValue();
-        }
-        return tagRepository.findByVectorRepresentation(vectorArray, Constants.limit);
+
+
+    public long getTagCount() {
+        return (int) tagRepository.count();
     }
 }

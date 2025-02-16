@@ -80,6 +80,21 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
     public Optional<User> findByGoogleId(String googleId) {
         return userRepository.findByGoogleId(googleId);
     }
+
+    @Override
+    public User updatePreferencesVector(Long userId, float[] preferencesVector) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (preferencesVector.length != user.getPreferencesVector().length) {
+            throw new IllegalArgumentException("Vector length mismatch");
+        }
+
+        user.setPreferencesVector(preferencesVector);
+        return userRepository.save(user);
+    }
+
+
 }
 
 

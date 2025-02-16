@@ -15,9 +15,6 @@ public class BackApplication {
 	public static void main(String[] args) throws SQLException {
 
 		SpringApplication.run(BackApplication.class, args);
-
-		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ExcopenDB", "postgres", "1103");
-		PGvector.registerTypes(conn);
 	}
 
 }

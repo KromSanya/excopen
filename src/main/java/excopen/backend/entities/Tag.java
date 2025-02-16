@@ -16,8 +16,4 @@ public class Tag {
     private Long id;
 
     private String name;
-
-    @JdbcTypeCode(SqlTypes.VECTOR)
-    @Array(length = 3)
-    private float[] vectorRepresentation;
 }
