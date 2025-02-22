@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IUserService {
     User createUser(User user);
-    Optional<User> getUserById(Long userId);
-    Optional<User> findByGoogleId(String googleId);
+    User getUserById(Long userId);
+    User getUserByGoogleId(String googleId);
     List<User> getAllUsers();
     User updateUser(Long userId, User user);
     void deleteUser(Long userId);

@@ -28,8 +28,7 @@ public class UserAuthorizationGuard {
             throw new AccessDeniedException("Access denied: No authenticated user found");
         }
 
-        User currentUser = userService.findByGoogleId(principal.getAttribute("sub"))
-                .orElseThrow(() -> new IllegalArgumentException("Current user not found"));
+        User currentUser = userService.getUserByGoogleId(principal.getAttribute("sub"));
 
         if (!currentUser.getId().equals(userId)) {
             throw new AccessDeniedException("Access denied: You are not authorized to access this resource");

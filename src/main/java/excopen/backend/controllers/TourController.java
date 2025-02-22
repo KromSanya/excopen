@@ -15,13 +15,11 @@ import excopen.backend.security.RequiresOwnership;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/tours")
@@ -54,9 +52,7 @@ public class TourController {
             throw new IllegalStateException("Пользователь не аутентифицирован");
         }
         String googleId = jwt.getClaim("sub");
-
-        User creator = userService.findByGoogleId(googleId)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+        User creator = userService.getUserByGoogleId(googleId);
 
         Tour newTour = tourMapper.toEntity(request);
         tourService.createTour(newTour, creator.getId());

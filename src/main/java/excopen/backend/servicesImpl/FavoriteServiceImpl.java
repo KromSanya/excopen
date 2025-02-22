@@ -27,9 +27,8 @@ public class FavoriteServiceImpl implements IFavoriteService {
 
     @Override
     public void addTourToFavorites(Long userId, Long tourId) {
-        userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        tourRepository.findById(tourId).orElseThrow(() -> new IllegalArgumentException("Tour not found"));
-
+        userRepository.findById(userId);
+        tourRepository.findById(tourId);
 
         if (favoriteRepository.existsByUserIdAndTourId(userId, tourId)) {
             throw new IllegalArgumentException("This tour is already in the user's favorites.");
@@ -43,17 +42,14 @@ public class FavoriteServiceImpl implements IFavoriteService {
 
     @Override
     public void removeTourFromFavorites(Long userId, Long tourId) {
-        // Проверяем, существует ли запись в избранном
         Favorite favorite = favoriteRepository.findByUserIdAndTourId(userId, tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Favorite tour not found for this user."));
-
         favoriteRepository.delete(favorite);
     }
 
     @Override
     public List<Tour> getFavoriteToursByUser(Long userId) {
-        // Получаем все ID туров из избранного пользователя
         List<Long> tourIds = favoriteRepository.findTourIdsByUserId(userId);
-        return tourRepository.findAllById(tourIds); // Ищем все туры по этим ID
+        return tourRepository.findAllById(tourIds);
     }
 }

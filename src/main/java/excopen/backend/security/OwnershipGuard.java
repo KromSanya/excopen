@@ -45,10 +45,8 @@ public class OwnershipGuard {
             throw new AccessDeniedException("Invalid request parameters");
         }
 
-        // Получаем пользователя
         String googleId = principal.getAttribute("sub");
-        User currentUser = userService.findByGoogleId(googleId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User currentUser = userService.getUserByGoogleId(googleId);
 
         Long userId = currentUser.getId();
         Class<?> entityClass = requiresOwnership.entityClass();
@@ -73,8 +71,7 @@ public class OwnershipGuard {
     }
 
     private void checkReviewOwnership(Long reviewId, Long userId) {
-        Review review = reviewService.getReviewById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+        Review review = reviewService.getReviewById(reviewId);
         if (!review.getUserId().equals(userId)) {
             throw new AccessDeniedException("You are not the owner of this review");
         }
