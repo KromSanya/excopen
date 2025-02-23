@@ -18,5 +18,6 @@ public interface ITourService {
     List<Tour> findToursByLocation(Long locationId);
     List<Tour> findToursByDuration(String duration);
     public List<Tour> getRecommendedTours(Long userId);
+    List<Tour> getSimilarTours(Long tourId);
 }
 

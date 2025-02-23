@@ -27,8 +27,9 @@ public class ReviewServiceImpl implements IReviewService {
     }
 
     @Override
-    public Optional<Review> getReviewById(Long reviewId) {
-        return reviewRepository.findById(reviewId);
+    public Review getReviewById(Long reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
     }
 
     @Override

@@ -119,4 +119,10 @@ public class TourController {
         List<Tour> recommendedTours = tourService.getRecommendedTours(userId);
         return tourMapper.toResponseDTOList(recommendedTours, descriptionService);
     }
+
+    @GetMapping("/{tourId}/similar")
+    public List<TourResponseDTO> getSimilarTours(@PathVariable Long tourId) {
+        List<Tour> similarTours = tourService.getSimilarTours(tourId);
+        return tourMapper.toResponseDTOList(similarTours, descriptionService);
+    }
 }

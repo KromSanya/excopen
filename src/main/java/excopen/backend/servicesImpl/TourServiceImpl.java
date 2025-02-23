@@ -76,6 +76,13 @@ public class TourServiceImpl implements ITourService {
         return tourRepository.findRecommendedTours(preferencesVector);
     }
 
+    @Override
+    public List<Tour> getSimilarTours(Long tourId) {
+        Tour baseTour = this.getTourById(tourId);
+        String vectorString = convertArrayToVectorString(baseTour.getVectorRepresentation());
+        return tourRepository.findSimilarTours(tourId, vectorString);
+    }
+
     private String convertArrayToVectorString(int[] array) {
         return "[" + Arrays.stream(array)
                 .mapToObj(String::valueOf)
