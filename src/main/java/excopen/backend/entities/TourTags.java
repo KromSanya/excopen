@@ -13,11 +13,9 @@ public class TourTags {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Assumes auto-increment primary key
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "tour_id", nullable = false)
-    private Tour tour;
+    private Long tourId;
 
-    @ManyToOne
     @JoinColumn(name = "tag_id", nullable = false)
-    private Tag tag;
+    private Long tagId;
 }

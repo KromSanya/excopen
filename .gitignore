@@ -28,6 +28,7 @@ out/
 
 
 .env
+.idea/workspace.xml
 
 
 ### NetBeans ###

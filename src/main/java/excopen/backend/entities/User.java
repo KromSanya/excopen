@@ -2,12 +2,13 @@ package excopen.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Array;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import static excopen.backend.utils.Constants.tagCount;
 
 @Data
 @Entity
@@ -17,27 +18,29 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String googleId;
 
     private String name;
     private String surname;
-    private String patronymic;
     private String email;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    @Array(length = 3)
-    private float[] preferencesVector;
+    private int[] preferencesVector;
 
     @JdbcTypeCode(SqlTypes.VECTOR)
-    @Array(length = 3)
-    private float[] secondVector;
+    private int[] secondVector;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+
+
+        this.preferencesVector = new int[tagCount];
+        this.secondVector = new int[tagCount];
     }
 
     @PreUpdate

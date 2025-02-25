@@ -27,11 +27,11 @@ public class TourImageServiceImpl implements ITourImageService {
     @Override
     public TourImage addTourImage(Long tourId, String imageUrl) {
         // Проверка на наличие тура
-        Tour tour = tourRepository.findById(tourId)
+        tourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour with ID " + tourId + " not found."));
 
         TourImage tourImage = new TourImage();
-        tourImage.setTour(tour);
+        tourImage.setTourId(tourId);
         tourImage.setImageUrl(imageUrl);
         return tourImageRepository.save(tourImage);
     }

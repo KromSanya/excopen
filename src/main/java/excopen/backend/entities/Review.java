@@ -15,13 +15,12 @@ public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "tour_id")
-    private Tour tour;
+    private Long tourId;
 
-    @ManyToOne
+
     @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
     private Integer rating;
 

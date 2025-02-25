@@ -13,5 +13,6 @@ public interface ITagService {
     Tag updateTag(Tag tag);
     void deleteTag(Long tagId);
     List<Tag> getAllTags();
-    List<Tag> findTagsByVector(Vector vectorRepresentation);
+ //   List<Tag> findTagsByVector(Vector vectorRepresentation);
+    public long getTagCount();
 }

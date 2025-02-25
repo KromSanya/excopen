@@ -2,7 +2,6 @@ package excopen.backend.servicesImpl;
 
 import excopen.backend.entities.Favorite;
 import excopen.backend.entities.Tour;
-import excopen.backend.entities.User;
 import excopen.backend.iservices.IFavoriteService;
 import excopen.backend.repositories.FavoriteRepository;
 import excopen.backend.repositories.TourRepository;
@@ -28,18 +27,17 @@ public class FavoriteServiceImpl implements IFavoriteService {
 
     @Override
     public void addTourToFavorites(Long userId, Long tourId) {
-        // Проверяем, существует ли пользователь и тур
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new IllegalArgumentException("Tour not found"));
+        userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        tourRepository.findById(tourId).orElseThrow(() -> new IllegalArgumentException("Tour not found"));
 
-        // Проверяем, нет ли уже этого тура в избранном
-        if (favoriteRepository.existsByUserAndTour(user, tour)) {
+
+        if (favoriteRepository.existsByUserIdAndTourId(userId, tourId)) {
             throw new IllegalArgumentException("This tour is already in the user's favorites.");
         }
 
         Favorite favorite = new Favorite();
-        favorite.setUser(user); // Устанавливаем объект User
-        favorite.setTour(tour); // Устанавливаем объект Tour
+        favorite.setUserId(userId);
+        favorite.setTourId(tourId);
         favoriteRepository.save(favorite);
     }
 
