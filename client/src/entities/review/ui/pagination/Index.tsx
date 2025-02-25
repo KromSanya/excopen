@@ -1,5 +1,5 @@
 import {IReview} from "@/shared/types";
-import {FC} from "react";
+import React, {FC} from "react";
 import {Button} from "@/shared/ui";
 
 type PaginationProps = {

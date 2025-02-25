@@ -16,6 +16,7 @@ export const Index: FC<StarsProps> = ({rating, setRating}) => {
             {
                 [1, 2, 3, 4, 5].map(index =>
                     <Star
+                        key={index}
                         width={24}
                         height={24}
                         className={cn(

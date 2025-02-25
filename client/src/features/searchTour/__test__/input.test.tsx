@@ -4,6 +4,7 @@ import {BrowserRouter} from "react-router-dom";
 import {SearchContext} from "@/features/searchTour/model/context/context.ts";
 import {Input} from "@/features/searchTour/ui/form/input"
 import {TourAccessibility} from "@/shared/types";
+import {SearchContextType} from "@/features/searchTour/model/context/types.ts";
 
 describe("Form input", () => {
 
@@ -11,14 +12,16 @@ describe("Form input", () => {
         useOnClickOutside: vi.fn()
     }))
 
-    const mockSearchParams = {
-        searchParams: {
-            location: "",
-            date: { from: undefined, to: undefined },
-            accessibility: TourAccessibility.WITHOUT_CHILDREN,
-            byCity: false
+    const mockSearchParams: SearchContextType = {
+        context: {
+            searchParams: {
+                location: "",
+                date: { from: undefined, to: undefined },
+                accessibility: TourAccessibility.WITHOUT_CHILDREN,
+                byCity: false
+            },
+            isSearch: false
         },
-        isSearch: false,
         setLocation: vi.fn(),
         setAccessibility: vi.fn(),
         setByCity: vi.fn(),
@@ -98,11 +101,7 @@ describe("Form input", () => {
             </BrowserRouter>
         )
 
-        fireEvent.change(screen.getByRole("combobox"), {
-            target: {
-                value: "абв"
-            }
-        })
+        fireEvent.change(screen.getByRole("combobox"), { target: { value: "абв" } } )
 
         expect(mockSearchParams.setLocation).toHaveBeenCalledWith("абв")
         expect(screen.getByRole("combobox")).toHaveAttribute("data-is-corrected", "false")

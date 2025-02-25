@@ -1,8 +1,9 @@
 import {Button, ReviewInput} from "@/shared/ui";
-import {useEffect, useState} from "react";
-import {Stars} from "./stars";
+import {FC, useEffect, useState} from "react";
+import {Stars} from "./components";
+import style from "./style.module.css"
 
-export const Index = () => {
+export const Index: FC = () => {
 
     const [positive, setPositive] = useState<string>("")
     const [negative, setNegative] = useState<string>("")
@@ -21,14 +22,14 @@ export const Index = () => {
     }
 
     return (
-        <div className={"flex flex-col p-4 gap-4 rounded-2xl bg-grayscale-0 w-full"}>
-            <div className={"flex flex-col md:flex-row justify-between"}>
-                <span className={"text-xl text-grayscale-500 font-medium"}>
+        <div className={style.container}>
+            <div className={style.header}>
+                <span className={style.heading}>
                     Расскажите о ваших впечатлениях
                 </span>
                 <Stars rating={rating} setRating={setRating}/>
             </div>
-            <div className={"flex flex-col gap-2"}>
+            <div className={style.reviews}>
                 <ReviewInput
                     className={"bg-grayscale-200"}
                     onChangeHandler={setPositive}
@@ -40,7 +41,7 @@ export const Index = () => {
                     placeholder={"Что не понравилось"}
                 />
             </div>
-            <div className={"flex justify-end"}>
+            <div className={style.button}>
                 <Button disabled={!completed} onClick={saveReview}>
                     Добавить
                 </Button>

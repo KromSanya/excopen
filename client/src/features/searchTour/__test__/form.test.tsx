@@ -5,6 +5,7 @@ import { useWindowSize } from "usehooks-ts";
 import { Form } from "@/features";
 import { BrowserRouter } from "react-router-dom";
 import { SearchContext } from "@/features/searchTour/model/context/context.ts";
+import {SearchContextType} from "@/features/searchTour/model/context/types.ts";
 
 describe("Form", () => {
 
@@ -13,14 +14,16 @@ describe("Form", () => {
         useOnClickOutside: vi.fn()
     }))
 
-    const mockSearchParams = {
-        searchParams: {
-            location: "Омск",
-            date: { from: undefined, to: undefined },
-            accessibility: TourAccessibility.WITHOUT_CHILDREN,
-            byCity: false
+    const mockSearchParams: SearchContextType = {
+        context: {
+            searchParams: {
+                location: "Омск",
+                date: { from: undefined, to: undefined },
+                accessibility: TourAccessibility.WITHOUT_CHILDREN,
+                byCity: false
+            },
+            isSearch: false
         },
-        isSearch: false,
         setLocation: vi.fn(),
         setAccessibility: vi.fn(),
         setByCity: vi.fn(),

@@ -19,8 +19,8 @@ export const Index: FC<CarouselProps> = ({variant = CarouselVariant.LARGE, image
         <CarouselContainer>
             <Carousel>
                 <CarouselContent>
-                    {images.map(image => (
-                        <CarouselItem key={image} className={
+                    {images.map((image, i) => (
+                        <CarouselItem key={i} className={
                             variant === CarouselVariant.SMALL ? "basis-1/3 xl:basis-1/4" : "basis-1/3"
                         }>
                             <Card

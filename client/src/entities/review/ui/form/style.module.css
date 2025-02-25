@@ -1,0 +1,19 @@
+.container {
+    @apply flex flex-col p-4 gap-4 rounded-2xl bg-grayscale-0 w-full
+}
+
+.header {
+    @apply flex flex-col md:flex-row justify-between
+}
+
+.heading {
+    @apply text-xl text-grayscale-500 font-medium
+}
+
+.reviews {
+    @apply flex flex-col gap-2
+}
+
+.button {
+    @apply flex justify-end
+}

@@ -25,5 +25,6 @@ export const TourObject: ITour = {
     routeLength: 2,
     rating: 5.0,
     ratingCount: 10,
-    description: DescriptionObject
+    description: DescriptionObject,
+    reviews: []
 }

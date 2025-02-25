@@ -33,7 +33,7 @@ export const Index: FC<ReviewListProps> = ({reviews, rating, ratingCount}) => {
                         personCount={review.personCount}
                     />
                 )}
-                <Pagination
+                <Pagination                
                     visibleReviews={visibleReviews}
                     setVisibleReviews={setVisibleReviews}
                     reviews={reviews}

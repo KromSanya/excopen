@@ -1,8 +1,8 @@
 import { FC } from "react";
 import {cn} from "@/app/lib/utils.ts";
-import container from "./container.module.css"
-import content from "./content.module.css"
-import gradient from "./gradient.module.css"
+import container from "./style/container.module.css"
+import content from "./style/content.module.css"
+import gradient from "./style/gradient.module.css"
 
 type LocationCardProps = {
     country: string;
@@ -14,6 +14,7 @@ type LocationCardProps = {
 export const Index: FC<LocationCardProps> = ({ country, city, tourCount, image }) => {
     return (
         <div
+            role={"locationCardBackground"}
             className={cn(container.layout, container.sizes, container.bg, container.transitions, "group")}
             style={{ backgroundImage: `url(${image})` }}
         >

@@ -8,7 +8,7 @@ export const CommandInput = React.forwardRef<
     ElementRef<'div'>,
     ComponentPropsWithoutRef<typeof CommandPrimitive.Input> & {
     label: string;
-    isSearch: boolean;
+    isSearch?: boolean;
     field: {
         isOpen: boolean;
         isTouched: boolean;

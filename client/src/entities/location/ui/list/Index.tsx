@@ -8,11 +8,11 @@ import {LocationCard} from "@/entities";
 
 export const Index: FC = () => {
 
-    const location = useLocation();
+    const location = useLocation()
 
     return (
         <section className={style.container}>
-            <h2 className={style.heading}>
+            <h2 role={"heading"} className={style.heading}>
                 Самые популярные направления
             </h2>
             <div className={style.list}>
@@ -28,7 +28,7 @@ export const Index: FC = () => {
             </div>
             {location.pathname !== `/${RouteNames.LOCATIONS}` && (
                 <Link to={`/${RouteNames.LOCATIONS}`}>
-                    <Button variant={"outline"} size={"lg"}>
+                    <Button role={"button"} variant={"outline"} size={"lg"}>
                         перейти к списку городов
                     </Button>
                 </Link>

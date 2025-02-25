@@ -27,9 +27,9 @@ export const Index: FC<ToFavProps> = ({ tour }) => {
     return (
         <button onClick={clickHandler}>
             {isActive ? (
-                <img alt="favourite" src={favourite} />
+                <img data-testid={"fav-icon"} alt={"favourite"} src={favourite} />
             ) : (
-                <Heart className={style.heart} />
+                <Heart data-testid={"heart-icon"} className={style.heart} />
             )}
         </button>
     );

@@ -1,6 +1,6 @@
 import {FC} from "react";
 import style from "./style.module.css"
-import {Rating} from "@/shared/ui";
+import {Rating} from "@/shared/ui"
 
 type ReviewHeaderProps = {
     rating: number

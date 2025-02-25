@@ -77,6 +77,7 @@ export const Index: FC = () => {
                 onChangeCapture={clickInputHandler}
                 onFocus={focusHandler}
                 onBlur={blurHandler}
+                data-is-corrected={field.isCorrectedField}
             />
             <CommandContainer isOpen={field.isOpen}>
                 <CommandList>

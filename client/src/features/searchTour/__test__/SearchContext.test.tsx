@@ -4,10 +4,11 @@ import {SearchProvider} from "@/features";
 import { SearchContext } from "../model/context/context";
 import {TourAccessibility} from "@/shared/types";
 import {userEvent} from "@testing-library/user-event";
+import {ReactElement} from "react";
 
 describe("SearchContext", () => {
 
-    function setup(jsx: any) {
+    function setup(jsx: ReactElement) {
         return {
             user: userEvent.setup(),
             ...render(jsx),
@@ -25,11 +26,11 @@ describe("SearchContext", () => {
         render(
             <SearchProvider>
                 <SearchContext.Consumer>
-                    {({ searchParams }) => (
+                    {({ context }) => (
                         <div>
-                            <span data-testid="location">{searchParams.location}</span>
-                            <span data-testid="accessibility">{searchParams.accessibility}</span>
-                            <span data-testid="byCity">{searchParams.byCity ? 'true' : 'false'}</span>
+                            <span data-testid="location">{context.searchParams.location}</span>
+                            <span data-testid="accessibility">{context.searchParams.accessibility}</span>
+                            <span data-testid="byCity">{context.searchParams.byCity ? 'true' : 'false'}</span>
                         </div>
                     )}
                 </SearchContext.Consumer>
@@ -47,10 +48,10 @@ describe("SearchContext", () => {
         const {user} = setup(
             <SearchProvider>
                 <SearchContext.Consumer>
-                    {({ searchParams, setLocation }) => (
+                    {({ context, setLocation }) => (
                         <div>
                             <button onClick={() => setLocation("Омск")}>Set Location</button>
-                            <span data-testid="location">{searchParams.location}</span>
+                            <span data-testid="location">{context.searchParams.location}</span>
                         </div>
                     )}
                 </SearchContext.Consumer>
@@ -67,10 +68,10 @@ describe("SearchContext", () => {
         const {user} = setup(
             <SearchProvider>
                 <SearchContext.Consumer>
-                    {({ searchParams, setAccessibility }) => (
+                    {({ context, setAccessibility }) => (
                         <div>
                             <button onClick={() => setAccessibility(TourAccessibility.WITH_CHILDREN)}>Set accessibility</button>
-                            <span data-testid="accessibility">{searchParams.accessibility}</span>
+                            <span data-testid="accessibility">{context.searchParams.accessibility}</span>
                         </div>
                     )}
                 </SearchContext.Consumer>
