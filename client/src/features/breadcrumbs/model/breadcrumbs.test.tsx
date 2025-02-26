@@ -70,6 +70,7 @@ describe("breadcrumbs", () => {
             { path: `/${RouteNames.MAIN}`, label: "Экскурсии" },
             { path: `/${RouteNames.TOUR}/example-tour`, label: "example-tour" },
         ])
+
     })
 
     it("Проверка корректности марщрута при обновлении страницы", () => {

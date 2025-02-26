@@ -21,7 +21,7 @@ export const Index: FC<SelectProps> = ({sortValue, setSortValue}) => {
 
     return (
         <Select value={value} onValueChange={setValue}>
-            <SelectSortTrigger value={label} placeholder={defaultValue.label}/>
+            <SelectSortTrigger role={"button"} value={label} placeholder={defaultValue.label}/>
             <SelectContent side={"bottom"}>
                 {sortTypesArray.map((tour) =>
                     <SelectItem key={tour.value} value={String(tour.value)}>
