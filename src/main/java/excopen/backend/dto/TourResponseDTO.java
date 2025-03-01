@@ -17,6 +17,7 @@ public class TourResponseDTO {
     private BigDecimal routeLength;
     private Integer minAge;
     private Integer maxCapacity;
+    private BigDecimal rating;
     private Long creatorId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
