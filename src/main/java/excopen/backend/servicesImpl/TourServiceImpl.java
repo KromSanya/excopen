@@ -1,15 +1,17 @@
 package excopen.backend.servicesImpl;
 
+import excopen.backend.dto.FilterToursDTO;
 import excopen.backend.entities.Tour;
 import excopen.backend.iservices.ITourService;
-import excopen.backend.mapper.TourMapper;
 import excopen.backend.repositories.TourRepository;
+import excopen.backend.specifications.TourSpecifications;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,7 +67,7 @@ public class TourServiceImpl implements ITourService {
     }
 
     @Override
-    public List<Tour> findToursByDuration(String duration) {
+    public List<Tour> findToursByDuration(BigDecimal duration) {
         return tourRepository.findByDuration(duration);
     }
 
@@ -81,6 +83,12 @@ public class TourServiceImpl implements ITourService {
         Tour baseTour = this.getTourById(tourId);
         String vectorString = convertArrayToVectorString(baseTour.getVectorRepresentation());
         return tourRepository.findSimilarTours(tourId, vectorString);
+    }
+
+    @Override
+    public List<Tour> filterTours(FilterToursDTO filter) {
+        Specification<Tour> spec = TourSpecifications.buildFilterSpec(filter);
+        return tourRepository.findAll(spec);
     }
 
     private String convertArrayToVectorString(int[] array) {

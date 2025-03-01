@@ -2,16 +2,18 @@ package excopen.backend.repositories;
 
 import excopen.backend.entities.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-public interface TourRepository extends JpaRepository<Tour, Long> {
+public interface TourRepository extends JpaRepository<Tour, Long>, JpaSpecificationExecutor<Tour> {
 
     List<Tour> findByLocationId(Long locationId);
 
-    List<Tour> findByDuration(String duration);
+    List<Tour> findByDuration(BigDecimal duration);
 
     @Query(value = "SELECT * FROM tours ORDER BY vector_representation <=> CAST(:preferencesVector AS vector) LIMIT 10", nativeQuery = true)
     List<Tour> findRecommendedTours(@Param("preferencesVector") String preferencesVector);

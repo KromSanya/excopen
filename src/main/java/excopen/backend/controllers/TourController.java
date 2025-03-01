@@ -1,5 +1,6 @@
 package excopen.backend.controllers;
 
+import excopen.backend.dto.FilterToursDTO;
 import excopen.backend.dto.TourCreateDTO;
 import excopen.backend.dto.TourResponseDTO;
 import excopen.backend.dto.TourUpdateDTO;
@@ -17,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -61,6 +64,13 @@ public class TourController {
         descriptionService.createDescription(description, newTour.getId());
 
         return tourMapper.toResponseDTO(newTour, description);
+    }
+
+    @PostMapping("/search")
+    public List<TourResponseDTO> searchTours(@Validated @RequestBody FilterToursDTO filter) {
+        List<Tour> tours = tourService.filterTours(filter);
+        List<TourResponseDTO> response = tourMapper.toResponseDTOList(tours, descriptionService);
+        return response;
     }
 
     @RequiresOwnership(entityClass = Tour.class)
@@ -109,7 +119,7 @@ public class TourController {
     }
 
     @GetMapping("/duration/{duration}")
-    public List<TourResponseDTO> findToursByDuration(@PathVariable String duration) {
+    public List<TourResponseDTO> findToursByDuration(@PathVariable BigDecimal duration) {
         List<Tour> tours = tourService.findToursByDuration(duration);
         return tourMapper.toResponseDTOList(tours, descriptionService);
     }
