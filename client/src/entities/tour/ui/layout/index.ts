@@ -1,0 +1,1 @@
+export {Index as TourLayout} from "./Index.tsx"

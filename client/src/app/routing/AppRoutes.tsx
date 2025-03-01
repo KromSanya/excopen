@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {RouteNames, UserRole} from "@/shared/types";
 import {RequireAuth} from "./RequireAuth.tsx";
 import {
@@ -40,6 +40,7 @@ export const AppRoutes: FC = () => {
                         </RequireAuth>
                     }
                 />
+                <Route path="*" element={<Navigate to={RouteNames.MAIN} replace />} />
             </Route>
         </Routes>
     );

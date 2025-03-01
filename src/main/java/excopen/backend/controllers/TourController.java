@@ -1,5 +1,6 @@
 package excopen.backend.controllers;
 
+
 import excopen.backend.dto.TourCreateDTO;
 import excopen.backend.dto.TourResponseDTO;
 import excopen.backend.dto.TourUpdateDTO;
@@ -119,4 +120,20 @@ public class TourController {
         List<Tour> recommendedTours = tourService.getRecommendedTours(userId);
         return tourMapper.toResponseDTOList(recommendedTours, descriptionService);
     }
+
+    @GetMapping("/location/{locationId}")
+    public List<Tour> findToursByLocation(@PathVariable Long locationId) {
+        return tourService.findToursByLocation(locationId);
+    }
+
+    @GetMapping("/duration/{duration}")
+    public List<Tour> findToursByDuration(@PathVariable String duration) {
+        return tourService.findToursByDuration(duration);
+    }
+
+    @GetMapping("/recommendations/{userId}")
+    public List<TourDTO> getRecommendedTours(@PathVariable Long userId) {
+        return tourService.getRecommendedTours(userId);
+    }
+
 }

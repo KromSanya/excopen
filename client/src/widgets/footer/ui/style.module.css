@@ -1,5 +1,5 @@
 .container {
-    @apply w-full flex flex-col py-4
+    @apply w-full flex flex-col py-4 huge:px-96 huge:h-[500px]
 }
 
 .info {

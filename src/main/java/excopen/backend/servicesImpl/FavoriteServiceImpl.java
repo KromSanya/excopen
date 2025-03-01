@@ -29,7 +29,6 @@ public class FavoriteServiceImpl implements IFavoriteService {
     public void addTourToFavorites(Long userId, Long tourId) {
         userRepository.findById(userId);
         tourRepository.findById(tourId);
-
         if (favoriteRepository.existsByUserIdAndTourId(userId, tourId)) {
             throw new IllegalArgumentException("This tour is already in the user's favorites.");
         }

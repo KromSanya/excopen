@@ -9,6 +9,7 @@ public interface IUserService {
     User createUser(User user);
     User getUserById(Long userId);
     User getUserByGoogleId(String googleId);
+
     List<User> getAllUsers();
     User updateUser(Long userId, User user);
     void deleteUser(Long userId);

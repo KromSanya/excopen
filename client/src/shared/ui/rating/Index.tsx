@@ -4,7 +4,7 @@ import {RatingDescription} from "@/shared/ui/rating/RatingDescription.tsx";
 import {FC} from "react";
 
 type RatingProps = {
-    rating: string
+    rating: number
     ratingCount: number
 }
 

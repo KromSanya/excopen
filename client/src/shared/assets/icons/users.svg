@@ -5,20 +5,20 @@
     <path d="M8 3.13C7.13959 3.35031 6.37696 3.85071 5.83236 4.55232C5.28776 5.25392 4.99216 6.11683 4.99216 7.005C4.99216 7.89318 5.28776 8.75608 5.83236 9.45769C6.37696 10.1593 7.13959 10.6597 8 10.88" stroke="url(#paint3_linear_440_153)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <defs>
         <linearGradient id="paint0_linear_440_153" x1="15" y1="15" x2="15" y2="21" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CACACA"/>
-            <stop offset="1" stop-color="#BEBEBE"/>
+            <stop stop-color="#707071"/>
+            <stop offset="1" stop-color="#707071"/>
         </linearGradient>
         <linearGradient id="paint1_linear_440_153" x1="15" y1="3" x2="15" y2="11" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CACACA"/>
-            <stop offset="1" stop-color="#BEBEBE"/>
+            <stop stop-color="#707071"/>
+            <stop offset="1" stop-color="#707071"/>
         </linearGradient>
         <linearGradient id="paint2_linear_440_153" x1="3.5" y1="15.13" x2="3.5" y2="21" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CACACA"/>
-            <stop offset="1" stop-color="#BEBEBE"/>
+            <stop stop-color="#707071"/>
+            <stop offset="1" stop-color="#707071"/>
         </linearGradient>
         <linearGradient id="paint3_linear_440_153" x1="6.49608" y1="3.13" x2="6.49608" y2="10.88" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CACACA"/>
-            <stop offset="1" stop-color="#BEBEBE"/>
+            <stop stop-color="#707071"/>
+            <stop offset="1" stop-color="#707071"/>
         </linearGradient>
     </defs>
 </svg>

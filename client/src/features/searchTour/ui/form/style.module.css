@@ -1,0 +1,27 @@
+.container {
+    @apply flex flex-col gap-4 relative rounded-2xl bg-grayscale-0 w-full
+}
+
+.containerHorMode {
+    @apply py-4 px-6
+}
+
+.containerVerMode {
+    @apply w-[340px] py-8 px-4 max-lg:hidden
+}
+
+.header {
+    @apply flex justify-between gap-4
+}
+
+.headerHorMode {
+    @apply flex-col wide:flex-row flex-wrap gap-2 w-full
+}
+
+.headerVerMode {
+    @apply flex-col w-full
+}
+
+.heading {
+    @apply w-full px-4 font-medium text-xl text-grayscale-500
+}

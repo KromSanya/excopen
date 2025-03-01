@@ -9,6 +9,9 @@ export default {
 		fontFamily: {
 			sans: ['Tinkoff Sans', 'sans-serif']
 		},
+		zIndex: {
+			60: '60',
+		},
 		backgroundImage: {
 			'red-gr': 'linear-gradient(135deg, #FF837E 0%, #FFA9A6 100%)',
 			'green-gr': 'linear-gradient(135deg, #76B279 0%, #A7CDA9 100%)',
@@ -40,7 +43,8 @@ export default {
 			}
   		},
 		screens: {
-			  wide: "1440px"
+			wide: "1440px",
+			huge: "1600px"
 		}
   	}
   },

@@ -12,7 +12,7 @@ export const useOrientation = (value: Orientation): Orientation => {
         const updateOrientation = () => {
             if (value === Orientation.VERTICAL) setOrientation(value)
             else {
-                if (width < 1200) setOrientation(Orientation.VERTICAL)
+                if (width < 500) setOrientation(Orientation.VERTICAL)
                 else setOrientation(Orientation.HORIZONTAL)
             }
         }

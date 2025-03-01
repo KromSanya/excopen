@@ -1,3 +1,3 @@
-export {useGetFavourites} from "./get.ts"
-export {usePostFavourite} from "./post.ts"
-export {useDeleteFavourite} from "./delete.ts"
+export {getFav} from "./getFav.ts"
+export {deleteFromFav} from "./deleteFromFav.ts"
+export {addToFav} from "./addToFav.ts"

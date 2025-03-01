@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Input} from "@/shared/ui";
+import {SearchInput} from "@/shared/ui";
 import style from "./style.module.css"
 
 type IndexProps = {
@@ -10,9 +10,10 @@ export const Index: FC<IndexProps> = ({onChangeHandler}) => {
 
     return (
         <div className={style.container}>
-            <Input
+            <SearchInput
+                className={"max-md:w-full"}
                 onChangeHandler={onChangeHandler}
-                placeholder={"Искать"}
+                placeholder={"Искать по городу"}
             />
             <div className={style.subContainer}>
                 <span>

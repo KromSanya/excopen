@@ -1,3 +1,7 @@
+.header {
+    @apply flex justify-center bg-grayscale-0 px-4 md:px-32 wide:px-52
+}
+
 .container {
-    @apply flex justify-between padding w-full h-14 items-center bg-grayscale-0
+    @apply flex flex-row w-full justify-between huge:w-[1440px] h-14 items-center
 }

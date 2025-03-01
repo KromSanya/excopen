@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/app/lib/utils.ts"
 
 const CalendarButtonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+  "inline-flex items-center justify-center hover:rounded-md text-sm font-medium transition-colors",
   {
     variants: {
       variant: {
