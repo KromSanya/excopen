@@ -14,7 +14,7 @@ export const Index: FC = () => {
                 <DrawerContent>
                     <DrawerHeader>
                         <DrawerClose className={"flex justify-center w-full"}>
-                            <div className="w-16 h-1.5 bg-gray-300 rounded-full mx-auto cursor-pointer"></div>
+                            <div className={"w-16 h-1.5 bg-gray-300 rounded-full mx-auto cursor-pointer"}></div>
                         </DrawerClose>
                     </DrawerHeader>
                     <DrawerFooter>

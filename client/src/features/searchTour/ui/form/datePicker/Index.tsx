@@ -18,17 +18,17 @@ export const Index: FC = () => {
 
     const selectRangeHandler = (selectedRange: RangeType | undefined) => {
         if (selectedRange) setRange(selectedRange)
-        if (selectedRange && selectedRange.to) setIsPopoverOpen(false);
-    };
+        if (selectedRange && selectedRange.to) setIsPopoverOpen(false)
+    }
 
     const clearValue = () => {
         setRange({ from: undefined, to: undefined });
-    };
+    }
 
     const clickHandler = () => {
-        setIsTouched(true);
-        setIsPopoverOpen(true);
-    };
+        setIsTouched(true)
+        setIsPopoverOpen(true)
+    }
 
     return (
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>

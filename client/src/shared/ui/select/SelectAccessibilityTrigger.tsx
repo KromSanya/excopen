@@ -10,6 +10,7 @@ export const SelectAccessibilityTrigger = React.forwardRef<
         icon: string;
         placeholder: string;
         isSearch: boolean;
+        isTouched?: boolean;
     }
 >((
     {
@@ -17,6 +18,7 @@ export const SelectAccessibilityTrigger = React.forwardRef<
         placeholder,
         icon,
         isSearch,
+        isTouched,
         value,
         ...props
     },
@@ -24,26 +26,23 @@ export const SelectAccessibilityTrigger = React.forwardRef<
 ) => {
 
     const containerStyles: string = [
-        "flex flex-col relative rounded-xl",
-        !value && isSearch && "border border-secondary-red"
+        "flex flex-col relative rounded-xl overflow-hidden"
     ].join(" ")
-
     const iconStyles: string = "h-5 w-5 mr-3"
-
     const placeholderStyles: string = [
-        "absolute left-14 transition-all duration-300",
+        "absolute left-12 transition-all duration-300",
         "text-base text-grayscale-400 cursor-pointer",
         value ? "top-2" : "top-4"
     ].join(" ")
-
     const triggerStyles: string = [
         "flex items-center data-[state=open]:bg-grayscale-0",
         "transition-all duration-300 rounded-xl outline-none",
         "data-[state=open]:border data-[state=open]:border-grayscale-400",
-        "justify-start h-14 w-full wide:w-72 px-6 py-4 text-base transition-all duration-300",
+        "justify-start h-14 w-full wide:w-72 px-4 py-4 text-base transition-all duration-300",
         !value && isSearch
-            ? "bg-red-100 data-[state=open]:border-secondary-red"
-            : "bg-grayscale-200 hover:bg-grayscale-300"
+            ? "bg-red-100 border data-[state=open]:border-secondary-red border-secondary-red"
+            : "bg-grayscale-200 hover:bg-grayscale-300",
+        isTouched && !value && "bg-red-100 border border-secondary-red data-[state=open]:border-secondary-red"
     ].join(" ")
 
     return (
@@ -57,12 +56,12 @@ export const SelectAccessibilityTrigger = React.forwardRef<
                 <img alt={"icon"} src={icon} className={iconStyles}/>
                 <SelectGroup>
                     <SelectLabel className={"mt-3"}>
-                        {value}
+                        {value as string}
                     </SelectLabel>
                 </SelectGroup>
             </SelectPrimitive.Trigger>
         </div>
     )
-});
+})
 
-SelectAccessibilityTrigger.displayName = SelectPrimitive.Trigger.displayName;
+SelectAccessibilityTrigger.displayName = SelectPrimitive.Trigger.displayName

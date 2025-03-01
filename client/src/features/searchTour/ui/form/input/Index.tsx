@@ -22,54 +22,55 @@ export const Index: FC = () => {
         isOpen: false,
         isTouched: false,
         isCorrectedField: true,
-    });
+    })
 
     const commandRef = useRef<HTMLDivElement>(null);
 
     const updateField = (newValue: string) => {
-        setLocation(newValue);
+        setLocation(newValue)
         setField({
             isTouched: true,
             isOpen: true,
             isCorrectedField: validateByCity(newValue),
-        });
-    };
+        })
+    }
 
     const clickInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-        updateField(inputValue);
-    };
+        const inputValue = e.target.value
+        updateField(inputValue)
+    }
 
     const clickCommandItemHandler = (city: string) => {
         updateField(city);
         setField((prev) => ({ ...prev, isOpen: false }));
-    };
+    }
 
     const focusHandler = () => {
         setField((prev) => ({ ...prev, isOpen: true }));
-    };
+    }
 
     const blurHandler = () => {
         if (!field.isOpen && context.searchParams.location === "") {
             setField((prev) => ({ ...prev, isTouched: true }));
         }
-    };
+    }
 
     const clearValue = () => {
-        setLocation("");
-    };
+        setLocation("")
+    }
 
     useOnClickOutside(commandRef, () => {
         setField((prev) => ({
             ...prev,
             isOpen: false,
             isTouched: context.searchParams.location === "" ? false : prev.isTouched,
-        }));
-    });
+        }))
+    })
 
     return (
         <Command role={"form-command"} ref={commandRef}>
             <CommandInput
+                isSearch={context.isSearch}
                 field={field}
                 value={context.searchParams.location}
                 label={"Где искать"}

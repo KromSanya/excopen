@@ -41,12 +41,11 @@ export const CommandInput = React.forwardRef<
     const inputStyles = [
         "h-14 w-full bg-grayscale-200 hover:bg-grayscale-300 rounded-xl px-6 pt-4 text-base flex items-center",
         "placeholder-transparent transition duration-300",
-        "focus:bg-white focus:outline-none",
-        "pr-8 peer pl-12 cursor-pointer",
+        "focus:bg-white focus:outline-none pr-8 peer pl-12 cursor-pointer",
         field.isOpen ? "focus:ring-1 focus:ring-black" : "ring-transparent",
         isValidField ? "ring-1 ring-secondary-red focus:ring-secondary-red bg-red-100" : "",
         "flex items-center justify-center"
-    ].join(" ");
+    ].join(" ")
     const labelStyles = [
         "absolute cursor-pointer left-12 text-base text-grayscale-400 transition-all duration-300",
         value || field.isOpen ? "top-2 text-black" : "top-4 text-base text-grayscale-400",

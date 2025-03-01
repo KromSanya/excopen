@@ -11,7 +11,7 @@ export function Calendar({className, classNames, showOutsideDays = true, ...prop
         <DayPicker
             locale={ru}
             showOutsideDays={showOutsideDays}
-            className={cn("w-72 flex justify-center p-2 bg-grayscale-0 rounded-md", className)}
+            className={cn("w-72 flex justify-center p-2 bg-grayscale-0 z-50 rounded-md relative", className)}
             classNames={{
                 months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                 month: "space-y-4",

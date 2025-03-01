@@ -35,15 +35,13 @@ export const PopoverContent = React.forwardRef<
     ].join(" ")
 
     return (
-        <PopoverPrimitive.Portal>
-            <PopoverPrimitive.Content
-                ref={ref}
-                align={align}
-                sideOffset={sideOffset}
-                className={cn(baseStyles, className)}
-                {...props}
-            />
-        </PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+            ref={ref}
+            align={align}
+            sideOffset={sideOffset}
+            className={cn(baseStyles, className)}
+            {...props}
+        />
     )
 })
 

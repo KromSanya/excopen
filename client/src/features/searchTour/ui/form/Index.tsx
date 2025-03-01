@@ -47,7 +47,7 @@ export const Index: FC<FormProps> = ({orientation}) => {
                 <Input/>
                 <DatePicker/>
                 <Select/>
-                {width < 1440 && <Switch orientation={orientation}/>}
+                {width < 1440 || orientation === Orientation.VERTICAL && <Switch orientation={orientation}/>}
                 <SearchButton location={context.searchParams.location} orientation={orientation} disabled={disabled}/>
             </div>
             {orientation === Orientation.HORIZONTAL && width > 1440 && <Switch orientation={orientation}/>}
