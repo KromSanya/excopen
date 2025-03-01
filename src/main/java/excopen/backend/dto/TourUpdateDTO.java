@@ -1,11 +1,12 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourType;
+import excopen.backend.constants.TransportType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
 import java.math.BigDecimal;
 
 @Data
@@ -22,11 +23,12 @@ public class TourUpdateDTO {
     private Long locationId;
 
     @NotNull(message = "Цена тура обязательна")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Цена должна быть положительной")
-    private BigDecimal price;
+    @Positive(message = "Цена должна быть положительной")
+    private Integer price;
 
-    @NotBlank(message = "Длительность тура обязательна")
-    private String duration;
+    @NotNull(message = "Длительность тура обязательна")
+    @Positive(message = "Длительность должна быть положительной")
+    private BigDecimal duration;
 
     @NotNull(message = "Длина маршрута обязательна")
     @Positive(message = "Длина маршрута должна быть положительной")
@@ -41,6 +43,12 @@ public class TourUpdateDTO {
 
     @NotNull(message = "Максимальная вместимость обязательна")
     private Integer maxCapacity;
+
+    @NotBlank(message = "Укажите формат экскурсии")
+    private TourType tourType;
+
+    @NotBlank(message = "Укажите тип транспорта")
+    private TransportType transportType;
 
     @Valid
     @NotNull(message = "Описание обязательно")

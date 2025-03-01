@@ -1,10 +1,9 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourType;
+import excopen.backend.constants.TransportType;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.math.BigDecimal;
 
@@ -20,13 +19,16 @@ public class TourCreateDTO {
 
     @NotNull(message = "Цена тура обязательна")
     @Positive(message = "Цена должна быть положительной")
-    private BigDecimal price;
+    private Integer price;
 
-    @NotBlank(message = "Длительность тура обязательна")
-    private String duration;
+    @NotNull(message = "Длительность тура обязательна")
+    @Positive(message = "Длительность должна быть положительной")
+    @Digits(integer = 2, fraction = 1)
+    private BigDecimal duration;
 
     @NotNull(message = "Длина маршрута обязательна")
     @Positive(message = "Длина маршрута должна быть положительной")
+    @Digits(integer = 2, fraction = 1)
     private BigDecimal routeLength;
 
     @NotNull(message = "Минимальный возраст обязателен")
@@ -37,6 +39,12 @@ public class TourCreateDTO {
 
     @NotNull(message = "Необходимо выбрать категории для экскурсии")
     private int[] vectorRepresentation;
+
+    @NotNull(message = "Укажите формат экскурсии")
+    private TourType tourType;
+
+    @NotNull(message = "Укажите тип транспорта")
+    private TransportType transportType;
 
     @Valid
     @NotNull(message = "Описание обязательно")

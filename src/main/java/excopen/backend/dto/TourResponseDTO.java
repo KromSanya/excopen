@@ -1,5 +1,7 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourType;
+import excopen.backend.constants.TransportType;
 import excopen.backend.entities.Description;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -10,13 +12,15 @@ public class TourResponseDTO {
     private Long id;
     private String title;
     private Long locationId;
-    private BigDecimal price;
-    private String duration;
+    private Integer price;
+    private BigDecimal duration;
     private BigDecimal routeLength;
     private Integer minAge;
     private Integer maxCapacity;
     private Long creatorId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private TourType tourType;
+    private TransportType transportType;
     private Description description;
 }
