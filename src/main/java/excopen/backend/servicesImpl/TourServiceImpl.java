@@ -7,6 +7,7 @@ import excopen.backend.repositories.TourRepository;
 import excopen.backend.specifications.TourSpecifications;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -87,8 +88,16 @@ public class TourServiceImpl implements ITourService {
 
     @Override
     public List<Tour> filterTours(FilterToursDTO filter) {
-        Specification<Tour> spec = TourSpecifications.buildFilterSpec(filter);
-        return tourRepository.findAll(spec);
+        var spec = TourSpecifications.buildFilterSpec(filter);
+
+        Sort sort = Sort.unsorted();
+        if (filter.getSortBy() != null && !filter.getSortBy().trim().isEmpty()) {
+            Sort.Direction direction = "DESC".equalsIgnoreCase(filter.getSortOrder())
+                    ? Sort.Direction.DESC
+                    : Sort.Direction.ASC;
+            sort = Sort.by(direction, filter.getSortBy());
+        }
+        return tourRepository.findAll(spec, sort);
     }
 
     private String convertArrayToVectorString(int[] array) {
@@ -96,7 +105,4 @@ public class TourServiceImpl implements ITourService {
                 .mapToObj(String::valueOf)
                 .collect(Collectors.joining(", ")) + "]";
     }
-
-
-
 }
