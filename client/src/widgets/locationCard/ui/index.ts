@@ -1,1 +1,0 @@
-export {Index as LocationCard} from "./Index.tsx"

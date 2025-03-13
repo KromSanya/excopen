@@ -1,1 +1,0 @@
-export {Index as SearchBar} from "./Index.tsx"

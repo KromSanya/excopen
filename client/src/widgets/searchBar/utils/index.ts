@@ -1,1 +1,0 @@
-export {lettersArray} from "./letters.ts"

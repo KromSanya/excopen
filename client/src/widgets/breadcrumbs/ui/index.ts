@@ -1,1 +1,0 @@
-export {Index as Breadcrumbs} from "./Index.tsx"

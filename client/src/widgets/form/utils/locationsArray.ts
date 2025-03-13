@@ -1,1 +1,0 @@
-export const locationsArray = ["Омск", "Москва", "Новосибирск", "Томск"]

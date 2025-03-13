@@ -1,7 +1,0 @@
-.container {
-    @apply px-4 md:px-32 xl:px-56
-}
-
-.text {
-    @apply text-grayscale-500 text-xs
-}

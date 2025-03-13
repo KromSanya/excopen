@@ -1,1 +1,0 @@
-export {Index as EditProfile} from "./Index.tsx"

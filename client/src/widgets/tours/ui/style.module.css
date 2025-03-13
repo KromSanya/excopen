@@ -1,7 +1,0 @@
-.container {
-    @apply w-full flex flex-col gap-8
-}
-
-.pagination {
-    @apply flex justify-center
-}
