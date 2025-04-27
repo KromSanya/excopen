@@ -7,6 +7,7 @@ import excopen.backend.repositories.TourImageRepository;
 import excopen.backend.repositories.TourRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class TourImageServiceImpl implements ITourImageService {
     private final TourRepository tourRepository;
 
     @Override
+    @Transactional
     public void saveImages(Long tourId, List<String> imageUrls) {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour with ID " + tourId + " not found."));
@@ -32,6 +34,7 @@ public class TourImageServiceImpl implements ITourImageService {
     }
 
     @Override
+    @Transactional
     public TourImage addTourImage(Long tourId, String imageUrl) {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour with ID " + tourId + " not found."));
@@ -43,6 +46,7 @@ public class TourImageServiceImpl implements ITourImageService {
     }
 
     @Override
+    @Transactional
     public void deleteTourImage(Long tourImageId) {
         if (!tourImageRepository.existsById(tourImageId)) {
             throw new IllegalArgumentException("Tour image with ID " + tourImageId + " does not exist.");
@@ -51,11 +55,13 @@ public class TourImageServiceImpl implements ITourImageService {
     }
 
     @Override
+    @Transactional
     public List<TourImage> getImagesByTour(Long tourId) {
         return tourImageRepository.findByTourId(tourId);
     }
 
     @Override
+    @Transactional
     public Optional<TourImage> getImageById(Long tourImageId) {
         return tourImageRepository.findById(tourImageId);
     }

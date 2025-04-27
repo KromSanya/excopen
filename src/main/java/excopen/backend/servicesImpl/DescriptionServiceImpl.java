@@ -7,6 +7,7 @@ import excopen.backend.repositories.DescriptionRepository;
 import excopen.backend.repositories.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class DescriptionServiceImpl implements IDescriptionService {
     }
 
     @Override
+    @Transactional
     public Description createDescription(Description description, Long tourId) {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour not found with ID: " + tourId));
@@ -46,11 +48,13 @@ public class DescriptionServiceImpl implements IDescriptionService {
     }
 
     @Override
+    @Transactional
     public Description updateDescription(Description description) {
         return descriptionRepository.save(description);
     }
 
     @Override
+    @Transactional
     public void deleteDescription(Long descriptionId) {
         descriptionRepository.deleteById(descriptionId);
     }

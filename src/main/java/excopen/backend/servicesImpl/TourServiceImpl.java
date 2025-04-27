@@ -6,11 +6,11 @@ import excopen.backend.entities.*;
 import excopen.backend.iservices.ITourService;
 import excopen.backend.repositories.ReviewRepository;
 import excopen.backend.repositories.TourRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -64,6 +64,7 @@ public class TourServiceImpl implements ITourService {
 
 
     @Override
+    @Transactional
     public void deleteTour(Long tourId) {
         Tour tour = getTourById(tourId);
         tourRepository.delete(tour);
