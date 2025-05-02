@@ -9,6 +9,7 @@ import excopen.backend.repositories.ReviewImageRepository;
 import excopen.backend.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public class ReviewImageServiceImpl implements IReviewImageService {
     }
 
     @Override
+    @Transactional
     public void saveImages(Long reviewId, List<String> imageUrls) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review with ID " + reviewId + " not found."));
@@ -39,6 +41,7 @@ public class ReviewImageServiceImpl implements IReviewImageService {
     }
 
     @Override
+    @Transactional
     public ReviewImage addReviewImage(Long reviewId, String imageUrl) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
@@ -51,6 +54,7 @@ public class ReviewImageServiceImpl implements IReviewImageService {
     }
 
     @Override
+    @Transactional
     public void deleteImage(Long reviewImageId) {
         if (!reviewImageRepository.existsById(reviewImageId)) {
             throw new IllegalArgumentException("Review image with ID " + reviewImageId + " does not exist.");

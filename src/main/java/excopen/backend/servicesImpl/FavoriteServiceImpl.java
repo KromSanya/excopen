@@ -9,6 +9,7 @@ import excopen.backend.repositories.TourRepository;
 import excopen.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class FavoriteServiceImpl implements IFavoriteService {
     }
 
     @Override
+    @Transactional
     public void addTourToFavorites(Long userId, Long tourId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
@@ -46,6 +48,7 @@ public class FavoriteServiceImpl implements IFavoriteService {
     }
 
     @Override
+    @Transactional
     public void removeTourFromFavorites(Long userId, Long tourId) {
         User user = new User();
         user.setId(userId);
