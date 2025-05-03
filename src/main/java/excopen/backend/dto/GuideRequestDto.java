@@ -8,7 +8,7 @@ import lombok.Data;
 public class GuideRequestDto {
 
     @NotBlank(message = "Описание не должно быть пустым")
-    private String description;
+    private String info;
 
     @NotBlank(message = "Город обязателен")
     private String city;

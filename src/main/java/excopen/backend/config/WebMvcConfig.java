@@ -31,5 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:uploads/tour_images/");
         registry.addResourceHandler("/static/review_images/**")
                 .addResourceLocations("file:uploads/review_images/");
+        registry.addResourceHandler("/static/locations/**")
+                .addResourceLocations("file:uploads/locations/");
     }
 }

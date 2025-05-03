@@ -3,7 +3,6 @@ package excopen.backend.servicesImpl;
 import excopen.backend.constants.Role;
 import excopen.backend.dto.GuideRequestDto;
 import excopen.backend.entities.User;
-import excopen.backend.iservices.IReviewService;
 import excopen.backend.iservices.IUserService;
 import excopen.backend.repositories.ReviewRepository;
 import excopen.backend.repositories.UserRepository;
@@ -155,7 +154,7 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
         GuideRequestDto guideRequestDto = pendingGuideRequests.remove(userId);
         if (guideRequestDto != null) {
             user.setPhoneNumber(normalizedPhone);
-            user.setDescription(guideRequestDto.getDescription());
+            user.setDescription(guideRequestDto.getInfo());
             user.setCity(guideRequestDto.getCity());
         }
 
