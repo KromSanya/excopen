@@ -1,10 +1,12 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,7 +46,14 @@ public class TourCreateDTO {
     @NotNull(message = "Укажите тип транспорта")
     private TransportType transportType;
 
+    private boolean byCity;
+
+    private TourAccessibility accessibility;
+
     @Valid
     @NotNull(message = "Описание обязательно")
     private DescriptionDTO description;
+
+    @NotEmpty(message = "Необходимо загрузить хотя бы одно изображение")
+    private List<MultipartFile> images;
 }

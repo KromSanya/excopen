@@ -1,5 +1,6 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
 import jakarta.validation.Valid;
@@ -46,6 +47,10 @@ public class TourUpdateDTO {
 
     @NotNull(message = "Укажите тип транспорта")
     private TransportType transportType;
+
+    private boolean byCity;
+
+    private TourAccessibility accessibility;
 
     @Valid
     @NotNull(message = "Описание обязательно")

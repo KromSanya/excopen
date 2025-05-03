@@ -1,5 +1,6 @@
 package excopen.backend.dto;
 
+import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
 import lombok.Data;
@@ -10,20 +11,20 @@ import java.util.List;
 public class TourResponseDTO {
     private Long id;
     private String title;
-    private Long locationId;
-    private Integer price;
-    private Double duration;
-    private Double routeLength;
-    private Integer minAge;
-    private Integer maxCapacity;
-    private Double rating;
-    private Integer reviewCount;
-    private List<String> imageUrls;
-    private Long creatorId;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private TourType tourType;
-    private TransportType transportType;
+    private DescriptionDTO description;
+    private List<String> images;
     private List<String> tags;
-    private DescriptionResponseDTO description;
+    private LocationResponseDTO location;
+    private Double routeLength;
+    private Boolean byCity;
+    private Integer price;
+    private Integer groupCapacity;
+    private TransportType formatBehavior;
+    private TourType format;
+    private TourAccessibility accessibility;
+    private Double duration;
+    private Long contributorId;
+    private Double rating;
+    private Integer ratingCount;
 }
+

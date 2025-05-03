@@ -2,6 +2,7 @@ package excopen.backend.entities;
 
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
+import excopen.backend.constants.TourAccessibility; // Добавляем enum для доступности
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -68,6 +69,10 @@ public class Tour implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "transport_type")
     private TransportType transportType;
+
+    @Enumerated(EnumType.STRING)  // Добавляем новый enum
+    @Column(name = "tour_accessibility")
+    private TourAccessibility accessibility;  // доступность для детей
 
     @PrePersist
     protected void onCreate() {

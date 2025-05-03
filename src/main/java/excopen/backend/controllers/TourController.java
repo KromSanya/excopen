@@ -1,5 +1,7 @@
 package excopen.backend.controllers;
 
+import excopen.backend.constants.TourType;
+import excopen.backend.constants.TransportType;
 import excopen.backend.dto.*;
 import excopen.backend.entities.Description;
 import excopen.backend.entities.Location;
@@ -69,7 +71,7 @@ public class TourController {
         List<MultipartFile> images = form.getImages();
 
         Location location = locationService.getLocationById(dto.getLocationId());
-        Tour tour = tourMapper.toEntity(dto, location, tagVectorService); // FIXED
+        Tour tour = tourMapper.toEntity(dto, location, tagVectorService);
 
         Description description = descriptionMapper.toEntity(dto.getDescription());
         tour.setDescription(description);
@@ -83,6 +85,57 @@ public class TourController {
 
         return tourMapper.toResponseDTO(createdTour, tagVectorService);
     }
+
+    @PostMapping(path = "/test",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public TourResponseDTO createTour(
+            @Valid @ModelAttribute TourCreateDTO dto) {
+        List<MultipartFile> images = dto.getImages();
+
+        Location location = locationService.getLocationById(dto.getLocationId());
+        Tour tour = tourMapper.toEntity(dto, location, tagVectorService);
+
+        Description description = descriptionMapper.toEntity(dto.getDescription());
+        tour.setDescription(description);
+
+        Tour createdTour = tourService.createTour(tour, 2L);
+
+        for (MultipartFile image : images) {
+            String imageUrl = fileStorageService.storeTourImage(image);
+            tourImageService.addTourImage(createdTour.getId(), imageUrl);
+        }
+
+        return tourMapper.toResponseDTO(createdTour, tagVectorService);
+    }
+
+    @GetMapping("/tours/template")
+    public ResponseEntity<TourCreateDTO> getTourTemplate() {
+        TourCreateDTO template = new TourCreateDTO();
+
+        template.setTitle("Экскурсия по историческому центру Санкт-Петербурга");
+        template.setLocationId(1L); // Пример ID, должен существовать в БД
+        template.setPrice(2500); // в рублях
+        template.setDuration(3.5); // в часах
+        template.setRouteLength(4.2); // в километрах
+        template.setMinAge(10);
+        template.setMaxCapacity(20);
+        template.setTags(List.of("история", "архитектура", "прогулка"));
+        template.setTourType(TourType.GROUP); // GROUP или PERSONAL
+        template.setTransportType(TransportType.WALKING); // WALKING, BUS, CAR
+
+        DescriptionDTO description = new DescriptionDTO();
+        description.setMainInfo("Откройте для себя красоту Невского проспекта, Казанского собора и Дворцовой площади.");
+        description.setWhatToExpect("Увидите знаковые места центра города, послушаете увлекательные исторические рассказы.");
+        description.setOrgDetails("Экскурсия проводится ежедневно, сбор группы у метро Гостиный двор.");
+        description.setMeetingPlace("Санкт-Петербург, Невский проспект, 35, возле выхода из метро.");
+        template.setDescription(description);
+
+        template.setImages(List.of()); // Пока без изображений
+
+        return ResponseEntity.ok(template);
+    }
+
+
 
     @GetMapping("/search")
     public ResponseEntity<Page<TourResponseDTO>> searchTours(
