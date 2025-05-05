@@ -1,6 +1,7 @@
 package excopen.backend.controllers;
 
 import excopen.backend.constants.TourAccessibility;
+import excopen.backend.constants.TourSort;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
 import excopen.backend.dto.*;
@@ -29,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -205,22 +207,31 @@ public class TourController {
     }
 
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<List<TourResponseDTO>> searchTours(
             @ModelAttribute SearchParamsDTO searchParams,
-            @RequestParam(name="_sort",  defaultValue="id")  String sortBy,
-            @RequestParam(name="sort",   defaultValue="asc") String sortOrder) {
+            @RequestParam(name = "_sort", defaultValue = "FOR_POPULAR") String sortStrategy) {
 
-        Sort.Direction direction = sortOrder.equalsIgnoreCase("desc")
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
-        Sort sort = Sort.by(direction, sortBy);
+        try {
+            // Парсим параметр сортировки
+            Sort sort = TourSort.parseSort(sortStrategy);
 
-        List<Tour> tours = tourService.searchTours(searchParams, sort);
-        List<TourResponseDTO> response = tours.stream()
-                .map(t -> tourMapper.toResponseDTO(t, tagVectorService))
-                .toList();
-        return ResponseEntity.ok(response);
+            // Выполняем поиск
+            List<Tour> tours = tourService.searchTours(searchParams, sort);
+
+            // Маппим в DTO
+            List<TourResponseDTO> response = tours.stream()
+                    .map(t -> tourMapper.toResponseDTO(t, tagVectorService))
+                    .toList();
+
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    e.getMessage()
+            );
+        }
     }
 
 
@@ -246,13 +257,13 @@ public class TourController {
     }
 
     @RequiresOwnership(entityClass = Tour.class)
-    @DeleteMapping("/{tourId}")
+    @DeleteMapping("/{id:\\d+}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTour(@PathVariable Long tourId) {
         tourService.deleteTour(tourId);
     }
 
-    @GetMapping("/{tourId}")
+    @GetMapping("/{tourId:\\d+}")
     public TourResponseDTO getTourById(@PathVariable Long tourId) {
         Tour tour = tourService.getTourById(tourId);
         return tourMapper.toResponseDTO(tour, tagVectorService);

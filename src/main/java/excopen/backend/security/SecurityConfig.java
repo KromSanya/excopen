@@ -51,7 +51,8 @@ public class SecurityConfig {
                                 "/api/reviews/user/**",
                                 "/api/tours/**",
                                 "/api/users/**",
-                                "/api/tags"
+                                "/api/tags",
+                                "/api/tours/search"
                         ).permitAll()
 
                         .requestMatchers(HttpMethod.POST,
@@ -101,7 +102,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://localhost:5173", "http://localhost:4173", "https://excopenprodfront.vercel.app", "https://excopen.ru"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://localhost:5173", "http://localhost:4173",
+                "https://excopenprodfront.vercel.app", "https://excopen.ru", "https://www.excopen.ru"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
