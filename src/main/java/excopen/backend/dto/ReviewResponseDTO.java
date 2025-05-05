@@ -10,11 +10,11 @@ public class ReviewResponseDTO {
     private Long tourId;
     private Long userId;
     private Double rating;
-    private boolean withChildren;
-    private double personCount;
+    private Boolean withChildren;
+    private Integer personCount;
     private String positiveText;
     private String negativeText;
-    private List<String> imageUrls;
+//    private List<String> imageUrls;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

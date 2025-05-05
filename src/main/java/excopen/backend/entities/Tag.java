@@ -2,12 +2,8 @@ package excopen.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Array;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity

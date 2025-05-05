@@ -22,13 +22,7 @@ public class UserResponseDTO {
 //    private String city;
     private Double rating = 0.0;
     private Integer ratingCount = 0;
-    private ContactsDTO contacts;
+    private ContactDTO contacts;
     private String avatar;
 
-    @Data
-    public static class ContactsDTO {
-        private String vk;
-        private String telegram;
-        private String phone;
-    }
 }

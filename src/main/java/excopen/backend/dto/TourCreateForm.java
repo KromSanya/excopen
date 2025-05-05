@@ -15,6 +15,6 @@ public class TourCreateForm {
     @NotNull(message = "Основные данные тура обязательны")
     private TourCreateDTO tour;
 
-    @NotEmpty(message = "Необходимо загрузить хотя бы одно изображение")
+//    @NotEmpty(message = "Необходимо загрузить хотя бы одно изображение")
     private List<MultipartFile> images;
 }

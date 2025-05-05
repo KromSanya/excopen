@@ -19,8 +19,6 @@ import java.util.List;
 @Repository
 public interface TourRepository extends JpaRepository<Tour, Long>, QuerydslPredicateExecutor<Tour> {
 
-    Page<Tour> findAll(Predicate predicate, Pageable pageable);
-
     List<Tour> findByLocation(Location location);
 
     List<Tour> findByDuration(Double duration);

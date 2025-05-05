@@ -3,12 +3,15 @@ package excopen.backend.dto;
 import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
+import excopen.backend.entities.Coordinate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -36,8 +39,6 @@ public class TourUpdateDTO {
     @NotNull(message = "Необходимо выбрать категории для экскурсии")
     private List<String> tags;
 
-    @NotNull(message = "Минимальный возраст обязателен")
-    private Integer minAge;
 
     @NotNull(message = "Максимальная вместимость обязательна")
     private Integer maxCapacity;
@@ -51,6 +52,12 @@ public class TourUpdateDTO {
     private boolean byCity;
 
     private TourAccessibility accessibility;
+
+    private Coordinate coordinates;
+
+    private LocalDate date;
+
+    private LocalTime time;
 
     @Valid
     @NotNull(message = "Описание обязательно")

@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 "/test-tour-upload.html",
                                 "/test-review-upload.html",
                                 "/tour-details.html",
+                                "/**",
                                 "/static/**",
                                 "/css/**",
                                 "/js/**",
@@ -58,9 +59,9 @@ public class SecurityConfig {
                                 "/api/users/confirm-guide",
                                 "/api/reviews",
                                 "/api/favorites/**",
+                                "/api/tours",
                                 "/logout"
                         ).authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/tours").hasRole("GUIDE")
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/reviews/**",
                                 "/api/tours/**",
@@ -99,7 +100,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://localhost:5173", "http://localhost:4173"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://localhost:5173", "http://localhost:4173", "https://excopenprodfront.vercel.app", "https://excopen.ru"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);

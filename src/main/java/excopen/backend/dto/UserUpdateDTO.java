@@ -12,12 +12,6 @@ public class UserUpdateDTO {
     @NotBlank(message = "Фамилия не может быть пустым")
     private String surname;
     private List<String> tags;
-    private ContactsDTO contacts;
+    private ContactDTO contacts;
 
-    @Data
-    public static class ContactsDTO {
-        private String vk;
-        private String telegram;
-        private String phone;
-    }
 }

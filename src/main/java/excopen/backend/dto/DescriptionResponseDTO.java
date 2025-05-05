@@ -9,6 +9,9 @@ public class DescriptionResponseDTO {
     private Long tourId;
     private String mainInfo;
     private String whatToExpect;
+    private String[] places;
+
+    private String[] topics;
     private String orgDetails;
     private String meetingPlace;
 }

@@ -26,15 +26,15 @@ public class Review implements Serializable {
     private User user;
 
     private boolean withChildren;
-    private double personCount;
+    private Integer personCount;
 
     private Double rating;
 
     private String positiveText;
     private String negativeText;
 
-    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
-    private List<ReviewImage> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+//    private List<ReviewImage> images = new ArrayList<>();
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -6,7 +6,6 @@ import excopen.backend.dto.ReviewUpdateDTO;
 import excopen.backend.entities.Review;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
-import excopen.backend.iservices.IReviewImageService;
 import excopen.backend.iservices.IReviewService;
 import excopen.backend.iservices.ITourService;
 import excopen.backend.iservices.IUserService;
@@ -33,17 +32,13 @@ public class ReviewController {
     private final ITourService tourService;
     private final IUserService userService;
     private final ReviewMapper reviewMapper;
-    private final FileStorageService fileStorageService;
-    private final IReviewImageService reviewImageService;
 
     @Autowired
-    public ReviewController(IReviewService reviewService, ITourService tourService, IUserService userService, ReviewMapper reviewMapper, FileStorageService fileStorageService, IReviewImageService reviewImageService) {
+    public ReviewController(IReviewService reviewService, ITourService tourService, IUserService userService, ReviewMapper reviewMapper) {
         this.reviewService = reviewService;
         this.tourService = tourService;
         this.userService = userService;
         this.reviewMapper = reviewMapper;
-        this.fileStorageService = fileStorageService;
-        this.reviewImageService = reviewImageService;
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -59,14 +54,14 @@ public class ReviewController {
         Review savedReview = reviewService.createReview(review);
         System.out.println(savedReview.getId());
 
-        List<MultipartFile> images = reviewDTO.getImages();
-
-        if (reviewDTO.getImages() != null && !reviewDTO.getImages().isEmpty()) {
-                for (MultipartFile image : images) {
-                String imageUrl = fileStorageService.storeReviewImage(image);
-                reviewImageService.addReviewImage(savedReview.getId(), imageUrl);
-                }
-        }
+//        List<MultipartFile> images = reviewDTO.getImages();
+//
+//        if (reviewDTO.getImages() != null && !reviewDTO.getImages().isEmpty()) {
+//                for (MultipartFile image : images) {
+//                String imageUrl = fileStorageService.storeReviewImage(image);
+//                reviewImageService.addReviewImage(savedReview.getId(), imageUrl);
+//                }
+//        }
 
         return reviewMapper.toResponseDTO(savedReview);
     }

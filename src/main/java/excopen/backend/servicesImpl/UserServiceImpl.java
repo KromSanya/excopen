@@ -153,7 +153,7 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
 
         GuideRequestDto guideRequestDto = pendingGuideRequests.remove(userId);
         if (guideRequestDto != null) {
-            user.setPhoneNumber(normalizedPhone);
+            user.getContacts().setPhone(normalizedPhone);
             user.setDescription(guideRequestDto.getInfo());
             user.setCity(guideRequestDto.getCity());
         }

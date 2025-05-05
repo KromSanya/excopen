@@ -2,6 +2,7 @@ package excopen.backend.servicesImpl;
 
 import com.querydsl.core.BooleanBuilder;
 import excopen.backend.dto.FilterToursDTO;
+import excopen.backend.dto.SearchParamsDTO;
 import excopen.backend.entities.*;
 import excopen.backend.iservices.ITourService;
 import excopen.backend.repositories.ReviewRepository;
@@ -9,9 +10,12 @@ import excopen.backend.repositories.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -102,55 +106,56 @@ public class TourServiceImpl implements ITourService {
     }
 
     @Override
-    public Page<Tour> filterTours(FilterToursDTO filter, Pageable pageable) {
+    public List<Tour> searchTours(SearchParamsDTO params, Sort sort) {
         QTour tour = QTour.tour;
         BooleanBuilder predicate = new BooleanBuilder();
 
-        if (filter.getTitle() != null) {
-            predicate.and(tour.title.containsIgnoreCase(filter.getTitle()));
-        }
-        if (filter.getLocationId() != null) {
-            predicate.and(tour.location.id.eq(filter.getLocationId()));
-        }
-        if (filter.getPriceFrom() != null) {
-            predicate.and(tour.price.goe(filter.getPriceFrom()));
-        }
-        if (filter.getPriceTo() != null) {
-            predicate.and(tour.price.loe(filter.getPriceTo()));
-        }
-        if (filter.getDurationFrom() != null) {
-            predicate.and(tour.duration.goe(filter.getDurationFrom()));
-        }
-        if (filter.getDurationTo() != null) {
-            predicate.and(tour.duration.loe(filter.getDurationTo()));
-        }
-        if (filter.getRouteLengthFrom() != null) {
-            predicate.and(tour.routeLength.goe(filter.getRouteLengthFrom()));
-        }
-        if (filter.getRouteLengthTo() != null) {
-            predicate.and(tour.routeLength.loe(filter.getRouteLengthTo()));
-        }
-        if (filter.getRatingFrom() != null) {
-            predicate.and(tour.rating.goe(filter.getRatingFrom()));
-        }
-        if (filter.getRatingTo() != null) {
-            predicate.and(tour.rating.loe(filter.getRatingTo()));
-        }
-        if (filter.getTourType() != null) {
-            predicate.and(tour.tourType.eq(filter.getTourType()));
-        }
-        if (filter.getTransportType() != null) {
-            predicate.and(tour.transportType.eq(filter.getTransportType()));
-        }
-        if (filter.getMinAge() != null) {
-            predicate.and(tour.minAge.loe(filter.getMinAge()));
-        }
-        if (filter.getCapacity() != null) {
-            predicate.and(tour.maxCapacity.goe(filter.getCapacity()));
+        // Поиск по локации
+        if (params.getLocation() != null) {
+            SearchParamsDTO.LocationDTO loc = params.getLocation();
+            if (loc.getId() != null) {
+                predicate.and(tour.location.id.eq(loc.getId()));
+            }
+            if (loc.getCity() != null) {
+                predicate.and(tour.location.city.equalsIgnoreCase(loc.getCity()));
+            }
+            if (loc.getRegion() != null) {
+                predicate.and(tour.location.region.equalsIgnoreCase(loc.getRegion()));
+            }
+            if (loc.getCountry() != null) {
+                predicate.and(tour.location.country.equalsIgnoreCase(loc.getCountry()));
+            }
+            if (loc.getImageUrl() != null) {
+                predicate.and(tour.location.imageUrl.equalsIgnoreCase(loc.getImageUrl()));
+            }
+            if (loc.getTourCount() != null) {
+                predicate.and(tour.location.tourCount.eq(loc.getTourCount()));
+            }
         }
 
-        return tourRepository.findAll(predicate, pageable);
+        // Поиск по диапазону дат
+        if (params.getDate() != null) {
+            LocalDateTime from = params.getDate().getFrom();
+            LocalDateTime to   = params.getDate().getTo();
+            if (from != null) {
+                predicate.and(tour.date.goe(from.toLocalDate()));
+            }
+            if (to != null) {
+                predicate.and(tour.date.loe(to.toLocalDate()));
+            }
+        }
+
+        // Фильтрация по доступности и по городу
+        if (params.getAccessibility() != null) {
+            predicate.and(tour.accessibility.stringValue().eq(params.getAccessibility()));
+        }
+        if (params.getByCity() != null) {
+            predicate.and(tour.byCity.eq(params.getByCity()));
+        }
+
+        return (List<Tour>) tourRepository.findAll(predicate, sort);
     }
+
 
     @Transactional
     public void updateTourStats(Long tourId) {

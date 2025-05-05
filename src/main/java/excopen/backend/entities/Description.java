@@ -20,6 +20,10 @@ public class Description {
 
     private String whatToExpect;
 
+    private String[] places;
+
+    private String[] topics;
+
     private String orgDetails;
 
     private String meetingPlace;

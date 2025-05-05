@@ -50,12 +50,16 @@ public class User implements Serializable {
 
     @JdbcTypeCode(SqlTypes.VECTOR)
     private int[] secondVector;
-    private String phoneNumber;
     private String description;
     private String city;
     private String avatarUrl;
-    private String vkLink;
-    private String telegramLink;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "vk",       column = @Column(name = "contacts_vk")),
+            @AttributeOverride(name = "telegram", column = @Column(name = "contacts_telegram")),
+            @AttributeOverride(name = "phone",    column = @Column(name = "contacts_phone"))
+    })
+    private Contact contacts;
 
     private Double guideRating = 0.0;     // средняя оценка гида
     private Integer totalReviews = 0;     // количество отзывов к его турам

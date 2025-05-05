@@ -1,9 +1,6 @@
 package excopen.backend.mapper;
 
-import excopen.backend.dto.GuideResponseDTO;
-import excopen.backend.dto.UserCreateDTO;
-import excopen.backend.dto.UserResponseDTO;
-import excopen.backend.dto.UserUpdateDTO;
+import excopen.backend.dto.*;
 import excopen.backend.entities.User;
 import excopen.backend.servicesImpl.TagVectorService;
 import org.mapstruct.*;
@@ -36,9 +33,9 @@ public interface UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "secondVector", ignore = true)
     @Mapping(target = "preferencesVector", source = "tags")
-    @Mapping(target = "vkLink", source = "contacts.vk")
-    @Mapping(target = "telegramLink", source = "contacts.telegram")
-    @Mapping(target = "phoneNumber", source = "contacts.phone")
+    @Mapping(target = "contacts.vk", source = "contacts.vk")
+    @Mapping(target = "contacts.telegram", source = "contacts.telegram")
+    @Mapping(target = "contacts.phone", source = "contacts.phone")
 //    @Mapping(target = "avatarUrl", source = "avatar")
     void updateFromDTO(UserUpdateDTO dto, @MappingTarget User user);
 
@@ -52,11 +49,14 @@ public interface UserMapper {
         return svc.toNames(vector);
     }
 
-    default UserResponseDTO.ContactsDTO mapContacts(User user) {
-        UserResponseDTO.ContactsDTO contacts = new UserResponseDTO.ContactsDTO();
-        contacts.setVk(user.getVkLink());
-        contacts.setTelegram(user.getTelegramLink());
-        contacts.setPhone(user.getPhoneNumber());
+    default ContactDTO mapContacts(User user) {
+        if (user.getContacts() == null) {
+            return null;
+        }
+        ContactDTO contacts = new ContactDTO();
+        contacts.setVk(user.getContacts().getVk());
+        contacts.setTelegram(user.getContacts().getTelegram());
+        contacts.setPhone(user.getContacts().getPhone());
         return contacts;
     }
 

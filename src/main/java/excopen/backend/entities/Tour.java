@@ -9,7 +9,9 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -27,7 +29,9 @@ public class Tour implements Serializable {
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    private int price;
+    private Integer price;
+
+    private Integer priceForPerson;
 
     private Double duration;        // в часах
     private Double routeLength;     // в километрах
@@ -56,23 +60,39 @@ public class Tour implements Serializable {
     @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY)
     private List<Favorite> favorites;
 
-    private Integer minAge;
+//    private Integer minAge;
     private Integer maxCapacity;
 
-    private Double rating;         // от 0.0 до 5.0
+    private Double rating;         // от 0.0 до 10.0
     private Integer reviewCount = 0;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "tour_type")
-    private TourType tourType;
+    private String tourType;
+
+    @Column(name = "transport_type")
+    private String transportType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transport_type")
-    private TransportType transportType;
-
-    @Enumerated(EnumType.STRING)  // Добавляем новый enum
     @Column(name = "tour_accessibility")
     private TourAccessibility accessibility;  // доступность для детей
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "coordinate_id", nullable = false)
+    private Coordinate coordinates;
+
+    private LocalDate date;
+
+    private LocalTime time;
+
+    private Boolean byCity;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "vk",       column = @Column(name = "contacts_vk")),
+            @AttributeOverride(name = "telegram", column = @Column(name = "contacts_telegram")),
+            @AttributeOverride(name = "phone",    column = @Column(name = "contacts_phone", nullable = false))
+    })
+    private Contact contacts;
 
     @PrePersist
     protected void onCreate() {

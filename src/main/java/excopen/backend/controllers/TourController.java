@@ -1,5 +1,6 @@
 package excopen.backend.controllers;
 
+import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourType;
 import excopen.backend.constants.TransportType;
 import excopen.backend.dto.*;
@@ -29,6 +30,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -86,71 +89,140 @@ public class TourController {
         return tourMapper.toResponseDTO(createdTour, tagVectorService);
     }
 
-    @PostMapping(path = "/test",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
+    /**
+     * Тестовый метод создания тура без авторизации (пушим DTO напрямую).
+     */
+    @PostMapping(path = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public TourResponseDTO createTour(
-            @Valid @ModelAttribute TourCreateDTO dto) {
-        List<MultipartFile> images = dto.getImages();
+    public TourResponseDTO createTourTest(
+            @Valid @ModelAttribute TourCreateForm form
+    ) {
+        // 1) Сохраняем все картинки
+        List<MultipartFile> images = form.getImages();
 
-        Location location = locationService.getLocationById(dto.getLocationId());
-        Tour tour = tourMapper.toEntity(dto, location, tagVectorService);
+        // 2) Получаем привязку к локации
+        Location location = locationService.getLocationById(form.getTour().getLocationId());
 
-        Description description = descriptionMapper.toEntity(dto.getDescription());
+        // 3) Маппим в сущность (в том числе coordinates и contacts автоматически)
+        Tour tour = tourMapper.toEntity(form.getTour(), location, tagVectorService);
+
+        // 4) Описания
+        Description description = descriptionMapper.toEntity(form.getTour().getDescription());
         tour.setDescription(description);
 
-        Tour createdTour = tourService.createTour(tour, 2L);
+        // 5) Сохраняем тур (жёстко передаём userId=123L для теста)
+        Tour created = tourService.createTour(tour, 123L);
 
-        for (MultipartFile image : images) {
-            String imageUrl = fileStorageService.storeTourImage(image);
-            tourImageService.addTourImage(createdTour.getId(), imageUrl);
+        // 6) Сохраняем картинки уже после того, как тур создан
+        for (MultipartFile img : images) {
+            String url = fileStorageService.storeTourImage(img);
+            tourImageService.addTourImage(created.getId(), url);
         }
 
-        return tourMapper.toResponseDTO(createdTour, tagVectorService);
+        // 7) Возвращаем готовый ответ
+        return tourMapper.toResponseDTO(created, tagVectorService);
     }
 
-    @GetMapping("/tours/template")
-    public ResponseEntity<TourCreateDTO> getTourTemplate() {
-        TourCreateDTO template = new TourCreateDTO();
+    /**
+     * Тестовый метод, который просто собирает и возвращает
+     * «пустой» шаблон TourResponseDTO с примерными значениями.
+     */
+    @GetMapping("/template")
+    public ResponseEntity<TourResponseDTO> getTourTemplate() {
+        TourResponseDTO dto = new TourResponseDTO();
 
-        template.setTitle("Экскурсия по историческому центру Санкт-Петербурга");
-        template.setLocationId(1L); // Пример ID, должен существовать в БД
-        template.setPrice(2500); // в рублях
-        template.setDuration(3.5); // в часах
-        template.setRouteLength(4.2); // в километрах
-        template.setMinAge(10);
-        template.setMaxCapacity(20);
-        template.setTags(List.of("история", "архитектура", "прогулка"));
-        template.setTourType(TourType.GROUP); // GROUP или PERSONAL
-        template.setTransportType(TransportType.WALKING); // WALKING, BUS, CAR
+        // ID-шник шаблона
+        dto.setId(0L);
 
-        DescriptionDTO description = new DescriptionDTO();
-        description.setMainInfo("Откройте для себя красоту Невского проспекта, Казанского собора и Дворцовой площади.");
-        description.setWhatToExpect("Увидите знаковые места центра города, послушаете увлекательные исторические рассказы.");
-        description.setOrgDetails("Экскурсия проводится ежедневно, сбор группы у метро Гостиный двор.");
-        description.setMeetingPlace("Санкт-Петербург, Невский проспект, 35, возле выхода из метро.");
-        template.setDescription(description);
+        // Базовые поля
+        dto.setTitle("Ночная прогулка по Санкт-Петербургу");
+        dto.setRouteLength(3.8);
+        dto.setByCity(true);
+        dto.setPrice(1800);
+        dto.setGroupCapacity(12);
+        dto.setDuration(2.5);
+        dto.setContributorId(123L);
+        dto.setRating(4.9);
+        dto.setRatingCount(76);
 
-        template.setImages(List.of()); // Пока без изображений
+        // Форматы
+        dto.setFormat("Груповой");
+        dto.setFormatBehavior("Пешком");
+        dto.setAccessibility(TourAccessibility.WITH_CHILDREN);
 
-        return ResponseEntity.ok(template);
+        // Дата и время
+        dto.setDate(LocalDate.of(2025, 5, 20));
+        dto.setTime(LocalTime.of(20, 0));
+
+        // Координаты старта (пример Яндекс-карт)
+        CoordinateDTO coords = new CoordinateDTO();
+        coords.setLongitude(59.9386);
+        coords.setLatitude(30.3141);
+        coords.setZoom(14);
+        dto.setCoordinates(coords);
+
+        // Теги
+        dto.setTags(List.of("Исторический", "Семейный", "Экстрим"));
+
+        // Описание
+        DescriptionDTO desc = new DescriptionDTO();
+        desc.setMainInfo("Прогулка по набережным, разводные мосты, огни ночного города.");
+        desc.setWhatToExpect("Небольшая пешая экскурсия по красивейшим местам города ночью.");
+        desc.setOrgDetails("Экскурсия проводится ежедневно, сбор у Адмиралтейства.");
+        desc.setMeetingPlace("Санкт-Петербург, Адмиралтейская набережная, д. 2");
+        desc.setPlaces(List.of("Дворцовая площадь", "Невский проспект")); // Добавлены
+        desc.setTopics(List.of("История", "Архитектура")); // Добавлены
+        dto.setDescription(desc);
+
+        // Изображения
+        dto.setImages(List.of(
+                "https://lh3.googleusercontent.com/a/ACg8ocIphDkU5pbj15e0QBKgDZEuXvFs9A3QBd4LnswlWBtRtwFghw=s96-c",
+                "https://lh3.googleusercontent.com/a/ACg8ocIphDkU5pbj15e0QBKgDZEuXvFs9A3QBd4LnswlWBtRtwFghw=s96-c"
+        ));
+
+        // Контакты гида/организатора
+        SearchParamsDTO.LocationDTO locDto = new SearchParamsDTO.LocationDTO();
+        // (Если в TourResponseDTO контакты вложены так же, просто создайте аналогичный ContactsDTO)
+        ContactDTO contacts = new ContactDTO();
+        contacts.setVk("vk.com/guide");
+        contacts.setTelegram("@guide_bot");
+        contacts.setPhone("+7 (900) 123-45-67");
+        dto.setContacts(contacts);
+
+        // Локация
+        LocationResponseDTO locResp = new LocationResponseDTO(
+                1L,
+                "Санкт-Петербург",
+                "Ленинградская область",
+                "Россия",
+                "https://example.com/locations/spb.jpg",
+                125L
+        );
+        dto.setLocation(locResp);
+
+        return ResponseEntity.ok(dto);
     }
 
 
+    @GetMapping
+    public ResponseEntity<List<TourResponseDTO>> searchTours(
+            @ModelAttribute SearchParamsDTO searchParams,
+            @RequestParam(name="_sort",  defaultValue="id")  String sortBy,
+            @RequestParam(name="sort",   defaultValue="asc") String sortOrder) {
 
-    @GetMapping("/search")
-    public ResponseEntity<Page<TourResponseDTO>> searchTours(
-            @Valid @ModelAttribute FilterToursDTO filter,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortOrder) {
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("desc")
+                ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+        Sort sort = Sort.by(direction, sortBy);
 
-        Sort.Direction direction = sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-
-        Page<Tour> tours = tourService.filterTours(filter, pageable);
-        return ResponseEntity.ok(tours.map(tour -> tourMapper.toResponseDTO(tour, tagVectorService)));
+        List<Tour> tours = tourService.searchTours(searchParams, sort);
+        List<TourResponseDTO> response = tours.stream()
+                .map(t -> tourMapper.toResponseDTO(t, tagVectorService))
+                .toList();
+        return ResponseEntity.ok(response);
     }
+
 
     @RequiresOwnership(entityClass = Tour.class)
     @PutMapping("/{tourId}")
@@ -191,10 +263,10 @@ public class TourController {
         return tourMapper.toResponseDTOList(tourService.getToursByCreatorId(guideId), tagVectorService);
     }
 
-    @GetMapping
-    public List<TourResponseDTO> getAllTours() {
-        return tourMapper.toResponseDTOList(tourService.getAllTours(), tagVectorService);
-    }
+//    @GetMapping
+//    public List<TourResponseDTO> getAllTours() {
+//        return tourMapper.toResponseDTOList(tourService.getAllTours(), tagVectorService);
+//    }
 
     @GetMapping("/location/{locationId}")
     public List<TourResponseDTO> findToursByLocation(@PathVariable Long locationId) {

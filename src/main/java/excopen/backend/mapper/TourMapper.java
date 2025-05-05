@@ -1,11 +1,7 @@
 package excopen.backend.mapper;
 
-import excopen.backend.dto.TourCreateDTO;
-import excopen.backend.dto.TourResponseDTO;
-import excopen.backend.dto.TourUpdateDTO;
-import excopen.backend.entities.Location;
-import excopen.backend.entities.Tour;
-import excopen.backend.entities.TourImage;
+import excopen.backend.dto.*;
+import excopen.backend.entities.*;
 import excopen.backend.servicesImpl.TagVectorService;
 import org.mapstruct.*;
 
@@ -23,13 +19,31 @@ public interface TourMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "rating", ignore = true)
     @Mapping(target = "reviewCount", ignore = true)
-    @Mapping(target = "description", ignore = true)
-    @Mapping(target = "vectorRepresentation", source = "dto", qualifiedByName = "tagsToVector")
-    @Mapping(target = "location", source = "location")
+
+    @Mapping(target = "title", source = "dto.title")
+    @Mapping(target = "price", source = "dto.price")
+    @Mapping(target = "duration", source = "dto.duration")
+    @Mapping(target = "routeLength", source = "dto.routeLength")
+    @Mapping(target = "maxCapacity", source = "dto.maxCapacity")
+
+    @Mapping(target = "tourType", source = "dto.format")
+    @Mapping(target = "transportType", source = "dto.formatBehavior")
     @Mapping(target = "accessibility", source = "dto.accessibility")
+
+    @Mapping(target = "byCity", source = "dto.byCity")
+    @Mapping(target = "date", source = "dto.date")
+    @Mapping(target = "time", source = "dto.time")
+
+    @Mapping(target = "coordinates", source = "dto.coordinates")
+    @Mapping(target = "contacts", source = "dto.contacts")
+
+    @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
+    @Mapping(target = "location", source = "location")
+
+    @Mapping(target = "description", ignore = true)
+    @Mapping(target = "images", ignore = true)
     @Mapping(target = "reviews", ignore = true)
     @Mapping(target = "favorites", ignore = true)
-    @Mapping(target = "images", ignore = true)
     Tour toEntity(TourCreateDTO dto, Location location, @Context TagVectorService svc);
 
     // ----------- UPDATE -----------
@@ -39,7 +53,7 @@ public interface TourMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "rating", ignore = true)
     @Mapping(target = "description", ignore = true)
-    @Mapping(target = "vectorRepresentation", source = "dto", qualifiedByName = "tagsToVector")
+    @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
     @Mapping(target = "location", source = "location")
     @Mapping(target = "accessibility", source = "dto.accessibility")
     @Mapping(target = "reviews", ignore = true)
@@ -48,21 +62,7 @@ public interface TourMapper {
     @Mapping(target = "reviewCount", ignore = true)
     Tour toEntity(TourUpdateDTO dto, Location location, @Context TagVectorService svc);
 
-    // ----------- VECTOR CONVERSION -----------
-    @Named("tagsToVector")
-    default int[] mapTagsToVector(TourCreateDTO dto, @Context TagVectorService svc) {
-        return svc.toVector(dto.getTags());
-    }
 
-    @Named("tagsToVector")
-    default int[] mapTagsToVector(TourUpdateDTO dto, @Context TagVectorService svc) {
-        return svc.toVector(dto.getTags());
-    }
-
-    @Named("toNames")
-    default List<String> mapVectorToTags(int[] vector, @Context TagVectorService svc) {
-        return svc.toNames(vector);
-    }
 
     // ----------- RESPONSE DTO -----------
     @Mapping(target = "description", source = "description")
@@ -90,5 +90,32 @@ public interface TourMapper {
         return images.stream()
                 .map(TourImage::getImageUrl)
                 .toList();
+    }
+
+    default Coordinate toEntity(CoordinateDTO dto) {
+        Coordinate coord = new Coordinate();
+        coord.setLongitude(dto.getLongitude());
+        coord.setLatitude(dto.getLatitude());
+        coord.setZoom(dto.getZoom());
+        return coord;
+    }
+
+    default Contact toEntity(ContactDTO dto) {
+        Contact c = new Contact();
+        c.setPhone(dto.getPhone());
+        c.setVk(dto.getVk());
+        c.setTelegram(dto.getTelegram());
+        return c;
+    }
+
+    // ----------- VECTOR CONVERSION -----------
+    @Named("tagsToVector")
+    default int[] mapTagsToVector(List<String> tags, @Context TagVectorService svc) {
+        return svc.toVector(tags);
+    }
+
+    @Named("toNames")
+    default List<String> mapVectorToTags(int[] vector, @Context TagVectorService svc) {
+        return svc.toNames(vector);
     }
 }

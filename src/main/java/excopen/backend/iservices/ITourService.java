@@ -1,12 +1,14 @@
 package excopen.backend.iservices;
 
 import excopen.backend.dto.FilterToursDTO;
+import excopen.backend.dto.SearchParamsDTO;
 import excopen.backend.dto.TourCreateDTO;
 import excopen.backend.dto.TourResponseDTO;
 import excopen.backend.entities.Description;
 import excopen.backend.entities.Tour;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,6 +26,6 @@ public interface ITourService {
     List<Tour> findToursByDuration(Double duration);
     List<Tour> getRecommendedTours(Long userId);
     List<Tour> getSimilarTours(Long tourId);
-    Page<Tour> filterTours(FilterToursDTO filter, Pageable pageable);
+    List<Tour> searchTours(SearchParamsDTO params, Sort sort);
 }
 

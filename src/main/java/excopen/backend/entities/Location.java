@@ -20,6 +20,8 @@ public class Location implements Serializable {
     private String country;
     private String imageUrl;
 
+    private Integer tourCount;
+
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
     private List<Tour> tours;
 }

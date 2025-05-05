@@ -12,9 +12,9 @@ public class ReviewUpdateDTO {
     private Double rating;
 
     @NotNull(message = "withChildren is required")
-    private boolean withChildren;
+    private Boolean withChildren;
     @NotNull(message = "personCount is required")
-    private double personCount;
+    private Integer personCount;
 
     @NotBlank(message = "Review text cannot be empty")
     @Size(max = 2000, message = "Review text must be less than 2000 characters")

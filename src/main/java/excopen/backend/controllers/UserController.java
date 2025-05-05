@@ -102,9 +102,9 @@ public class UserController {
         dto.setInfo("Тестовый аккаунт");
 
         // Создаем и заполняем контакты
-        ContactsDTO contacts = new ContactsDTO();
+        ContactDTO contacts = new ContactDTO();
         contacts.setPhone("+79991234567");
-        contacts.setVk("vk.com/test_user");
+        contacts.setVk("@test_user");
         contacts.setTelegram("@test_tg");
         dto.setContacts(contacts);
 
@@ -152,16 +152,8 @@ public class UserController {
         private List<TourDTO> tours;
         private Double rating;
         private Integer ratingCount;
-        private ContactsDTO contacts;
+        private ContactDTO contacts;
         private String info;
-
-    }
-
-    @Data
-    private static class ContactsDTO {
-        private String phone;
-        private String vk;
-        private String telegram;
 
     }
 

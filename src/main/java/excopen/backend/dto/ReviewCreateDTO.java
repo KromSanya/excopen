@@ -20,7 +20,7 @@ public class ReviewCreateDTO {
     @NotNull(message = "withChildren is required")
     private Boolean withChildren;
     @NotNull(message = "personCount is required")
-    private Double personCount;
+    private Integer personCount;
 
     @NotBlank(message = "Review text cannot be empty")
     @Size(max = 2000, message = "Review text must be less than 2000 characters")
@@ -30,5 +30,5 @@ public class ReviewCreateDTO {
     @Size(max = 2000, message = "Review text must be less than 2000 characters")
     private String negativeText;
 
-    private List<MultipartFile> images;
+//    private List<MultipartFile> images;
 }
