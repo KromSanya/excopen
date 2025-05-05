@@ -60,14 +60,15 @@ public class SecurityConfig {
                                 "/api/reviews",
                                 "/api/favorites/**",
                                 "/api/tours",
+                                "/api/tours/**",
                                 "/logout"
-                        ).authenticated()
+                        ).permitAll()
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/reviews/**",
                                 "/api/tours/**",
                                 "/api/users/me",
                                 "/api/users/me/preferences-vector"
-                        ).authenticated()
+                        ).permitAll()
 
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/favorites/**",
