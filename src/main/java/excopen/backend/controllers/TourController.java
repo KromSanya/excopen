@@ -2,8 +2,6 @@ package excopen.backend.controllers;
 
 import excopen.backend.constants.TourAccessibility;
 import excopen.backend.constants.TourSort;
-import excopen.backend.constants.TourType;
-import excopen.backend.constants.TransportType;
 import excopen.backend.dto.*;
 import excopen.backend.entities.Description;
 import excopen.backend.entities.Location;
@@ -20,9 +18,6 @@ import excopen.backend.servicesImpl.FileStorageService;
 import excopen.backend.servicesImpl.TagVectorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -67,18 +62,16 @@ public class TourController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('GUIDE')")
+//    @PreAuthorize("hasRole('GUIDE')")
     public TourResponseDTO createTour(
-            @Valid @ModelAttribute TourCreateForm form,
+            @Valid @RequestPart("tour") TourCreateDTO tourDTO, // Исправлено
+            @RequestPart("images") List<MultipartFile> images, // Исправлено
             @CurrentUser User user) {
 
-        TourCreateDTO dto = form.getTour();
-        List<MultipartFile> images = form.getImages();
+        Location location = locationService.getLocationById(tourDTO.getLocationId());
+        Tour tour = tourMapper.toEntity(tourDTO, location, tagVectorService);
 
-        Location location = locationService.getLocationById(dto.getLocationId());
-        Tour tour = tourMapper.toEntity(dto, location, tagVectorService);
-
-        Description description = descriptionMapper.toEntity(dto.getDescription());
+        Description description = descriptionMapper.toEntity(tourDTO.getDescription());
         tour.setDescription(description);
 
         Tour createdTour = tourService.createTour(tour, user.getId());
@@ -151,7 +144,7 @@ public class TourController {
         // Форматы
         dto.setFormat("Груповой");
         dto.setFormatBehavior("Пешком");
-        dto.setAccessibility(TourAccessibility.WITH_CHILDREN);
+        dto.setAccessibility(TourAccessibility.with_children);
 
         // Дата и время
         dto.setDate(LocalDate.of(2025, 5, 20));
@@ -207,7 +200,7 @@ public class TourController {
     }
 
 
-    @GetMapping("/search")
+    @GetMapping
     public ResponseEntity<List<TourResponseDTO>> searchTours(
             @ModelAttribute SearchParamsDTO searchParams,
             @RequestParam(name = "_sort", defaultValue = "FOR_POPULAR") String sortStrategy) {

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum TourAccessibility {
-    WITH_CHILDREN("with_children"),
-    WITHOUT_CHILDREN("without_children");
+    with_children("with_children"),
+    without_children("without_children");
 
     private final String value;
 
