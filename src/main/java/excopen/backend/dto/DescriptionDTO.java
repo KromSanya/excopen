@@ -9,7 +9,7 @@ import java.util.List;
 public class DescriptionDTO {
 
     @NotBlank(message = "Основная информация обязательна")
-    private String mainInfo;
+    private String info;
 
     @NotBlank(message = "Информация об ожидании обязательна")
     private String whatToExpect;

@@ -83,7 +83,7 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)
                         )
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("http://localhost:5173/main");
+                            response.sendRedirect("http://localhost:4173/main");
                         })
                 )
                 .logout(logout -> logout

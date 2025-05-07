@@ -22,10 +22,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,6 +35,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tours")
 public class TourController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TourController.class);
+
 
     private final ITourService tourService;
     private final ILocationService locationService;
@@ -62,13 +66,19 @@ public class TourController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasRole('GUIDE')")
-    public TourResponseDTO createTour(
-            @Valid @RequestPart("tour") TourCreateDTO tourDTO, // Исправлено
+    public void createTour(
+            @Valid @ModelAttribute("tour") TourCreateDTO tourDTO, // Исправлено
             @RequestPart("images") List<MultipartFile> images, // Исправлено
             @CurrentUser User user) {
 
-        Location location = locationService.getLocationById(tourDTO.getLocationId());
+        logger.info("Received tourDTO: {}", tourDTO);
+
+        // Логируем список изображений
+        for (MultipartFile image : images) {
+            logger.info("Received image: {} with size {}", image.getOriginalFilename(), image.getSize());
+        }
+
+        Location location = locationService.getLocationById(tourDTO.getLocation().getId());
         Tour tour = tourMapper.toEntity(tourDTO, location, tagVectorService);
 
         Description description = descriptionMapper.toEntity(tourDTO.getDescription());
@@ -81,7 +91,7 @@ public class TourController {
             tourImageService.addTourImage(createdTour.getId(), imageUrl);
         }
 
-        return tourMapper.toResponseDTO(createdTour, tagVectorService);
+     //   return tourMapper.toResponseDTO(createdTour, tagVectorService);
     }
 
 
@@ -91,23 +101,21 @@ public class TourController {
     @PostMapping(path = "/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public TourResponseDTO createTourTest(
-            @Valid @ModelAttribute TourCreateForm form
+            @Valid @RequestPart("tour") TourCreateDTO tourDTO, // Исправлено
+            @RequestPart("images") List<MultipartFile> images // Исправлено
     ) {
-        // 1) Сохраняем все картинки
-        List<MultipartFile> images = form.getImages();
-
         // 2) Получаем привязку к локации
-        Location location = locationService.getLocationById(form.getTour().getLocationId());
+        Location location = locationService.getLocationById(tourDTO.getLocation().getId());
 
         // 3) Маппим в сущность (в том числе coordinates и contacts автоматически)
-        Tour tour = tourMapper.toEntity(form.getTour(), location, tagVectorService);
+        Tour tour = tourMapper.toEntity(tourDTO, location, tagVectorService);
 
         // 4) Описания
-        Description description = descriptionMapper.toEntity(form.getTour().getDescription());
+        Description description = descriptionMapper.toEntity(tourDTO.getDescription());
         tour.setDescription(description);
 
-        // 5) Сохраняем тур (жёстко передаём userId=123L для теста)
-        Tour created = tourService.createTour(tour, 123L);
+        // 5) Сохраняем тур (жёстко передаём userId=2L для теста)
+        Tour created = tourService.createTour(tour, 2L);
 
         // 6) Сохраняем картинки уже после того, как тур создан
         for (MultipartFile img : images) {
@@ -154,7 +162,7 @@ public class TourController {
         CoordinateDTO coords = new CoordinateDTO();
         coords.setLongitude(59.9386);
         coords.setLatitude(30.3141);
-        coords.setZoom(14);
+        coords.setZoom(14.0);
         dto.setCoordinates(coords);
 
         // Теги
@@ -162,7 +170,7 @@ public class TourController {
 
         // Описание
         DescriptionDTO desc = new DescriptionDTO();
-        desc.setMainInfo("Прогулка по набережным, разводные мосты, огни ночного города.");
+        desc.setInfo("Прогулка по набережным, разводные мосты, огни ночного города.");
         desc.setWhatToExpect("Небольшая пешая экскурсия по красивейшим местам города ночью.");
         desc.setOrgDetails("Экскурсия проводится ежедневно, сбор у Адмиралтейства.");
         desc.setMeetingPlace("Санкт-Петербург, Адмиралтейская набережная, д. 2");
@@ -186,7 +194,7 @@ public class TourController {
         dto.setContacts(contacts);
 
         // Локация
-        LocationResponseDTO locResp = new LocationResponseDTO(
+        LocationDTO locResp = new LocationDTO(
                 1L,
                 "Санкт-Петербург",
                 "Ленинградская область",

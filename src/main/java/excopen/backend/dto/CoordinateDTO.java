@@ -13,5 +13,5 @@ public class CoordinateDTO {
     private Double longitude;
 
     @NotNull
-    private Integer zoom;
+    private Double zoom;
 }

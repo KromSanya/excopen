@@ -15,6 +15,6 @@ public class Coordinate {
     private Double longitude;
     private Double latitude;
 
-    private Integer zoom;
+    private Double zoom;
 
 }

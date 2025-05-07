@@ -3,6 +3,8 @@ package excopen.backend.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "description")
@@ -20,9 +22,9 @@ public class Description {
 
     private String whatToExpect;
 
-    private String[] places;
+    private List<String> places;
 
-    private String[] topics;
+    private List<String> topics;
 
     private String orgDetails;
 

@@ -1,6 +1,6 @@
 package excopen.backend.controllers;
 
-import excopen.backend.dto.LocationResponseDTO;
+import excopen.backend.dto.LocationDTO;
 import excopen.backend.entities.Location;
 import excopen.backend.iservices.ILocationService;
 import excopen.backend.mapper.LocationMapper;
@@ -25,12 +25,12 @@ public class LocationController {
     }
 
     @GetMapping
-    public List<LocationResponseDTO> getAllLocationsWithTourCount() {
+    public List<LocationDTO> getAllLocationsWithTourCount() {
         List<Location> locations = locationService.getAllLocations();
 
         return locations.stream()
                 .map(location -> {
-                    LocationResponseDTO dto = locationMapper.toResponseDTO(location);
+                    LocationDTO dto = locationMapper.toResponseDTO(location);
                     dto.setTourCount((long) location.getTours().size());
                     return dto;
                 })
@@ -38,10 +38,10 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LocationResponseDTO> getLocationById(@PathVariable Long id) {
+    public ResponseEntity<LocationDTO> getLocationById(@PathVariable Long id) {
         Location loc = locationService.getLocationById(id);
 
-        LocationResponseDTO dto = locationMapper.toResponseDTO(loc);
+        LocationDTO dto = locationMapper.toResponseDTO(loc);
         dto.setTourCount((long) loc.getTours().size());
 
         return ResponseEntity.ok(dto);

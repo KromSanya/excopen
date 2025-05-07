@@ -3,10 +3,12 @@ package excopen.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class LocationResponseDTO {
+@NoArgsConstructor
+public class LocationDTO {
     private Long id;
     private String city;
     private String region;

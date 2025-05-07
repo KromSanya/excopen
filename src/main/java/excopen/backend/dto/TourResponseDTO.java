@@ -1,15 +1,9 @@
 package excopen.backend.dto;
 
 import excopen.backend.constants.TourAccessibility;
-import excopen.backend.constants.TourType;
-import excopen.backend.constants.TransportType;
-import excopen.backend.entities.Coordinate;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -23,7 +17,7 @@ public class TourResponseDTO {
     private List<String> images;
     private List<String> tags;
 
-    private LocationResponseDTO location;
+    private LocationDTO location;
 
     private Double routeLength;
     private Boolean byCity;
