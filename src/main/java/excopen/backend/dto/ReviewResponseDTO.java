@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class ReviewResponseDTO {
     private Long id;
+    private String name;
     private Long tourId;
     private Long userId;
     private Double rating;

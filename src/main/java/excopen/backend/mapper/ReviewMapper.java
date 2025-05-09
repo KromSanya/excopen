@@ -22,7 +22,8 @@ public interface ReviewMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateReviewFromDTO(ReviewUpdateDTO dto, @MappingTarget Review review);
 
-//    @Mapping(target = "imageUrls", source = "images")
+    @Mapping(target = "name", source = "user.name")
+    @Mapping(target = "userId", source = "user.id")
     ReviewResponseDTO toResponseDTO(Review review);
 
     default List<ReviewResponseDTO> toResponseDTOList(List<Review> reviews) {
