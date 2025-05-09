@@ -3,7 +3,9 @@ package excopen.backend.mapper;
 import excopen.backend.dto.*;
 import excopen.backend.entities.*;
 import excopen.backend.servicesImpl.TagVectorService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.mapstruct.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +36,7 @@ public interface TourMapper {
     @Mapping(target = "date", source = "dto.date")
     @Mapping(target = "time", source = "dto.time")
 
-    @Mapping(target = "coordinates", source = "dto.coordinates")
+    @Mapping(target = "coordinate", source = "dto.coordinates")
     @Mapping(target = "contacts", source = "dto.contacts")
 
     @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
@@ -75,27 +77,48 @@ public interface TourMapper {
     @Mapping(target = "groupCapacity", source = "maxCapacity")
     @Mapping(target = "contributorId", source = "creator.id")
     @Mapping(target = "ratingCount", source = "reviewCount")
-    TourResponseDTO toResponseDTO(Tour tour, @Context TagVectorService svc);
+    @Mapping(target = "coordinates", source = "coordinate")
+    TourResponseDTO toResponseDTO(Tour tour,
+                                  @Context TagVectorService svc,
+                                  @Context HttpServletRequest request);
 
-    default List<TourResponseDTO> toResponseDTOList(List<Tour> tours, @Context TagVectorService svc) {
+    default List<TourResponseDTO> toResponseDTOList(List<Tour> tours, @Context TagVectorService svc, @Context HttpServletRequest request) {
         if (tours == null) return Collections.emptyList();
         return tours.stream()
-                .map(t -> toResponseDTO(t, svc))
+                .map(t -> toResponseDTO(t, svc, request))
                 .collect(Collectors.toList());
     }
 
     @Named("mapTourImages")
-    default List<String> mapTourImages(List<TourImage> images) {
+    default List<String> mapTourImages(List<TourImage> images, @Context HttpServletRequest request) {
         if (images == null) return List.of();
+
+        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                .replacePath(null)
+                .build()
+                .toUriString();
+
         return images.stream()
-                .map(TourImage::getImageUrl)
+                .map(img -> baseUrl + img.getImageUrl())
                 .toList();
+    }
+
+    default CoordinateDTO mapCoordinateToDto(Coordinate coordinate) {
+        if (coordinate == null) return null;
+
+        CoordinateDTO dto = new CoordinateDTO();
+        CoordinateDTO.Point point = new CoordinateDTO.Point();
+        point.setLatitude(coordinate.getLatitude());
+        point.setLongitude(coordinate.getLongitude());
+        dto.setPoint(point);
+        dto.setZoom(coordinate.getZoom());
+        return dto;
     }
 
     default Coordinate toEntity(CoordinateDTO dto) {
         Coordinate coord = new Coordinate();
-        coord.setLongitude(dto.getLongitude());
-        coord.setLatitude(dto.getLatitude());
+        coord.setLongitude(dto.getPoint().getLongitude());
+        coord.setLatitude(dto.getPoint().getLatitude());
         coord.setZoom(dto.getZoom());
         return coord;
     }

@@ -34,7 +34,7 @@ public interface DescriptionMapper {
     void updateFromDTO(DescriptionDTO dto, @MappingTarget Description entity);
 
     @Mapping(target = "tourId", source = "tour.id")
-    @Mapping(target = "mainInfo", source = "description.mainInfo")
+    @Mapping(target = "info", source = "description.mainInfo")
     @Mapping(target = "whatToExpect", source = "description.whatToExpect")
     @Mapping(target = "places", source = "description.places")
     @Mapping(target = "topics", source = "description.topics")

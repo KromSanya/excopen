@@ -13,7 +13,7 @@ public class TourResponseDTO {
     private Long id;
     private String title;
 
-    private DescriptionDTO description;
+    private DescriptionResponseDTO description;
     private List<String> images;
     private List<String> tags;
 

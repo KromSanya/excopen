@@ -1,8 +1,6 @@
 package excopen.backend.entities;
 
-import excopen.backend.constants.TourType;
-import excopen.backend.constants.TransportType;
-import excopen.backend.constants.TourAccessibility; // Добавляем enum для доступности
+import excopen.backend.constants.TourAccessibility;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -78,7 +76,7 @@ public class Tour implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinate_id", nullable = false)
-    private Coordinate coordinates;
+    private Coordinate coordinate;
 
     private LocalDate date;
 

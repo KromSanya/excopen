@@ -110,42 +110,23 @@ public class TourServiceImpl implements ITourService {
         QTour tour = QTour.tour;
         BooleanBuilder predicate = new BooleanBuilder();
 
-        // Поиск по локации
-        if (params.getLocation() != null) {
-            SearchParamsDTO.LocationDTO loc = params.getLocation();
-            if (loc.getId() != null) {
-                predicate.and(tour.location.id.eq(loc.getId()));
-            }
-            if (loc.getCity() != null) {
-                predicate.and(tour.location.city.equalsIgnoreCase(loc.getCity()));
-            }
-            if (loc.getRegion() != null) {
-                predicate.and(tour.location.region.equalsIgnoreCase(loc.getRegion()));
-            }
-            if (loc.getCountry() != null) {
-                predicate.and(tour.location.country.equalsIgnoreCase(loc.getCountry()));
-            }
-            if (loc.getImageUrl() != null) {
-                predicate.and(tour.location.imageUrl.equalsIgnoreCase(loc.getImageUrl()));
-            }
-            if (loc.getTourCount() != null) {
-                predicate.and(tour.location.tourCount.eq(loc.getTourCount()));
-            }
+        // Поиск по городу и региону
+        if (params.getCity() != null) {
+            predicate.and(tour.location.city.equalsIgnoreCase(params.getCity()));
+        }
+        if (params.getRegion() != null) {
+            predicate.and(tour.location.region.equalsIgnoreCase(params.getRegion()));
         }
 
         // Поиск по диапазону дат
-        if (params.getDate() != null) {
-            LocalDateTime from = params.getDate().getFrom();
-            LocalDateTime to   = params.getDate().getTo();
-            if (from != null) {
-                predicate.and(tour.date.goe(from.toLocalDate()));
-            }
-            if (to != null) {
-                predicate.and(tour.date.loe(to.toLocalDate()));
-            }
+        if (params.getFrom() != null) {
+            predicate.and(tour.date.goe(params.getFrom()));
+        }
+        if (params.getTo() != null) {
+            predicate.and(tour.date.loe(params.getTo()));
         }
 
-        // Фильтрация по доступности и по городу
+        // Остальные фильтры
         if (params.getAccessibility() != null) {
             predicate.and(tour.accessibility.stringValue().eq(params.getAccessibility()));
         }

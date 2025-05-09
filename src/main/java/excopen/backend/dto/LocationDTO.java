@@ -13,6 +13,6 @@ public class LocationDTO {
     private String city;
     private String region;
     private String country;
-    private String imageUrl;
+    private String image;
     private Long tourCount;
 }
