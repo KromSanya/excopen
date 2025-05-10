@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {DescriptionMapper.class, LocationMapper.class})
@@ -93,13 +94,22 @@ public interface TourMapper {
     default List<String> mapTourImages(List<TourImage> images, @Context HttpServletRequest request) {
         if (images == null) return List.of();
 
-        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+        final String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
                 .replacePath(null)
                 .build()
                 .toUriString();
 
         return images.stream()
-                .map(img -> baseUrl + img.getImageUrl())
+                .map(TourImage::getImageUrl)
+                .filter(Objects::nonNull)
+                .map(url -> {
+                    if (url.matches("^(?i)https?://.*")) {
+                        return url;
+                    }
+                    return url.startsWith("/")
+                            ? baseUrl + url
+                            : baseUrl + "/" + url;
+                })
                 .toList();
     }
 

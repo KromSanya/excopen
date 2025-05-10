@@ -21,6 +21,6 @@ public class GuideResponseDTO {
     private Integer ratingCount = 0;
     private ContactDTO contacts;
     private String avatar;
-    private List<String> tags;
+//    private List<String> tags;
 
 }
