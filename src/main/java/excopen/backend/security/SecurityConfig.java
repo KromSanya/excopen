@@ -8,6 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -85,27 +87,7 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)
                         )
                         .successHandler((request, response, authentication) -> {
-                            String localUrl = "http://localhost:5173/main";
-                            String productionUrl = "https://www.excopen.ru/main";
-
-                            try {
-                                // Проверяем доступность локального хоста
-                                URL url = new URL(localUrl);
-                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                                connection.setRequestMethod("HEAD");
-                                connection.setConnectTimeout(1000);
-
-                                int responseCode = connection.getResponseCode();
-
-                                // Если получили успешный ответ - используем локальный URL
-                                if (responseCode >= 200 && responseCode < 300) {
-                                    response.sendRedirect(localUrl);
-                                } else {
-                                    response.sendRedirect(productionUrl);
-                                }
-                            } catch (Exception e) {
-                                response.sendRedirect(productionUrl);
-                            }
+                            response.sendRedirect("https://www.excopen.ru/main");
                         })
                 )
                 .logout(logout -> logout
@@ -125,13 +107,27 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://localhost:5173", "http://localhost:4173",
-                "https://excopenprodfront.vercel.app", "https://excopen.ru", "https://www.excopen.ru"));
+                "https://www.excopen.ru"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    // SecurityConfig.java
+    @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setCookieName("JSESSIONID");
+        serializer.setUseHttpOnlyCookie(true);
+        serializer.setSameSite("None"); // SameSite=None
+        serializer.setUseSecureCookie(true); // Только для HTTPS
+        serializer.setDomainName("excopen.ru"); // Основной домен
+        serializer.setCookiePath("/");
+        return serializer;
     }
 }
