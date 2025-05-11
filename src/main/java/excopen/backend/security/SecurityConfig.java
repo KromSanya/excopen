@@ -12,6 +12,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 @Configuration
@@ -83,7 +85,27 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)
                         )
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("http://localhost:5173/main");
+                            String localUrl = "http://localhost:5173/main";
+                            String productionUrl = "https://www.excopen.ru/main";
+
+                            try {
+                                // Проверяем доступность локального хоста
+                                URL url = new URL(localUrl);
+                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                connection.setRequestMethod("HEAD");
+                                connection.setConnectTimeout(1000);
+
+                                int responseCode = connection.getResponseCode();
+
+                                // Если получили успешный ответ - используем локальный URL
+                                if (responseCode >= 200 && responseCode < 300) {
+                                    response.sendRedirect(localUrl);
+                                } else {
+                                    response.sendRedirect(productionUrl);
+                                }
+                            } catch (Exception e) {
+                                response.sendRedirect(productionUrl);
+                            }
                         })
                 )
                 .logout(logout -> logout
