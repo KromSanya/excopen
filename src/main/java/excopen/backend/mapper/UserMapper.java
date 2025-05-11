@@ -24,6 +24,7 @@ public interface UserMapper {
 
     @Mapping(target = "contacts", source = ".")
     @Mapping(source = "avatarUrl", target = "avatar")
+    @Mapping(source = "description", target = "info")
     GuideResponseDTO toGuideResponseDTO(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
