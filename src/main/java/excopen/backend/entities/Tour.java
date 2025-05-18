@@ -61,6 +61,9 @@ public class Tour implements Serializable {
 //    private Integer minAge;
     private Integer maxCapacity;
 
+    @Column(name = "free_seats", nullable = false)
+    private Integer freeSeats;
+
     private Double rating;         // от 0.0 до 10.0
     private Integer reviewCount = 0;
 

@@ -27,7 +27,7 @@ public class BookingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookingResponse createBooking(
-            @Valid @RequestBody CreateBookingRequest request,
+            @Valid @ModelAttribute CreateBookingRequest request,
             @CurrentUser User user
     ) {
         Booking booking = bookingMapper.toEntity(request);
@@ -47,7 +47,7 @@ public class BookingController {
         bookingService.cancelBooking(bookingId, user.getId());
     }
 
-    @GetMapping("/my")
+    @GetMapping("/me")
     public List<BookingResponse> getUserBookings(@CurrentUser User user) {
         return bookingService.getBookingsByUserId(user.getId()).stream()
                 .map(bookingMapper::toResponse)

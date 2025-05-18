@@ -15,8 +15,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "booking_slot_id", nullable = false)
-    private Long bookingSlotId;
+    @Column(name = "tour_id", nullable = false)
+    private Long tourId;
+
+//    @Column(name = "booking_slot_id", nullable = false)
+//    private Long bookingSlotId;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -24,9 +27,9 @@ public class Booking {
     @Column(name = "participants", nullable = false)
     private Integer participants;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private BookingStatus status;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "status", nullable = false)
+//    private BookingStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

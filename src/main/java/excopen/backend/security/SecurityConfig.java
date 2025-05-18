@@ -66,7 +66,8 @@ public class SecurityConfig {
                                 "/api/favorites/**",
                                 "/api/tours",
                                 "/api/tours/**",
-                                "/logout"
+                                "/logout",
+                                "/api/bookings"
                         ).permitAll()
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/reviews/**",
@@ -124,9 +125,9 @@ public class SecurityConfig {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
         serializer.setCookieName("JSESSIONID");
         serializer.setUseHttpOnlyCookie(true);
-        serializer.setSameSite("None"); // SameSite=None
-        serializer.setUseSecureCookie(true); // Только для HTTPS
-        serializer.setDomainName("excopen.ru"); // Основной домен
+        serializer.setSameSite("None");
+        serializer.setUseSecureCookie(true);
+        serializer.setDomainName("excopen.ru");
         serializer.setCookiePath("/");
         return serializer;
     }

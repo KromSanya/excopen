@@ -24,6 +24,7 @@ public class TourResponseDTO {
     private Integer price;
     private Integer priceForPerson;
     private Integer groupCapacity;
+    private Integer freeSeats;
 
     private String formatBehavior;
     private String format;

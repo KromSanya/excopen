@@ -72,10 +72,6 @@ public class TourController {
             @RequestPart("images") List<MultipartFile> images,
             @CurrentUser User user,
             HttpServletRequest request) {
-
-        logger.info("Creating tour for user: {}", user.getId());
-
-        // Валидация изображений
         if (images == null || images.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one image is required");
         }
@@ -88,7 +84,6 @@ public class TourController {
 
         Tour createdTour = tourService.createTour(tour, user.getId());
 
-        // Сохранение изображений
         List<String> imageUrls = images.stream()
                 .map(file -> {
                     try {

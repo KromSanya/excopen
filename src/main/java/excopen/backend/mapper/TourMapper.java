@@ -28,6 +28,7 @@ public interface TourMapper {
     @Mapping(target = "duration", source = "dto.duration")
     @Mapping(target = "routeLength", source = "dto.routeLength")
     @Mapping(target = "maxCapacity", source = "dto.groupCapacity")
+    @Mapping(target = "freeSeats", source = "dto.groupCapacity")
 
     @Mapping(target = "tourType", source = "dto.format")
     @Mapping(target = "transportType", source = "dto.formatBehavior")
