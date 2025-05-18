@@ -3,6 +3,7 @@ package excopen.backend.servicesImpl;
 import excopen.backend.constants.Role;
 import excopen.backend.dto.GuideRequestDto;
 import excopen.backend.entities.User;
+import excopen.backend.exceptions.NotFoundException;
 import excopen.backend.iservices.IUserService;
 import excopen.backend.repositories.ReviewRepository;
 import excopen.backend.repositories.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -32,15 +34,17 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
     private final PhoneNumberValidator phoneNumberValidator;
     private final ConcurrentMap<Long, GuideRequestDto> pendingGuideRequests = new ConcurrentHashMap<>();
     private final ReviewRepository reviewRepository;
+    private final FileStorageService fileStorageService;
 
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, VerificationService verificationService,
-                           PhoneNumberValidator phoneNumberValidator, ReviewRepository reviewRepository) {
+                           PhoneNumberValidator phoneNumberValidator, ReviewRepository reviewRepository, FileStorageService fileStorageService) {
         this.userRepository = userRepository;
         this.verificationService = verificationService;
         this.phoneNumberValidator = phoneNumberValidator;
         this.reviewRepository = reviewRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Override
@@ -69,8 +73,12 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
         return userRepository.findAll();
     }
 
-    @Override
-    public User updateUser(User user) {
+    @Transactional
+    public User updateUser(User user, MultipartFile avatarFile) {
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            String avatarPath = fileStorageService.storeUserAvatar(avatarFile);
+            user.setAvatarUrl(avatarPath);
+        }
         return userRepository.save(user);
     }
 

@@ -9,6 +9,7 @@ import excopen.backend.security.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -117,11 +118,14 @@ public class UserController {
         return principal.getAttributes();
     }
 
-    @PutMapping("/me")
-    public UserResponseDTO updateUser(@Valid @RequestBody UserUpdateDTO userUpdateDTO,
-                                      @CurrentUser User user) {
+    @PutMapping(value = "/me", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public UserResponseDTO updateUser(
+            @Valid @ModelAttribute UserUpdateDTO userUpdateDTO,
+            @CurrentUser User user
+    ) {
         userMapper.updateFromDTO(userUpdateDTO, user);
-        return userMapper.toUserResponseDTO(userService.updateUser(user));
+        User updatedUser = userService.updateUser(user, userUpdateDTO.getAvatarFile());
+        return userMapper.toUserResponseDTO(updatedUser);
     }
 
     @PutMapping("/me/preferences-vector")

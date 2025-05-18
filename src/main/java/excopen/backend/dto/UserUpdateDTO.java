@@ -2,6 +2,7 @@ package excopen.backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,5 +14,7 @@ public class UserUpdateDTO {
     private String surname;
     private List<String> tags;
     private ContactDTO contacts;
+    private String info;
+    private MultipartFile avatarFile;
 
 }
