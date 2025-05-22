@@ -9,7 +9,6 @@ import lombok.Data;
 public class Contact {
     private String vk;
     private String telegram;
-    @Column(nullable = false)
     private String phone;
 }
 

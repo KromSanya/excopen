@@ -15,6 +15,5 @@ public class UserUpdateDTO {
     private List<String> tags;
     private ContactDTO contacts;
     private String info;
-    private MultipartFile avatarFile;
 
 }
