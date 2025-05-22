@@ -79,7 +79,7 @@ public class UserController {
     @PutMapping(value = "/me", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public UserResponseDTO updateUser(
             @Valid @RequestPart("me") UserUpdateDTO userUpdateDTO,
-            @RequestPart("avatarFile") MultipartFile avatarFile,
+            @RequestPart(value = "avatarFile", required = false) MultipartFile avatarFile,
             @CurrentUser User user
     ) {
         userMapper.updateFromDTO(userUpdateDTO, user);

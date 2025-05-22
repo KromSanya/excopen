@@ -7,6 +7,7 @@ import excopen.backend.entities.*;
 import excopen.backend.iservices.ITourService;
 import excopen.backend.repositories.ReviewRepository;
 import excopen.backend.repositories.TourRepository;
+import org.antlr.v4.runtime.ListTokenSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,14 +28,16 @@ public class TourServiceImpl implements ITourService {
     private final TourRepository tourRepository;
     private final ReviewRepository reviewRepository;
     private final UserServiceImpl userService;
+    private final BookingServiceImpl bookingService;
 
     @Autowired
     public TourServiceImpl(TourRepository tourRepository,
                            ReviewRepository reviewRepository,
-                           UserServiceImpl userService) {
+                           UserServiceImpl userService, BookingServiceImpl bookingService) {
         this.tourRepository = tourRepository;
         this.reviewRepository = reviewRepository;
         this.userService = userService;
+        this.bookingService = bookingService;
     }
 
     @Transactional
@@ -58,6 +61,17 @@ public class TourServiceImpl implements ITourService {
     public List<Tour> getToursByCreatorId(Long creatorId) {
         User creator = userService.getUserById(creatorId);
         return tourRepository.findByCreator(creator);
+    }
+
+    @Override
+    public List<Tour> getVisitedToursByUserId(Long userId) {
+        var bookings = bookingService.getBookingsByUserId(userId);
+        List<Tour> tours = new ArrayList<>();
+        for(Booking element: bookings)
+        {
+            tours.add(this.getTourById(element.getTourId()));
+        }
+        return tours;
     }
 
     @Override

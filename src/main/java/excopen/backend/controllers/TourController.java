@@ -167,6 +167,11 @@ public class TourController {
         return tourMapper.toResponseDTOList(tourService.getToursByCreatorId(guideId), tagVectorService, request);
     }
 
+    @GetMapping("/bookings/me")
+    public List<TourResponseDTO> getVisitedToursByUserId( @CurrentUser User user, HttpServletRequest request) {
+        return tourMapper.toResponseDTOList(tourService.getVisitedToursByUserId(user.getId()), tagVectorService, request);
+    }
+
 
 
 //    @GetMapping("/recommendations/{userId}")

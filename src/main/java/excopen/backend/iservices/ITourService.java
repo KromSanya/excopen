@@ -19,6 +19,7 @@ public interface ITourService {
     Tour createTour(Tour tour, Long creatorId);
     Tour getTourById(Long tourId);
     List<Tour> getToursByCreatorId(Long creatorId);
+    List<Tour> getVisitedToursByUserId(Long userId);
     Tour updateTour(Tour tour);
     void deleteTour(Long tourId);
     List<Tour> getAllTours();
