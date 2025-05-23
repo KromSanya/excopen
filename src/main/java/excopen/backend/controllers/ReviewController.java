@@ -41,7 +41,7 @@ public class ReviewController {
         this.reviewMapper = reviewMapper;
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping
     public ReviewResponseDTO createReview(
             @Valid @RequestBody ReviewCreateDTO reviewDTO,
             @CurrentUser User user) {

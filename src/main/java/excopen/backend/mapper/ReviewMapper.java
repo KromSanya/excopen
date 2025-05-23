@@ -24,6 +24,8 @@ public interface ReviewMapper {
 
     @Mapping(target = "name", source = "user.name")
     @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "tourId", source = "tour.id")
+
     ReviewResponseDTO toResponseDTO(Review review);
 
     default List<ReviewResponseDTO> toResponseDTOList(List<Review> reviews) {
