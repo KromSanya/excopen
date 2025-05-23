@@ -51,7 +51,7 @@ public class ReviewController {
         review.setUser(user);
         review.setTour(tour);
 
-        Review savedReview = reviewService.createReview(review);
+        Review savedReview = reviewService.createReview(review, user);
         System.out.println(savedReview.getId());
 
 //        List<MultipartFile> images = reviewDTO.getImages();
@@ -77,7 +77,8 @@ public class ReviewController {
     @RequiresOwnership(entityClass = Review.class)
     @PutMapping(value = "/{reviewId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ReviewResponseDTO updateReview(@Valid @PathVariable Long reviewId,
-                                          @RequestPart("review") ReviewUpdateDTO reviewDTO) {
+                                          @RequestPart("review") ReviewUpdateDTO reviewDTO,
+                                          @CurrentUser User user) {
         Review existingReview = reviewService.getReviewById(reviewId);
         reviewMapper.updateReviewFromDTO(reviewDTO, existingReview);
         return reviewMapper.toResponseDTO(reviewService.updateReview(existingReview));
@@ -98,5 +99,14 @@ public class ReviewController {
     @GetMapping("/user/{userId}")
     public List<ReviewResponseDTO> getReviewsByUser(@PathVariable Long userId) {
         return reviewMapper.toResponseDTOList(reviewService.getReviewsByUser(userId));
+    }
+
+    @GetMapping("/exists")
+    public ResponseEntity<Boolean> checkReviewExists(
+            @RequestParam Long tourId,
+            @CurrentUser User user
+    ) {
+        boolean exists = reviewService.checkReviewExists(user.getId(), tourId);
+        return ResponseEntity.ok(exists);
     }
 }

@@ -30,34 +30,27 @@ public class OwnershipGuard {
     @Around("@annotation(requiresOwnership)")
     public Object checkOwnership(ProceedingJoinPoint joinPoint, RequiresOwnership requiresOwnership) throws Throwable {
         Object[] args = joinPoint.getArgs();
-        OAuth2User principal = null;
+        User currentUser = null;
         Long resourceId = null;
 
         for (Object arg : args) {
-            if (arg instanceof OAuth2User) {
-                principal = (OAuth2User) arg;
+            if (arg instanceof User) {
+                currentUser = (User) arg;
             } else if (arg instanceof Long) {
                 resourceId = (Long) arg;
             }
         }
 
-        if (principal == null || resourceId == null) {
+        if (currentUser == null || resourceId == null) {
             throw new AccessDeniedException("Invalid request parameters");
         }
 
-        String googleId = principal.getAttribute("sub");
-        User currentUser = userService.getUserByGoogleId(googleId);
-
-
-        Long userId = currentUser.getId();
         Class<?> entityClass = requiresOwnership.entityClass();
 
         if (entityClass.equals(Tour.class)) {
-            checkTourOwnership(resourceId, userId);
+            checkTourOwnership(resourceId, currentUser.getId());
         } else if (entityClass.equals(Review.class)) {
-            checkReviewOwnership(resourceId, userId);
-        } else {
-            throw new UnsupportedOperationException("Unsupported entity class: " + entityClass.getName());
+            checkReviewOwnership(resourceId, currentUser.getId());
         }
 
         return joinPoint.proceed();

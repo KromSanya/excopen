@@ -10,7 +10,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "reviews")
+@Table(
+        name = "reviews",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "unique_user_tour_review",
+                        columnNames = {"user_id", "tour_id"} // Названия колонок в БД
+                )
+        }
+)
 public class Review implements Serializable {
 
     @Id

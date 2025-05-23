@@ -119,7 +119,7 @@ public class SecurityConfig {
         return source;
     }
 
-    // SecurityConfig.java
+
     @Bean
     public CookieSerializer cookieSerializer() {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();

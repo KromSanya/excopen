@@ -4,6 +4,7 @@ import excopen.backend.entities.Review;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
 import excopen.backend.events.ReviewCreatedEvent;
+import excopen.backend.exceptions.DuplicateReviewException;
 import excopen.backend.iservices.IReviewService;
 import excopen.backend.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,11 @@ public class ReviewServiceImpl implements IReviewService {
 
     @Override
     @Transactional
-    public Review createReview(Review review) {
+    public Review createReview(Review review, User user) {
+        if (reviewRepository.existsByUserIdAndTourId(user.getId(), review.getTour().getId())) {
+            throw new DuplicateReviewException("User already has a review for this tour");
+        }
+
         Review saved = reviewRepository.save(review);
 
         Tour tour = saved.getTour();
@@ -45,6 +50,12 @@ public class ReviewServiceImpl implements IReviewService {
         );
 
         return saved;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean checkReviewExists(Long userId, Long tourId) {
+        return reviewRepository.existsByUserIdAndTourId(userId, tourId);
     }
 
     @Override

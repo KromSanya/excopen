@@ -37,6 +37,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 """)
     Integer countReviewsByCreatorId(@Param("creatorId") Long creatorId);
 
+    Boolean existsByUserIdAndTourId(Long userId, Long tourId);
+
 
     List<Review> findByTour(Tour tour);
 
