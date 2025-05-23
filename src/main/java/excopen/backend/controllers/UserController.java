@@ -6,6 +6,7 @@ import excopen.backend.entities.User;
 import excopen.backend.iservices.IUserService;
 import excopen.backend.mapper.UserMapper;
 import excopen.backend.security.CurrentUser;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,7 +52,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getUser(@PathVariable Long id,
-                                                   @CurrentUser(required = false) User currentUser) {
+                                          @CurrentUser(required = false) User currentUser,
+                                          HttpServletRequest request) {
         User targetUser = userService.getUserById(id);
 
         boolean isSelf = currentUser != null && currentUser.getId().equals(targetUser.getId());
@@ -63,34 +65,37 @@ public class UserController {
         }
         if(targetUser.getRole().equals(Role.GUIDE))
         {
-            return ResponseEntity.ok(userMapper.toGuideResponseDTO(targetUser));
+            return ResponseEntity.ok(userMapper.toGuideResponseDTO(targetUser, request));
         }else
       //  if(targetUser.getRole().equals(Role.USER))
         {
-            return ResponseEntity.ok(userMapper.toUserResponseDTO(targetUser));
+            return ResponseEntity.ok(userMapper.toUserResponseDTO(targetUser, request));
         }
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserResponseDTO> getCurrentUser(@CurrentUser User currentUser) {
-            return ResponseEntity.ok(userMapper.toUserResponseDTO(currentUser));
+    public ResponseEntity<UserResponseDTO> getCurrentUser(@CurrentUser User currentUser,
+                                                          HttpServletRequest request) {
+            return ResponseEntity.ok(userMapper.toUserResponseDTO(currentUser, request));
     }
 
     @PutMapping(value = "/me", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public UserResponseDTO updateUser(
             @Valid @RequestPart("me") UserUpdateDTO userUpdateDTO,
             @RequestPart(value = "avatarFile", required = false) MultipartFile avatarFile,
-            @CurrentUser User user
+            @CurrentUser User user,
+            HttpServletRequest request
     ) {
         userMapper.updateFromDTO(userUpdateDTO, user);
         User updatedUser = userService.updateUser(user, avatarFile);
-        return userMapper.toUserResponseDTO(updatedUser);
+        return userMapper.toUserResponseDTO(updatedUser, request);
     }
 
     @PutMapping("/me/preferences-vector")
     public UserResponseDTO updatePreferencesVector(@RequestBody int[] preferencesVector,
-                                                   @CurrentUser User user) {
-        return userMapper.toUserResponseDTO(userService.updatePreferencesVector(user.getId(), preferencesVector));
+                                                   @CurrentUser User user,
+                                                   HttpServletRequest request) {
+        return userMapper.toUserResponseDTO(userService.updatePreferencesVector(user.getId(), preferencesVector), request);
     }
 
 //    @DeleteMapping("/me")

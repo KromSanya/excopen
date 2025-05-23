@@ -43,7 +43,7 @@ public class ReviewController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ReviewResponseDTO createReview(
-            @Valid @ModelAttribute ReviewCreateDTO reviewDTO,
+            @Valid @RequestBody ReviewCreateDTO reviewDTO,
             @CurrentUser User user) {
 
         Tour tour = tourService.getTourById(reviewDTO.getTourId());
@@ -67,11 +67,11 @@ public class ReviewController {
     }
 
 
-//    @GetMapping("/{reviewId}")
-//    public ReviewResponseDTO getReviewById(@PathVariable Long reviewId) {
-//        Review review = reviewService.getReviewById(reviewId);
-//        return reviewMapper.toResponseDTO(review);
-//    }
+    @GetMapping("/{reviewId}")
+    public ReviewResponseDTO getReviewById(@PathVariable Long reviewId) {
+        Review review = reviewService.getReviewById(reviewId);
+        return reviewMapper.toResponseDTO(review);
+    }
 
 
     @RequiresOwnership(entityClass = Review.class)

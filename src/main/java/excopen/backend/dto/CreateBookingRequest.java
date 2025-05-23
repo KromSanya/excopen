@@ -13,7 +13,7 @@ public class CreateBookingRequest {
 //    @NotNull(message = "ID слота обязателен")
 //    private Long bookingSlotId;
 
-    private Long userId;
+//    private Long userId;
 
     @NotNull(message = "Количество участников обязательно")
     @Min(value = 1, message = "Количество участников должно быть хотя бы 1")

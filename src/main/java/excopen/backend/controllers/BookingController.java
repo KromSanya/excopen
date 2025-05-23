@@ -27,7 +27,7 @@ public class BookingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookingResponse createBooking(
-            @Valid @ModelAttribute CreateBookingRequest request,
+            @Valid @RequestBody CreateBookingRequest request,
             @CurrentUser User user
     ) {
         Booking booking = bookingMapper.toEntity(request);

@@ -1,11 +1,15 @@
 package excopen.backend.mapper;
 
 import excopen.backend.dto.*;
+import excopen.backend.entities.TourImage;
 import excopen.backend.entities.User;
 import excopen.backend.servicesImpl.TagVectorService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.mapstruct.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mapper(componentModel = "spring", uses = {TagVectorService.class })
 public interface UserMapper {
@@ -19,13 +23,13 @@ public interface UserMapper {
 
     @Mapping(source = "preferencesVector", target = "tags")
     @Mapping(target = "contacts", source = ".")
-    @Mapping(source = "avatarUrl", target = "avatar")
-    UserResponseDTO toUserResponseDTO(User user);
+    @Mapping(source = "avatarUrl", target = "avatar", qualifiedByName = "mapAvatar")
+    UserResponseDTO toUserResponseDTO(User user, @Context HttpServletRequest request);
 
     @Mapping(target = "contacts", source = ".")
-    @Mapping(source = "avatarUrl", target = "avatar")
+    @Mapping(source = "avatarUrl", target = "avatar", qualifiedByName = "mapAvatar")
     @Mapping(source = "description", target = "info")
-    GuideResponseDTO toGuideResponseDTO(User user);
+    GuideResponseDTO toGuideResponseDTO(User user, @Context HttpServletRequest request);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "googleId", ignore = true)
@@ -48,6 +52,23 @@ public interface UserMapper {
     @Named("toNames")
     default List<String> mapVectorToTags(int[] vector, @Context TagVectorService svc) {
         return svc.toNames(vector);
+    }
+
+    @Named("mapAvatar")
+    default String mapAvatar(String image, @Context HttpServletRequest request) {
+        final String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                .replacePath(null)
+                .build()
+                .toUriString();
+
+        if (image.matches("^(?i)https?://.*")) {
+            return image;
+        }
+        return image.startsWith("/")
+                ? baseUrl + image
+                : baseUrl + "/" + image;
+
+
     }
 
     default ContactDTO mapContacts(User user) {
