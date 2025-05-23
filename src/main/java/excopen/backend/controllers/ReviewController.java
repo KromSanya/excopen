@@ -41,9 +41,9 @@ public class ReviewController {
         this.reviewMapper = reviewMapper;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ReviewResponseDTO createReview(
-            @Valid @RequestBody ReviewCreateDTO reviewDTO,
+            @Valid @RequestPart("review") ReviewCreateDTO reviewDTO,
             @CurrentUser User user) {
 
         Tour tour = tourService.getTourById(reviewDTO.getTourId());
@@ -75,9 +75,9 @@ public class ReviewController {
 
 
     @RequiresOwnership(entityClass = Review.class)
-    @PutMapping("/{reviewId}")
+    @PutMapping(value = "/{reviewId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ReviewResponseDTO updateReview(@Valid @PathVariable Long reviewId,
-                                          @RequestBody ReviewUpdateDTO reviewDTO) {
+                                          @RequestPart("review") ReviewUpdateDTO reviewDTO) {
         Review existingReview = reviewService.getReviewById(reviewId);
         reviewMapper.updateReviewFromDTO(reviewDTO, existingReview);
         return reviewMapper.toResponseDTO(reviewService.updateReview(existingReview));
