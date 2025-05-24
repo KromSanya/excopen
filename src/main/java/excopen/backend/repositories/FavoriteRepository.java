@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
+
+    @Query("SELECT f.tour.id FROM Favorite f WHERE f.user.id = :userId AND f.tour.id IN :tourIds")
+    Set<Long> findExistingIds(Long userId, List<Long> tourIds);
 
     boolean existsByUserAndTour(User user, Tour tour);
 

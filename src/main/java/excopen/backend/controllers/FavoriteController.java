@@ -1,5 +1,6 @@
 package excopen.backend.controllers;
 
+import excopen.backend.dto.AddFavouritesRequest;
 import excopen.backend.dto.TourResponseDTO;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
@@ -8,7 +9,9 @@ import excopen.backend.mapper.TourMapper;
 import excopen.backend.security.CurrentUser;
 import excopen.backend.servicesImpl.TagVectorService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +34,16 @@ public class FavoriteController {
 
     @PostMapping("/{tourId}")
     public void addTourToFavorites(@PathVariable Long tourId, @CurrentUser User user) {
-        favoriteService.addTourToFavorites(user.getId(), tourId);
+        favoriteService.addTourToFavorites(user, tourId);
+    }
+
+    @PostMapping("/many")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addToursToFavourites(
+            @Valid @RequestBody AddFavouritesRequest request,
+            @CurrentUser User user
+    ) {
+        favoriteService.addToursToFavourites(user, request.getIds());
     }
 
     @DeleteMapping("/{tourId}")

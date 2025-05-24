@@ -24,6 +24,7 @@ public interface UserMapper {
     @Mapping(source = "preferencesVector", target = "tags")
     @Mapping(target = "contacts", source = ".")
     @Mapping(source = "avatarUrl", target = "avatar", qualifiedByName = "mapAvatar")
+    @Mapping(source = "description", target = "info")
     UserResponseDTO toUserResponseDTO(User user, @Context HttpServletRequest request);
 
     @Mapping(target = "contacts", source = ".")

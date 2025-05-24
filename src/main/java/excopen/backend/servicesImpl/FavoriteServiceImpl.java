@@ -3,37 +3,33 @@ package excopen.backend.servicesImpl;
 import excopen.backend.entities.Favorite;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
+import excopen.backend.exceptions.NotFoundException;
 import excopen.backend.iservices.IFavoriteService;
 import excopen.backend.repositories.FavoriteRepository;
 import excopen.backend.repositories.TourRepository;
-import excopen.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FavoriteServiceImpl implements IFavoriteService {
 
     private final FavoriteRepository favoriteRepository;
     private final TourRepository tourRepository;
-    private final UserRepository userRepository;
-
     @Autowired
     public FavoriteServiceImpl(FavoriteRepository favoriteRepository,
-                               TourRepository tourRepository,
-                               UserRepository userRepository) {
+                               TourRepository tourRepository) {
         this.favoriteRepository = favoriteRepository;
         this.tourRepository = tourRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
-    public void addTourToFavorites(Long userId, Long tourId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+    public void addTourToFavorites(User user, Long tourId) {
         Tour tour = tourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour not found with ID: " + tourId));
 
@@ -45,6 +41,43 @@ public class FavoriteServiceImpl implements IFavoriteService {
         favorite.setUser(user);
         favorite.setTour(tour);
         favoriteRepository.save(favorite);
+    }
+
+    @Override
+    @Transactional
+    public void addToursToFavourites(User user, List<Long> tourIds) {
+        List<Tour> tours = tourRepository.findAllById(tourIds);
+
+        if (tours.size() != tourIds.size()) {
+            Set<Long> existingIds = tours.stream()
+                    .map(Tour::getId)
+                    .collect(Collectors.toSet());
+
+            List<Long> notFoundIds = tourIds.stream()
+                    .filter(id -> !existingIds.contains(id))
+                    .toList();
+
+            throw new NotFoundException("Tours not found with IDs: " + notFoundIds);
+        }
+
+        Set<Long> existingFavorites = favoriteRepository.findExistingIds(
+                user.getId(),
+                tourIds
+        );
+
+        List<Favorite> newFavorites = tours.stream()
+                .filter(t -> !existingFavorites.contains(t.getId()))
+                .map(t -> {
+                    Favorite favorite = new Favorite();
+                    favorite.setUser(user);
+                    favorite.setTour(t);
+                    return favorite;
+                })
+                .collect(Collectors.toList());
+
+        if (!newFavorites.isEmpty()) {
+            favoriteRepository.saveAll(newFavorites);
+        }
     }
 
     @Override
