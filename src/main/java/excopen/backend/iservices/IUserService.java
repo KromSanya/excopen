@@ -20,4 +20,5 @@ public interface IUserService {
     boolean confirmGuideRole(Long userId, String phoneNumber, String code);
     boolean isGuide(Long userId);
     void updateGuideRating(Long userId);
+    void updateGuideStats(Long guideId);
 }

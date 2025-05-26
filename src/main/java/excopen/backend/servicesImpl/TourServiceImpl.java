@@ -41,6 +41,7 @@ public class TourServiceImpl implements ITourService {
     }
 
     @Transactional
+    @Override
     public Tour createTour(Tour tour, Long creatorId) {
         User creator = userService.getUserById(creatorId);
 
@@ -151,14 +152,14 @@ public class TourServiceImpl implements ITourService {
         return (List<Tour>) tourRepository.findAll(predicate, sort);
     }
 
-
+    @Override
     @Transactional
     public void updateTourStats(Long tourId) {
         Tour tour = getTourById(tourId);
 
         List<Review> reviews = reviewRepository.findByTour(tour);
 
-        Double averageRating = reviews.stream()
+        double averageRating = reviews.stream()
                 .map(Review::getRating)
                 .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)

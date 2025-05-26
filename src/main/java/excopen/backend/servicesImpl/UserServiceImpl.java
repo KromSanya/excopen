@@ -2,10 +2,13 @@ package excopen.backend.servicesImpl;
 
 import excopen.backend.constants.Role;
 import excopen.backend.dto.GuideRequestDto;
+import excopen.backend.entities.Review;
+import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
 import excopen.backend.exceptions.NotFoundException;
 import excopen.backend.iservices.IUserService;
 import excopen.backend.repositories.ReviewRepository;
+import excopen.backend.repositories.TourRepository;
 import excopen.backend.repositories.UserRepository;
 import excopen.backend.util.PhoneNumberValidator;
 import excopen.backend.util.VerificationService;
@@ -22,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends DefaultOAuth2UserService implements IUserService {
@@ -35,16 +40,18 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
     private final ConcurrentMap<Long, GuideRequestDto> pendingGuideRequests = new ConcurrentHashMap<>();
     private final ReviewRepository reviewRepository;
     private final FileStorageService fileStorageService;
+    private final TourRepository tourRepository;
 
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, VerificationService verificationService,
-                           PhoneNumberValidator phoneNumberValidator, ReviewRepository reviewRepository, FileStorageService fileStorageService) {
+                           PhoneNumberValidator phoneNumberValidator, ReviewRepository reviewRepository, FileStorageService fileStorageService, TourRepository tourRepository) {
         this.userRepository = userRepository;
         this.verificationService = verificationService;
         this.phoneNumberValidator = phoneNumberValidator;
         this.reviewRepository = reviewRepository;
         this.fileStorageService = fileStorageService;
+        this.tourRepository = tourRepository;
     }
 
     @Override
@@ -185,6 +192,30 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
         user.setGuideRating(avgRating != null ? avgRating : 0.0);
         user.setTotalReviews(reviewCount);
         userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateGuideStats(Long guideId) {
+        User guide = userRepository.findById(guideId)
+                .orElseThrow(() -> new NotFoundException("Guide not found"));
+
+        List<Tour> guideTours = tourRepository.findByCreator(guide);
+
+        List<Double> validRatings = guideTours.stream()
+                .map(Tour::getRating)
+                .filter(Objects::nonNull)
+                .toList();
+
+        double averageRating = validRatings.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(Double.NaN);
+
+        guide.setGuideRating(Double.isNaN(averageRating) ? null : Math.round(averageRating * 10) / 10.0);
+        guide.setTotalReviews(guideTours.stream().mapToInt(Tour::getReviewCount).sum());
+
+        userRepository.save(guide);
     }
 }
 

@@ -6,6 +6,7 @@ import excopen.backend.entities.User;
 import excopen.backend.events.ReviewCreatedEvent;
 import excopen.backend.exceptions.DuplicateReviewException;
 import excopen.backend.iservices.IReviewService;
+import excopen.backend.iservices.IUserService;
 import excopen.backend.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -20,15 +21,13 @@ public class ReviewServiceImpl implements IReviewService {
 
     private final ReviewRepository reviewRepository;
     private final TourServiceImpl tourService;
-    private final ApplicationEventPublisher eventPublisher;
-
+    private final IUserService userService;
     @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository,
-                             TourServiceImpl tourService,
-                             ApplicationEventPublisher eventPublisher) {
+                             TourServiceImpl tourService, IUserService userService) {
         this.reviewRepository = reviewRepository;
         this.tourService = tourService;
-        this.eventPublisher = eventPublisher;
+        this.userService = userService;
     }
 
     @Override
@@ -45,10 +44,7 @@ public class ReviewServiceImpl implements IReviewService {
             throw new IllegalArgumentException("Tour must be set for review");
         }
         tourService.updateTourStats(tour.getId());
-        eventPublisher.publishEvent(
-                new ReviewCreatedEvent(this, tour.getCreator().getId())
-        );
-
+        userService.updateGuideStats(saved.getTour().getCreator().getId());
         return saved;
     }
 

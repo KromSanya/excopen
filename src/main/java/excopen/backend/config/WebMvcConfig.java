@@ -33,7 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:uploads/review_images/");
         registry.addResourceHandler("/static/locations/**")
                 .addResourceLocations("file:uploads/locations/");
-        registry.addResourceHandler("/static/avatars/**")
-                .addResourceLocations("file:uploads/avatars/");
+        registry.addResourceHandler("/static/user_avatars/**")
+                .addResourceLocations("file:uploads/user_avatars/");
     }
 }

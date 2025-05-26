@@ -28,5 +28,6 @@ public interface ITourService {
     List<Tour> getRecommendedTours(Long userId);
     List<Tour> getSimilarTours(Long tourId);
     List<Tour> searchTours(SearchParamsDTO params, Sort sort);
+    void updateTourStats(Long tourId);
 }
 
