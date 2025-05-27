@@ -6,6 +6,7 @@ import excopen.backend.dto.TourCreateDTO;
 import excopen.backend.dto.TourResponseDTO;
 import excopen.backend.entities.Description;
 import excopen.backend.entities.Tour;
+import excopen.backend.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 
 public interface ITourService {
-    Tour createTour(Tour tour, Long creatorId);
+    Tour createTour(Tour tour, User creator);
     Tour getTourById(Long tourId);
     List<Tour> getToursByCreatorId(Long creatorId);
     List<Tour> getVisitedToursByUserId(Long userId);

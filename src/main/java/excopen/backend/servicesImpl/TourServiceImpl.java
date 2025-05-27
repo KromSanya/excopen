@@ -42,12 +42,11 @@ public class TourServiceImpl implements ITourService {
 
     @Transactional
     @Override
-    public Tour createTour(Tour tour, Long creatorId) {
-        User creator = userService.getUserById(creatorId);
+    public Tour createTour(Tour tour, User creator) {
+//        User creator = userService.getUserById(creatorId);
 
         tour.setCreator(creator);
-        tour.getDescription().setTour(tour);
-
+//        tour.getDescription().setTour(tour);
         return tourRepository.save(tour);
     }
 

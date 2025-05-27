@@ -6,6 +6,7 @@ import excopen.backend.entities.Description;
 import excopen.backend.entities.Location;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
+import excopen.backend.iservices.IDescriptionService;
 import excopen.backend.iservices.ILocationService;
 import excopen.backend.iservices.ITourImageService;
 import excopen.backend.iservices.ITourService;
@@ -43,6 +44,7 @@ public class TourController {
     private final FileStorageService fileStorageService;
     private final ITourImageService tourImageService;
     private final TagVectorService tagVectorService;
+    private final IDescriptionService descriptionService;
 
     @Autowired
     public TourController(ITourService tourService,
@@ -51,7 +53,7 @@ public class TourController {
                           DescriptionMapper descriptionMapper,
                           FileStorageService fileStorageService,
                           ITourImageService tourImageService,
-                          TagVectorService tagVectorService) {
+                          TagVectorService tagVectorService, IDescriptionService descriptionService) {
         this.tourService = tourService;
         this.locationService = locationService;
         this.tourMapper = tourMapper;
@@ -59,42 +61,34 @@ public class TourController {
         this.fileStorageService = fileStorageService;
         this.tourImageService = tourImageService;
         this.tagVectorService = tagVectorService;
+        this.descriptionService = descriptionService;
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void createTour(
             @Valid @RequestPart("tour") TourCreateDTO tourDTO,
-            @RequestPart("images") List<MultipartFile> images,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images,
             @CurrentUser User user,
             HttpServletRequest request) {
-        if (images == null || images.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one image is required");
-        }
 
-        Location location = locationService.getLocationById(tourDTO.getLocation().getId());
-        Tour tour = tourMapper.toEntity(tourDTO, location, tagVectorService);
+        Tour tour = tourMapper.toEntity(tourDTO, tagVectorService);
+        Tour createdTour = tourService.createTour(tour, user);
 
-        Description description = descriptionMapper.toEntity(tourDTO.getDescription());
-        tour.setDescription(description);
-
-        Tour createdTour = tourService.createTour(tour, user.getId());
-
-        List<String> imageUrls = images.stream()
-                .map(file -> {
-                    try {
-                        return fileStorageService.storeTourImage(file);
-                    } catch (Exception e) {
-                        logger.error("Failed to store image: {}", e.getMessage());
-                        throw new ResponseStatusException(
-                                HttpStatus.INTERNAL_SERVER_ERROR,
-                                "Failed to upload image: " + file.getOriginalFilename()
-                        );
-                    }
-                })
-                .toList();
-
+        if(images != null && !images.isEmpty()) {
+            List<String> imageUrls = images.stream()
+                    .map(file -> {
+                        try {
+                            return fileStorageService.storeTourImage(file);
+                        } catch (Exception e) {
+                            throw new ResponseStatusException(
+                                    HttpStatus.INTERNAL_SERVER_ERROR,
+                                    "Failed to upload image: " + file.getOriginalFilename()
+                            );
+                        }
+                    })
+                    .toList();
         tourImageService.saveImages(createdTour.getId(), imageUrls);
-
+        }
 //        return ResponseEntity
 //                .created(URI.create("/api/tours/" + createdTour.getId()))
 //                .body(tourMapper.toResponseDTO(createdTour, tagVectorService, request));
@@ -125,25 +119,35 @@ public class TourController {
 
     @RequiresOwnership(entityClass = Tour.class)
     @PutMapping("/{tourId}")
-    public TourResponseDTO updateTour(
+    public void updateTour(
             @PathVariable Long tourId,
-            @Valid @RequestBody TourUpdateDTO updateDTO,
+            @Valid @RequestPart("tour") TourUpdateDTO updateDTO,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images,
+            @CurrentUser User currentUser,
             HttpServletRequest request) {
 
-        Location location = updateDTO.getLocationId() != null
-                ? locationService.getLocationById(updateDTO.getLocationId())
-                : null;
+        Tour existingTour  = tourService.getTourById(tourId);
+        tourMapper.updateFromDTO(updateDTO, existingTour, tagVectorService);
 
-        Tour tour = tourMapper.toEntity(updateDTO, location, tagVectorService); // FIXED
-        tour.setId(tourId);
+        // Сохраняем обновленный тур
+         tourService.updateTour(existingTour);
 
-        if (updateDTO.getDescription() != null) {
-            Description description = descriptionMapper.toEntity(updateDTO.getDescription());
-            tour.setDescription(description);
+        // Обновляем изображения
+        if (images != null && !images.isEmpty()) {
+            List<String> imageUrls = images.stream()
+                    .map(file -> {
+                        try {
+                            return fileStorageService.storeTourImage(file);
+                        } catch (Exception e) {
+                            throw new ResponseStatusException(
+                                    HttpStatus.INTERNAL_SERVER_ERROR,
+                                    "Failed to upload image: " + file.getOriginalFilename()
+                            );
+                        }
+                    })
+                    .toList();
+            tourImageService.saveImages(existingTour.getId(), imageUrls);
         }
-
-        Tour updatedTour = tourService.updateTour(tour);
-        return tourMapper.toResponseDTO(updatedTour, tagVectorService, request);
     }
 
     @RequiresOwnership(entityClass = Tour.class)

@@ -33,7 +33,10 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
+                        .ignoringRequestMatchers(
+                                "/api/**",
+                                "/logout"
+                        )
                 )
 //                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth

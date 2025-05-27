@@ -51,9 +51,10 @@ public class ReviewController {
         review.setUser(user);
         review.setTour(tour);
 
-        Review savedReview = reviewService.createReview(review, user);
-        System.out.println(savedReview.getId());
+        Review savedReview = reviewService.createReview(review);
 
+        return reviewMapper.toResponseDTO(savedReview);
+    }
 //        List<MultipartFile> images = reviewDTO.getImages();
 //
 //        if (reviewDTO.getImages() != null && !reviewDTO.getImages().isEmpty()) {
@@ -62,10 +63,6 @@ public class ReviewController {
 //                reviewImageService.addReviewImage(savedReview.getId(), imageUrl);
 //                }
 //        }
-
-        return reviewMapper.toResponseDTO(savedReview);
-    }
-
 
     @GetMapping("/{reviewId}")
     public ReviewResponseDTO getReviewById(@PathVariable Long reviewId) {

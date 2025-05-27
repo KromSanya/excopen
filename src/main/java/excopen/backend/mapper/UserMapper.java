@@ -43,6 +43,7 @@ public interface UserMapper {
     @Mapping(target = "contacts.telegram", source = "contacts.telegram")
     @Mapping(target = "contacts.phone", source = "contacts.phone")
 //    @Mapping(target = "avatarUrl", source = "avatar")
+    @Mapping(target = "description", source = "info")
     void updateFromDTO(UserUpdateDTO dto, @MappingTarget User user);
 
     @Named("toVector")

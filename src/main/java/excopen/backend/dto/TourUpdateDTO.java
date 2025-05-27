@@ -21,43 +21,46 @@ public class TourUpdateDTO {
     @Size(max = 100, message = "Название тура не должно превышать 100 символов")
     private String title;
 
-    @NotNull(message = "Location id обязателен")
-    private Long locationId;
+//    @NotNull(message = "Location id обязателен")
+    private LocationDTO location;
 
-    @NotNull(message = "Цена тура обязательна")
-    @Positive(message = "Цена должна быть положительной")
+//    @NotNull(message = "Цена тура обязательна")
+//    @Positive(message = "Цена должна быть положительной")
     private Integer price;
 
-    @NotNull(message = "Длительность тура обязательна")
-    @Positive(message = "Длительность должна быть положительной")
+    private Integer priceForPerson;
+
+//    @NotNull(message = "Длительность тура обязательна")
+//    @Positive(message = "Длительность должна быть положительной")
     private Double duration;
 
-    @NotNull(message = "Длина маршрута обязательна")
-    @Positive(message = "Длина маршрута должна быть положительной")
+//    @NotNull(message = "Длина маршрута обязательна")
+//    @Positive(message = "Длина маршрута должна быть положительной")
     private Double routeLength;
 
-    @NotNull(message = "Необходимо выбрать категории для экскурсии")
+//    @NotNull(message = "Необходимо выбрать категории для экскурсии")
     private List<String> tags;
 
+//    @NotNull(message = "Максимальная вместимость обязательна")
+    private Integer groupCapacity;
 
-    @NotNull(message = "Максимальная вместимость обязательна")
-    private Integer maxCapacity;
+//    @NotNull(message = "Укажите формат экскурсии")
+    private String format;
 
-    @NotNull(message = "Укажите формат экскурсии")
-    private TourType tourType;
-
-    @NotNull(message = "Укажите тип транспорта")
-    private TransportType transportType;
+//    @NotNull(message = "Укажите тип транспорта")
+    private String formatBehavior;
 
     private boolean byCity;
 
     private TourAccessibility accessibility;
 
-    private Coordinate coordinates;
-
     private LocalDate date;
 
     private LocalTime time;
+
+    private CoordinateDTO coordinates;
+
+    private ContactDTO contacts;
 
     @Valid
     @NotNull(message = "Описание обязательно")

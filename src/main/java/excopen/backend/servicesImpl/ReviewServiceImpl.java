@@ -5,6 +5,7 @@ import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
 import excopen.backend.events.ReviewCreatedEvent;
 import excopen.backend.exceptions.DuplicateReviewException;
+import excopen.backend.exceptions.NotFoundException;
 import excopen.backend.iservices.IReviewService;
 import excopen.backend.iservices.IUserService;
 import excopen.backend.repositories.ReviewRepository;
@@ -32,17 +33,18 @@ public class ReviewServiceImpl implements IReviewService {
 
     @Override
     @Transactional
-    public Review createReview(Review review, User user) {
-        if (reviewRepository.existsByUserIdAndTourId(user.getId(), review.getTour().getId())) {
+    public Review createReview(Review review) {
+        if (tourService.getTourById(review.getTour().getId()) == null) {
+            throw new NotFoundException("Tour must be set for review");
+        }
+        if (reviewRepository.existsByUserIdAndTourId(review.getUser().getId(), review.getTour().getId())) {
             throw new DuplicateReviewException("User already has a review for this tour");
         }
 
         Review saved = reviewRepository.save(review);
 
         Tour tour = saved.getTour();
-        if (tour == null || tour.getId() == null) {
-            throw new IllegalArgumentException("Tour must be set for review");
-        }
+
         tourService.updateTourStats(tour.getId());
         userService.updateGuideStats(saved.getTour().getCreator().getId());
         return saved;

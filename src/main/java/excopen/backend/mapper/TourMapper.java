@@ -42,31 +42,75 @@ public interface TourMapper {
     @Mapping(target = "contacts", source = "dto.contacts")
 
     @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
-    @Mapping(target = "location", source = "location")
+    @Mapping(target = "location", source = "dto.location")
 
     @Mapping(target = "description", ignore = true)
+//    @Mapping(target = "description", source = "dto.description")
     @Mapping(target = "images", ignore = true)
     @Mapping(target = "reviews", ignore = true)
-    @Mapping(target = "favorites", ignore = true)
-    Tour toEntity(TourCreateDTO dto, Location location, @Context TagVectorService svc);
+    Tour toEntity(TourCreateDTO dto, @Context TagVectorService svc);
+
+    @AfterMapping
+    default void mapDescriptionOnCreate(
+            TourCreateDTO dto,
+            @MappingTarget Tour tour,
+            @Context DescriptionMapper descriptionMapper,
+            @Context TagVectorService svc) {
+        if (dto.getDescription() != null) {
+            Description description = descriptionMapper.toEntity(dto.getDescription(), tour);
+            tour.setDescription(description);
+        }
+    }
+
 
     // ----------- UPDATE -----------
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "rating", ignore = true)
-    @Mapping(target = "description", ignore = true)
-    @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
-    @Mapping(target = "location", source = "location")
+    @Mapping(target = "reviewCount", ignore = true)
+
+    @Mapping(target = "title", source = "dto.title")
+    @Mapping(target = "price", source = "dto.price")
+    @Mapping(target = "duration", source = "dto.duration")
+    @Mapping(target = "routeLength", source = "dto.routeLength")
+    @Mapping(target = "maxCapacity", source = "dto.groupCapacity")
+    @Mapping(target = "freeSeats", source = "dto.groupCapacity")
+
+    @Mapping(target = "tourType", source = "dto.format")
+    @Mapping(target = "transportType", source = "dto.formatBehavior")
     @Mapping(target = "accessibility", source = "dto.accessibility")
+
+    @Mapping(target = "byCity", source = "dto.byCity")
+    @Mapping(target = "date", source = "dto.date")
+    @Mapping(target = "time", source = "dto.time")
+
+    @Mapping(target = "coordinate", source = "dto.coordinates")
+    @Mapping(target = "contacts", source = "dto.contacts")
+
+    @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
+    @Mapping(target = "location", source = "dto.location")
+
+//    @Mapping(target = "description", source = "dto.description")
+    @Mapping(target = "description", ignore = true)
+    @Mapping(target = "images", ignore = true)
     @Mapping(target = "reviews", ignore = true)
     @Mapping(target = "favorites", ignore = true)
-    @Mapping(target = "images", ignore = true)
-    @Mapping(target = "reviewCount", ignore = true)
-    Tour toEntity(TourUpdateDTO dto, Location location, @Context TagVectorService svc);
+    void updateFromDTO(TourUpdateDTO dto, @MappingTarget Tour entity, @Context TagVectorService svc);
 
+    @AfterMapping
+    default void mapDescriptionOnUpdate(
+            TourUpdateDTO dto,
+            @MappingTarget Tour tour,
+            @Context DescriptionMapper descriptionMapper,
+            @Context TagVectorService svc) {
+        if (dto.getDescription() != null) {
+            descriptionMapper.updateFromDTO(dto.getDescription(), tour.getDescription(), tour);
 
+        }
+    }
 
     // ----------- RESPONSE DTO -----------
     @Mapping(target = "description", source = "description")

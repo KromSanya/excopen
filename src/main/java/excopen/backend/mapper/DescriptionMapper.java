@@ -3,6 +3,7 @@ package excopen.backend.mapper;
 import excopen.backend.dto.DescriptionDTO;
 import excopen.backend.dto.DescriptionResponseDTO;
 import excopen.backend.entities.Description;
+import excopen.backend.entities.Tour;
 import org.mapstruct.*;
 
 import java.util.Arrays;
@@ -13,17 +14,17 @@ import java.util.List;
 public interface DescriptionMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tour", ignore = true)
+//    @Mapping(target = "tour", source = "tour")
     @Mapping(target = "places", expression = "java(splitString(dto.getPlaces()))")
     @Mapping(target = "topics", expression = "java(splitString(dto.getTopics()))")
     @Mapping(target = "mainInfo", source = "dto.info")
     @Mapping(target = "orgDetails", source = "dto.orgDetails")
     @Mapping(target = "meetingPlace", source = "dto.meetingPlace")
     @Mapping(target = "whatToExpect", source = "dto.whatToExpect")
-    Description toEntity(DescriptionDTO dto);
+    Description toEntity(DescriptionDTO dto, @Context Tour tour);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "tour", ignore = true)
+//    @Mapping(target = "tour", source = "tour")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "places", expression = "java(splitString(dto.getPlaces()))")
     @Mapping(target = "topics", expression = "java(splitString(dto.getTopics()))")
@@ -31,7 +32,7 @@ public interface DescriptionMapper {
     @Mapping(target = "orgDetails", source = "dto.orgDetails")
     @Mapping(target = "meetingPlace", source = "dto.meetingPlace")
     @Mapping(target = "whatToExpect", source = "dto.whatToExpect")
-    void updateFromDTO(DescriptionDTO dto, @MappingTarget Description entity);
+    void updateFromDTO(DescriptionDTO dto, @MappingTarget Description entity, @Context Tour tour);
 
     @Mapping(target = "tourId", source = "tour.id")
     @Mapping(target = "info", source = "description.mainInfo")
@@ -41,6 +42,12 @@ public interface DescriptionMapper {
     @Mapping(target = "orgDetails", source = "description.orgDetails")
     @Mapping(target = "meetingPlace", source = "description.meetingPlace")
     DescriptionResponseDTO toResponseDTO(Description description);
+
+    @AfterMapping
+    default void setTour(DescriptionDTO dto, @MappingTarget Description description, @Context Tour tour) {
+        description.setTour(tour);
+    }
+
 
     default List<String> splitString(List<String> input) {
         return input;
