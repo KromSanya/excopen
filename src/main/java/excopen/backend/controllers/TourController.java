@@ -176,6 +176,14 @@ public class TourController {
         return tourMapper.toResponseDTOList(tourService.getVisitedToursByUserId(user.getId()), tagVectorService, request);
     }
 
+    @GetMapping("/unreviewed/me")
+    public List<TourResponseDTO> getVisitedToursWithoutReviews(
+            @CurrentUser User user,
+            HttpServletRequest request) {
+        List<Tour> tours = tourService.getVisitedToursWithoutReviewsByUserId(user.getId());
+        return tourMapper.toResponseDTOList(tours, tagVectorService, request);
+    }
+
 
 
 //    @GetMapping("/recommendations/{userId}")

@@ -75,6 +75,23 @@ public class TourServiceImpl implements ITourService {
     }
 
     @Override
+    public List<Tour> getVisitedToursWithoutReviewsByUserId(Long userId) {
+        List<Booking> bookings = bookingService.getBookingsByUserId(userId);
+        List<Tour> toursWithoutReviews = new ArrayList<>();
+
+        for (Booking booking : bookings) {
+            Long tourId = booking.getTourId();
+            Tour tour = getTourById(tourId);
+
+            if (!reviewRepository.existsByUserIdAndTourId(userId, tourId)) {
+                toursWithoutReviews.add(tour);
+            }
+        }
+
+        return toursWithoutReviews;
+    }
+
+    @Override
     public Tour updateTour(Tour tour) {
         return tourRepository.save(tour);
     }
