@@ -1,7 +1,0 @@
-.container {
-    @apply flex flex-row justify-between items-center mb-4 w-full lg:w-72
-}
-
-.name {
-    @apply font-medium text-2xl text-grayscale-600
-}

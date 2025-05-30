@@ -1,1 +1,0 @@
-export {Index as Sidebar} from "./Index.tsx"

@@ -1,1 +1,0 @@
-export {Index as Locations} from "./Index.tsx"

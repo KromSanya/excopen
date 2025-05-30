@@ -1,6 +1,0 @@
-export {getReviewsByUserId} from "./getReviewsByUserId.ts"
-export {createReview} from "./createReview.ts"
-export {getReviewsByTourId} from "./getReviewsByTourId.ts"
-export {getReview} from "./getReview.ts"
-export {deleteReview} from "./deleteReview.ts"
-export {updateReview} from "./updateReview.ts"

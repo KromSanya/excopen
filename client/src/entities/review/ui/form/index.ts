@@ -1,1 +1,0 @@
-export {Index as ReviewForm} from "./Index.tsx"

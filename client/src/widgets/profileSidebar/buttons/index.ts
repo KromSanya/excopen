@@ -1,1 +1,0 @@
-export {Index as ProfileButtons} from "./Index.tsx"

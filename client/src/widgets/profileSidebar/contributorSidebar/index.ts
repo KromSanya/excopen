@@ -1,1 +1,0 @@
-export {Index as ContributorSidebar} from "./Index.tsx"

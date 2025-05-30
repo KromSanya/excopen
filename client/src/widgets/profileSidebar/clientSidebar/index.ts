@@ -1,1 +1,0 @@
-export {Index as ClientSidebar} from "./Index.tsx"

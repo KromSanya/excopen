@@ -1,1 +1,0 @@
-export {Index as ContributorButton} from "./Index.tsx"

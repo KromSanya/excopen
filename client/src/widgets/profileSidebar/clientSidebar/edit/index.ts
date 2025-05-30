@@ -1,1 +1,0 @@
-export {Index as Edit} from "./Index.tsx"

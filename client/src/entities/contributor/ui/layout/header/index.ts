@@ -1,1 +1,0 @@
-export {Index as Header} from "./Index.tsx"

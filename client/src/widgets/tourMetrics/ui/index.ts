@@ -1,1 +1,0 @@
-export {Index as TourMetrics} from "./Index.tsx"

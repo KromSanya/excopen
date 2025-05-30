@@ -1,7 +1,0 @@
-export {Select} from "./Select.tsx"
-export {SelectItem} from "./SelectItem.tsx"
-export {SelectContent} from "./SelectContent.tsx"
-export {SelectAccessibilityTrigger} from "./SelectAccessibilityTrigger.tsx"
-export {SelectTourFormatTrigger} from "./SelectTourFormatTrigger.tsx"
-export {SelectTourFormatBehaviorTrigger} from "./SelectTourFormatBehaviorTrigger.tsx"
-export {SelectSortTrigger} from "./SelectSortTrigger.tsx"

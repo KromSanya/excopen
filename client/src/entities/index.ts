@@ -1,6 +1,0 @@
-export * from "./tour"
-export * from "./location"
-export * from "./review"
-export * from "./user"
-export * from "./contributor"
-export * from "./tags"

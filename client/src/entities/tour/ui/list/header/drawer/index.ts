@@ -1,1 +1,0 @@
-export {Index as Drawer} from "./Index.tsx"

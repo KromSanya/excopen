@@ -1,1 +1,0 @@
-export {Index as Description} from "./Index.tsx"

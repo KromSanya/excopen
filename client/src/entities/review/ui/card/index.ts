@@ -1,1 +1,0 @@
-export {Index as Card} from "./Index.tsx"

@@ -1,1 +1,0 @@
-export {Index as Annotation} from "./Index.tsx"

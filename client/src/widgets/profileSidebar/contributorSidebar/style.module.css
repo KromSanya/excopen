@@ -1,7 +1,0 @@
-.container {
-    @apply flex flex-col gap-4 max-xl:items-center w-full lg:w-72
-}
-
-.desc {
-    @apply w-full bg-grayscale-0 rounded-2xl p-6 text-grayscale-500 text-sm
-}

@@ -1,1 +1,0 @@
-export {Index as Contacts} from "./Index.tsx"

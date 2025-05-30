@@ -1,1 +1,0 @@
-export {routesConfig} from "./routesConfig.ts"

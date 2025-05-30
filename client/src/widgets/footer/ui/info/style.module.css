@@ -1,7 +1,0 @@
-.container {
-    @apply flex flex-col lg:items-end
-}
-
-.number {
-    @apply text-grayscale-600 font-bold text-xl
-}
