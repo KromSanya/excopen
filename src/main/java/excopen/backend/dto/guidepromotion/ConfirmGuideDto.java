@@ -1,4 +1,4 @@
-package excopen.backend.dto;
+package excopen.backend.dto.guidepromotion;
 
 
 import lombok.Data;

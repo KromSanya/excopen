@@ -12,12 +12,37 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookingSlotServiceImpl implements BookingSlotService {
     private final BookingSlotRepository slotRepository;
     private final TourRepository tourRepository;
+
+    @Override
+    @Transactional
+    public List<BookingSlot> createSlots(List<BookingSlot> slots, Long userId) {
+        Set<Long> tourIds = slots.stream()
+                .map(BookingSlot::getTourId)
+                .collect(Collectors.toSet());
+
+        Map<Long, Tour> tours = tourRepository.findAllById(tourIds).stream()
+                .collect(Collectors.toMap(Tour::getId, tour -> tour));
+
+        for (BookingSlot slot : slots) {
+            Tour tour = tours.get(slot.getTourId());
+            if (tour == null) {
+                throw new NotFoundException("Tour not found for ID: " + slot.getTourId());
+            }
+            if (!tour.getCreator().getId().equals(userId)) {
+                throw new ForbiddenException("Cannot create slots for another guide\n");
+            }
+        }
+        return slotRepository.saveAll(slots);
+    }
 
     @Override
     @Transactional

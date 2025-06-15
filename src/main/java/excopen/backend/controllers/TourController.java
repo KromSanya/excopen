@@ -186,13 +186,15 @@ public class TourController {
 
 
 
-//    @GetMapping("/recommendations/{userId}")
-//    public List<TourResponseDTO> getRecommendedTours(@PathVariable Long userId) {
-//        return tourMapper.toResponseDTOList(tourService.getRecommendedTours(userId), tagVectorService);
-//    }
-//
-//    @GetMapping("/{tourId}/similar")
-//    public List<TourResponseDTO> getSimilarTours(@PathVariable Long tourId) {
-//        return tourMapper.toResponseDTOList(tourService.getSimilarTours(tourId), tagVectorService);
-//    }
+    @GetMapping("/recommendations/{userId}")
+    public List<TourResponseDTO> getRecommendedTours(@PathVariable Long userId,
+                                                     HttpServletRequest request) {
+        return tourMapper.toResponseDTOList(tourService.getRecommendedTours(userId), tagVectorService, request);
+    }
+
+    @GetMapping("/{tourId}/similar")
+    public List<TourResponseDTO> getSimilarTours(@PathVariable Long tourId,
+                                                 HttpServletRequest request) {
+        return tourMapper.toResponseDTOList(tourService.getSimilarTours(tourId), tagVectorService, request);
+    }
 }

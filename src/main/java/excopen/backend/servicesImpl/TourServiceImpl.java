@@ -141,6 +141,7 @@ public class TourServiceImpl implements ITourService {
         QTour tour = QTour.tour;
         BooleanBuilder predicate = new BooleanBuilder();
 
+
         // Поиск по городу и региону
         if (params.getCity() != null) {
             predicate.and(tour.location.city.equalsIgnoreCase(params.getCity()));
@@ -150,12 +151,12 @@ public class TourServiceImpl implements ITourService {
         }
 
         // Поиск по диапазону дат
-        if (params.getFrom() != null) {
-            predicate.and(tour.date.goe(params.getFrom()));
-        }
-        if (params.getTo() != null) {
-            predicate.and(tour.date.loe(params.getTo()));
-        }
+//        if (params.getFrom() != null) {
+//            predicate.and(tour.date.goe(params.getFrom()));
+//        }
+//        if (params.getTo() != null) {
+//            predicate.and(tour.date.loe(params.getTo()));
+//        }
 
         // Остальные фильтры
         if (params.getAccessibility() != null) {

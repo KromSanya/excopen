@@ -17,6 +17,11 @@ public class VerificationService {
 
     private final PhoneNumberValidator phoneNumberValidator;
 
+    private final Cache<Long, String> userVerificationPhones =
+            Caffeine.newBuilder()
+                    .expireAfterWrite(15, TimeUnit.MINUTES)
+                    .build();
+
     private final Cache<String, String> verificationCodes =
             Caffeine.newBuilder()
                     .expireAfterWrite(5, TimeUnit.MINUTES)
@@ -27,34 +32,51 @@ public class VerificationService {
                     .expireAfterWrite(RATE_LIMIT_MINUTES, TimeUnit.MINUTES)
                     .build();
 
-    public void sendVerificationCode(String phoneNumber) {
+    private final Cache<String, Boolean> verifiedPhones =
+            Caffeine.newBuilder()
+                    .expireAfterWrite(1, TimeUnit.HOURS)
+                    .build();
+
+    public void sendVerificationCode(Long userId, String phoneNumber) {
         String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phoneNumber);
 
         if (!phoneNumberValidator.isValidRussianPhoneNumber(normalizedPhone)) {
-            throw new IllegalArgumentException("Некорректный номер");
+            throw new IllegalArgumentException("Некорректный номер телефона");
         }
 
         if (rateLimitCache.getIfPresent(normalizedPhone) != null) {
-            throw new IllegalStateException("Повторный запрос через " + RATE_LIMIT_MINUTES + " минут");
+            throw new IllegalStateException("Повторный запрос возможен через " + RATE_LIMIT_MINUTES + " минут");
         }
+
+        userVerificationPhones.put(userId, normalizedPhone);
 
         verificationCodes.put(normalizedPhone, FIXED_CODE);
         rateLimitCache.put(normalizedPhone, true);
     }
 
-    public boolean verifyCode(String phoneNumber, String code) {
+    public boolean verifyCode(Long userId, String phoneNumber, String code) {
         String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phoneNumber);
-        String storedCode = verificationCodes.getIfPresent(normalizedPhone);
 
-        if (storedCode == null) {
+        // Проверяем привязку пользователя к номеру
+        String userPhone = userVerificationPhones.getIfPresent(userId);
+        if (userPhone == null || !userPhone.equals(normalizedPhone)) {
             return false;
         }
 
-        boolean isValid = storedCode.equals(code);
-        if (isValid) {
-            verificationCodes.invalidate(normalizedPhone);
+        // Проверяем код
+        String storedCode = verificationCodes.getIfPresent(normalizedPhone);
+        if (storedCode == null || !storedCode.equals(code)) {
+            return false;
         }
 
-        return isValid;
+        // Помечаем как подтвержденный
+        verificationCodes.invalidate(normalizedPhone);
+        verifiedPhones.put(normalizedPhone, true);
+        return true;
+    }
+
+    public boolean isPhoneVerified(String phoneNumber) {
+        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phoneNumber);
+        return verifiedPhones.getIfPresent(normalizedPhone) != null;
     }
 }

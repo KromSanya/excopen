@@ -35,11 +35,8 @@ public interface TourMapper {
     @Mapping(target = "accessibility", source = "dto.accessibility")
 
     @Mapping(target = "byCity", source = "dto.byCity")
-    @Mapping(target = "date", source = "dto.date")
-    @Mapping(target = "time", source = "dto.time")
 
     @Mapping(target = "coordinate", source = "dto.coordinates")
-    @Mapping(target = "contacts", source = "dto.contacts")
 
     @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
     @Mapping(target = "location", source = "dto.location")
@@ -84,11 +81,8 @@ public interface TourMapper {
     @Mapping(target = "accessibility", source = "dto.accessibility")
 
     @Mapping(target = "byCity", source = "dto.byCity")
-    @Mapping(target = "date", source = "dto.date")
-    @Mapping(target = "time", source = "dto.time")
 
     @Mapping(target = "coordinate", source = "dto.coordinates")
-    @Mapping(target = "contacts", source = "dto.contacts")
 
     @Mapping(source = "dto.tags", target = "vectorRepresentation", qualifiedByName = "tagsToVector")
     @Mapping(target = "location", source = "dto.location")

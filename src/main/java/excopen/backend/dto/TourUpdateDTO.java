@@ -54,13 +54,7 @@ public class TourUpdateDTO {
 
     private TourAccessibility accessibility;
 
-    private LocalDate date;
-
-    private LocalTime time;
-
     private CoordinateDTO coordinates;
-
-    private ContactDTO contacts;
 
     @Valid
     @NotNull(message = "Описание обязательно")

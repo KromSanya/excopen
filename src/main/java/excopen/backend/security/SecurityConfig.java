@@ -95,7 +95,10 @@ public class SecurityConfig {
                         })
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/").permitAll()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/main")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 )
                 .exceptionHandling(eh -> eh
                         .authenticationEntryPoint((req, res, ex) ->

@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class CreateBookingRequest {
 
-    @NotNull(message = "ID слота обязателен")
-    private Long tourId;
-
 //    @NotNull(message = "ID слота обязателен")
-//    private Long bookingSlotId;
+//    private Long tourId;
+
+    @NotNull(message = "ID слота обязателен")
+    private Long bookingSlotId;
 
 //    private Long userId;
 

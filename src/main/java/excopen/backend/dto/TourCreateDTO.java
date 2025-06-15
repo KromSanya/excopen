@@ -44,17 +44,9 @@ public class TourCreateDTO {
 
     private TourAccessibility accessibility;
 
-    private LocalDate date;
-
-    private LocalTime time;
-
 //    @Valid
  //   @NotNull(message = "Координаты обязательны")
     private CoordinateDTO coordinates;
-
- //   @Valid
- //   @NotNull(message = "Контактные данные обязательны")
-    private ContactDTO contacts;
 
  //   @Valid
  //   @NotNull(message = "Описание обязательно")

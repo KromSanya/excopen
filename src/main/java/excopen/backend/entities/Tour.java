@@ -81,19 +81,7 @@ public class Tour implements Serializable {
     @JoinColumn(name = "coordinate_id", nullable = false)
     private Coordinate coordinate;
 
-    private LocalDate date;
-
-    private LocalTime time;
-
     private Boolean byCity;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "vk",       column = @Column(name = "contacts_vk")),
-            @AttributeOverride(name = "telegram", column = @Column(name = "contacts_telegram")),
-            @AttributeOverride(name = "phone",    column = @Column(name = "contacts_phone", nullable = false))
-    })
-    private Contact contacts;
 
     @PrePersist
     protected void onCreate() {

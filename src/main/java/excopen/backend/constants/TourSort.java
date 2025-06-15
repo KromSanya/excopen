@@ -8,7 +8,8 @@ public enum TourSort {
     FOR_POPULAR("reviewCount", Sort.Direction.DESC),
     FOR_CHEAP("priceForPerson", Sort.Direction.ASC),
     FOR_EXPENSIVE("priceForPerson", Sort.Direction.DESC),
-    FOR_RATING("rating", Sort.Direction.DESC);
+    FOR_RATING("rating", Sort.Direction.DESC),
+    FOR_RECOMMENDATION(null, null);
 
     private final String field;
     private final Sort.Direction direction;
@@ -31,5 +32,9 @@ public enum TourSort {
 
     public Sort toSort() {
         return Sort.by(direction, field);
+    }
+
+    public boolean isRecommendation() {
+        return this == FOR_RECOMMENDATION;
     }
 }

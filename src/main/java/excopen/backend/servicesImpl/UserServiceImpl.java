@@ -1,8 +1,7 @@
 package excopen.backend.servicesImpl;
 
 import excopen.backend.constants.Role;
-import excopen.backend.dto.GuideRequestDto;
-import excopen.backend.entities.Review;
+import excopen.backend.dto.guidepromotion.GuideRequestDto;
 import excopen.backend.entities.Tour;
 import excopen.backend.entities.User;
 import excopen.backend.exceptions.NotFoundException;
@@ -28,7 +27,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends DefaultOAuth2UserService implements IUserService {
@@ -136,48 +134,79 @@ public class UserServiceImpl extends DefaultOAuth2UserService implements IUserSe
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
-
     @Transactional
-    public void requestGuideRole(Long userId, GuideRequestDto guideRequestDto) {
-        User user = getUserById(userId);
+    public void confirmGuideRole(
+            Long userId,
+            String phone,
+            String code,
+            String info) {
+
+        // Нормализуем телефон
+        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phone);
+
+        // Проверяем код
+        if (!verificationService.verifyCode(userId, normalizedPhone, code)) {
+            throw new IllegalArgumentException("Неверный код подтверждения");
+        }
+
+        // Получаем пользователя
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+
+        // Проверяем роль
         if (user.getRole() == Role.GUIDE) {
-            throw new IllegalArgumentException("Вы уже являетесь гидом");
+            throw new IllegalStateException("Вы уже являетесь гидом");
         }
 
-        if ((guideRequestDto.getContacts().getVk() == null || guideRequestDto.getContacts().getVk().isBlank()) &&
-                (guideRequestDto.getContacts().getTelegram() == null || guideRequestDto.getContacts().getTelegram().isBlank())) {
-            throw new IllegalArgumentException("Укажите хотя бы одну ссылку: VK или Telegram");
-        }
-
-        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(guideRequestDto.getContacts().getPhone());
-
-        verificationService.sendVerificationCode(normalizedPhone);
-
-        pendingGuideRequests.put(userId, guideRequestDto);
-    }
-
-    @Transactional
-    public boolean confirmGuideRole(Long userId, String phoneNumber, String code) {
-        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phoneNumber);
-
-        if (!verificationService.verifyCode(normalizedPhone, code)) {
-            return false;
-        }
-
-        User user = getUserById(userId);
-
-        GuideRequestDto guideRequestDto = pendingGuideRequests.remove(userId);
-        if (guideRequestDto != null) {
-            user.getContacts().setPhone(normalizedPhone);
-            user.setDescription(guideRequestDto.getInfo());
-            user.setCity(guideRequestDto.getCity());
-        }
-
+        // Обновляем данные
+        user.setDescription(info);
         user.setRole(Role.GUIDE);
-        userRepository.save(user);
+        user.getContacts().setPhone(normalizedPhone);
 
-        return true;
+        userRepository.save(user);
     }
+
+//    @Transactional
+//    public void requestGuideRole(Long userId, GuideRequestDto guideRequestDto) {
+//        User user = getUserById(userId);
+//        if (user.getRole() == Role.GUIDE) {
+//            throw new IllegalArgumentException("Вы уже являетесь гидом");
+//        }
+//
+//        if ((guideRequestDto.getContacts().getVk() == null || guideRequestDto.getContacts().getVk().isBlank()) &&
+//                (guideRequestDto.getContacts().getTelegram() == null || guideRequestDto.getContacts().getTelegram().isBlank())) {
+//            throw new IllegalArgumentException("Укажите хотя бы одну ссылку: VK или Telegram");
+//        }
+//
+//        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(guideRequestDto.getContacts().getPhone());
+//
+//        verificationService.sendVerificationCode(normalizedPhone);
+//
+//        pendingGuideRequests.put(userId, guideRequestDto);
+//    }
+//
+//    @Transactional
+//    public boolean confirmGuideRole(Long userId, String phoneNumber, String code) {
+//        String normalizedPhone = phoneNumberValidator.normalizePhoneNumber(phoneNumber);
+//
+//        if (!verificationService.verifyCode(normalizedPhone, code)) {
+//            return false;
+//        }
+//
+//        User user = getUserById(userId);
+//
+//        GuideRequestDto guideRequestDto = pendingGuideRequests.remove(userId);
+//        if (guideRequestDto != null) {
+//            user.getContacts().setPhone(normalizedPhone);
+//            user.setDescription(guideRequestDto.getInfo());
+// //            user.setCity(guideRequestDto.getCity());
+//        }
+//
+//        user.setRole(Role.GUIDE);
+//        userRepository.save(user);
+//
+//        return true;
+//    }
 
     public boolean isGuide(Long userId) {
         return getUserById(userId).getRole().equals(Role.GUIDE);
